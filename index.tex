@@ -1,0 +1,94 @@
+\documentclass[14pt]{extreport}
+
+\usepackage[utf8]{inputenc}
+\usepackage[italian,english]{babel}
+\usepackage{graphicx}
+% \usepackage{cite}
+\usepackage{amsmath}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage[italian]{minitoc}% per gli accenti
+\usepackage{fancybox}
+\usepackage{verbatim}
+\usepackage{setspace}
+\usepackage{url}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{makeidx}
+\usepackage{amsfonts}
+\usepackage{comment}
+\usepackage{hyperref}
+\usepackage{biblatex} %Imports biblatex package
+\addbibresource{bibliography.bib} %Import the bibliography file
+%se avete problemi con il testo che deve andare subito sotto una tabella allora importate il pacchetto:
+%\usepackage{placeins} % e scrivete \FloatBarrier subito dopo all' \end{table}
+
+%rimuove bordi dai link
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+%apice
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{17pt}
+\rhead{Cap.\thechapter}
+\fancyhead[L]{\rightmark}
+%pedice
+\cfoot{\thepage}
+
+\lstset{frame=tb,
+	language=Java,
+	numbers=left,
+	keywordstyle=\color{blue},
+	alsoletter={.}
+}
+\graphicspath{ {./Figure/} }
+
+%formato capitoli, paragrafi e sottoparagrafi
+% \usepackage{titlesec}
+% \titleformat{\chapter}{\normalfont\huge\bf}{\thechapter.}{20pt}{\huge\bf}
+% \titleformat{\section}{\normalfont}{\thesection.}{18pt}{\normalfont\bf}
+% \titleformat{\subsection}{\normalfont}{\thesubsection.}{16pt}{\normalfont\bf}
+
+\newcommand{\quotes}[1]{``#1''}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\onehalfspace
+\selectlanguage{italian}
+\input{titlepage.tex}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Abstract
+\chapter*{Abstract}
+\input{Abstract.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ToC
+\pagenumbering{roman}
+\tableofcontents
+\listoffigures %elenco figure
+\listoftables %elenco tabelle
+\pagenumbering{arabic}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Introduction
+\input{Introduction.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapters
+\input{Chapters/Chapter1.tex}
+
+\input{Chapters/Chapter2.tex}
+
+\input{Chapters/Chapter3.tex}
+
+\input{Chapters/Chapter4.tex}
+
+\input{Chapters/Chapter5.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibliography
+
+\end{document}
