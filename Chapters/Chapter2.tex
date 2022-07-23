@@ -48,17 +48,63 @@ Questa procedura soddisfa di fatto il requisito centrale per la marcatura tempor
   \item[Fiducia] Il problema fondamentale rimane: nulla in questo schema impedisce al TSS di accordarsi con un cliente per affermare di aver apposto la data e l'ora su un documento diverso da quello reale.
 \end{description}
 
-\subsection{Alberi di Merkle}
+Per risolvere queste criticità, Haber e Stornetta, formularono una soluzione: proposero di sottoporre il documento ad un algoritmo di hashing crittografico, ottenendo così un ID univoco ed immutabile del documento.
+Semplicemente, anzichè trasmettere al TSS il documento x, viene trasmesso il suo valore \(hash(x) = y\). Per quanto riguarda l'autenticazione, il timestamp di y sarà valido quanto il timestamp di x. Inoltre, questa soluzione riduce drasticamente il problme della larghezza di banda e dell'archiviazione e in più risolve anche il problema della privacy in quanto non viene trasmesso il documento in toto. A seconda degli obiettivi di progettazione, potrebbe essere una singola funzione di hash comune o una per ogni singola utenza.
 
-\subsection{Bitgold}
+A ciò si abbinava la firma digitale, utilizzata per identificare in modo univoco il firmatario. Controllando la firma, al client viene garantito che il TSS abbia elaborato la richiesta, che l'hash sia stato ricevuto correttamente e che l'ora inclusa sia corretta. Questo risolve il problema dell'incompetenza da parte del TSS.
+
+Nella figura \ref{fig:blockchain_struttura} è riportata una sequenza d'esempio in cui abbiamo una catena di blocchi connessi da un valore hash.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{blockchain_struttura.png}
+  \caption{Sequnza di blocchi}
+  \label{fig:blockchain_struttura}
+\end{figure}
+
+In questa sequenza di blocchi, ogni documento digitale è modificato dai client in diversi istanti di tempo e la catena mantiene un elenco di valori di timestamp relativi agli eventi accaduti sequenzialmente. I valori di timestamp non sono modificabili e in caso di controversie ogni modifica apportata al documento può essere consultata.
+
+\subsection{Alberi di Merkle}
+Dave Bayer, contribuì ad integrare la struttura per la marcatura temporale di Haber e Stornetta, con la realizzazione dei Merkle Tree (Alberi di Merkle) \cite{bayer1993improving}, offrendo l'opportunità di raccogliere più documenti in un singolo blocco (Figura \ref{fig:merkle_tree}). Tali alberi ricevono il nome da Ralph Merkle e in essi i nodi foglia sono contrassegnati da un blocco dati, mentre i nodi non-foglia dall'hash crittografico delle etichette dei loro nodi figlio. Detti anche Alberi di hash, mostrano una versione più generica di liste e catene hash e consentono una verifica sicura ed efficace del contenuto di grandi strutture dati.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{merkle_tree.png}
+  \caption{Esempio di albero di Merkle}
+  \label{fig:merkle_tree}
+\end{figure}
+
+Nella figura \ref{fig:merkle_tree} possiamo vedere come i valori hash dei blocchi sono definiti "foglie", mentre i valori hash dei loro figli sono detti "nodi". Gli alberi di Merkle vengono utilizzati per rilevare incongruenze tra le repliche e per ridurre al minimo la quantità di dati.
+
+\subsection{Bit gold}
+Nel 2005, si ha avuto il primo tentativo di moneta decentralizzata grazie all'informatico Nick Szabo, il quale ha proposto una nuova valuta basata sulla blockchain: \textbf{Bit gold} \cite{szabo_2005}. Moneta che però non ha riscosso molto successo, ma nonostante ciò il 2005 rappresenta un anno cruciale nel contesto blockchain.
+
+La proposta dell'informatico si basa sul calcolo di una stringa di bit a partire da una stringa di bit di sfida, utilizzando funzioni chiamate in vario modo "client puzzle function", "proof of work function" o "secure benchmark function". La stringa di bit risultante è la proof of work.
+
+Ecco le fasi principali del sistema bit gold che Szabo ha definito:
+
+\begin{enumerate}
+  \item Viene creata una stringa pubblica di bit, la "stringa di sfida" (vedi passo 5).
+  \item Alice sul suo computer genera la stringa di proof of work dai bit di sfida utilizzando una funzione di benchmark.
+  \item La proof of work viene registrata in modo sicuro con un timestamp. Questo dovrebbe funzionare in modo distribuito, con diversi servizi di timestamp in modo che non sia necessario affidarsi a un particolare servizio di timestamp.
+  \item Alice aggiunge la stringa di sfida e la stringa di proof of work con timestamp a un registro di proprietà distribuito per il bit gold. Anche in questo caso, non si fa affidamento su un singolo server per il corretto funzionamento del registro.
+  \item L'ultima stringa creata di bit gold fornisce i bit di sfida per la stringa creata successivamente.
+  \item Per verificare che Alice sia la proprietaria di una particolare stringa di bit gold, Bob controlla la catena di titoli non falsificabile nel registro dei titoli di bit gold.
+  \item Per verificare il valore di una stringa di bit gold, Bob controlla e verifica i bit di sfida, la stringa di proof of work e il timestamp.
+\end{enumerate}
+
+Si noti che il controllo di Alice sul suo bit gold non dipende dal suo solo possesso dei bit, ma piuttosto dalla sua posizione di leader nella catena di titoli non falsificabile (catena di firme digitali) nel registro dei titoli.
+
+Tutto questo può essere automatizzato da un software. I limiti principali alla sicurezza dello schema sono la capacità di distribuire la fiducia nelle fasi (3) e (4) e il problema dell'architettura della macchina, che verrà discusso di seguito.
+
+Hal Finney ha implementato una variante di bit gold chiamata \textbf{RPOW (Reusable Proofs of Work)}. Si basa sulla pubblicazione del codice informatico della "zecca", che viene eseguito su un computer remoto a prova di manomissione. L'acquirente di bit gold può quindi utilizzare l'attestazione remota, che Finney chiama tecnica del server trasparente, per verificare che un determinato numero di cicli sia stato effettivamente eseguito.
+
+Il problema principale di tutti questi schemi è che gli schemi di proof of work dipendono dall'architettura del computer, non solo da una matematica astratta basata su un "ciclo di calcolo" astratto. (Pertanto, potrebbe essere possibile essere un produttore a bassissimo costo (di diversi ordini di grandezza) e inondare il mercato di bit gold. Tuttavia, dal momento che il bit gold è marcato a tempo, il tempo creato e la difficoltà matematica del lavoro possono essere dimostrati automaticamente. Da ciò si può solitamente dedurre il costo di produzione in quel periodo.
+
+A differenza degli atomi d'oro fungibili, ma come nel caso degli oggetti da collezione, una grande disponibilità in un determinato periodo di tempo farà scendere il valore di questi particolari oggetti. Da questo punto di vista, il "bit gold" si comporta più come gli oggetti da collezione che come l'oro. Tuttavia, la corrispondenza tra questo mercato ex post e l'asta che determina il valore iniziale potrebbe creare un profitto molto consistente per il "minatore di bit gold" che inventa e distribuisce un'architettura informatica ottimizzata.
+
+Pertanto, il bit gold non sarà fungibile in base a una semplice funzione, ad esempio, della lunghezza della stringa. Per creare unità fungibili, i commercianti dovranno invece combinare unità di valore diverso.
+
+Tradotto con www.DeepL.com/Translator (versione gratuita)
 
 \subsection{Bitcoin}
-\[\begin{tikzcd}
-	{H_0 = Hash (Client \; A \; crea \; il \; documento) \; istante \; di \; tempo \; i} & {} \\
-	{H_1 = Hash (Client \; B \; aggiunge \; una \; pagina) \; istante \; di \; tempo \; i+1} \\
-	{H_2 = Hash (Client \; C \; corregge \; gli \; errori \; di \; spelling) \; istante \; di \; tempo \; i+2}
-	\arrow[from=1-1, to=2-1]
-	\arrow[shift right=5, curve={height=30pt}, from=2-1, to=1-1]
-	\arrow[from=2-1, to=3-1]
-	\arrow[shift right=5, curve={height=30pt}, from=3-1, to=2-1]
-\end{tikzcd}\]
