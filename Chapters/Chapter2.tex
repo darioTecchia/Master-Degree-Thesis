@@ -106,3 +106,77 @@ A differenza degli atomi d'oro fungibili, ma come nel caso degli oggetti da coll
 Pertanto, il bit gold non sarà fungibile in base a una semplice funzione, ad esempio, della lunghezza della stringa. Per creare unità fungibili, i commercianti dovranno invece combinare unità di valore diverso.
 
 \subsection{Bitcoin}
+Bitcoin nasce ufficialmente agli inizi del 2009 con la creazione del "blocco genesi", ma se ne inizia a parlare nel 2008 a seguito della pubblicazione di un paper scientifico intitolato \textit{"Bitcoin: A Peer-to-Peer Electronic Cash System"} \cite{bitcoin-white-paper}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{bitcoin_genesis_block.jpeg}
+  \caption{Messaggio di Satoshi Nakamoto incorporato nella coinbase del primo blocco}
+  \label{fig:bitcoin_genesis_block}
+\end{figure}
+
+Il \textbf{libro bianco o "whitepaper" di Bitcoin} fu pubblicato in un articolo scientifico tramite Cryptography Mailing List nel mese di \textbf{ottobre del 2018}. Essendo pubblicato in modo anonimo sotto lo pseudonimo Satoshi Nakamoto genera ancora più mistero e confusione. Così tanto che ancora oggi si cerca un vero nome dietro quel soprannome.
+
+\textit{Prima di iniziare è bene fare una precisazione: bitcoin con la b minuscola è la moneta digitale, Bitcoin con la b maiuscola è il protocollo che la governa.}
+
+L'obiettivo di Satoshi era quello di creare un sistema di pagamento tramite una versione puramente peer-to-peer di denaro elettronico che permetterebbe di effettuare pagamenti online da un'entità ad un'altra senza passare tramite un'istituzione finanziaria centrale. I nodi peer-to-peer, che costituiscono la rete, non formano gerarchie client-server ma agiscono al contempo sia da client che da server.
+
+Le firme digitali offrono una soluzione parziale al problema, ma i benefici principali sono persi se una terza persona di fiducia è ancora richiesta per prevenire la doppia spesa. Ovvero, quando un utente fa una transazione ci deve essere la garanzia che i soldi appena spesi non possano essere utilizzati una seconda volta per compierne un'altra, problema illustrato in Figura \ref{fig:double_spending}.
+
+La moneta fisica risolve alla radice questo problema non potendo esistere in due luoghi contemporaneamente. In merito ai pagamenti digitali, in un sistema di fiducia centralizzato il problema è gestito da una terza parte che fa controlli su ogni operazione effettuata dagli utenti.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{double_spending.png}
+  \caption{Problema del double spending}
+  \label{fig:double_spending}
+\end{figure}
+
+Satoshi propone una soluzione al problema della doppia spesa mediante l'utilizzo di una rete peer-to-peer, includendo elementi di crittografia.
+
+La legge di mercato della domanda e offerta determinano il valore economico assunto dal bitcoin. Bitcoin è quotato su siti appositi chiamati Exchange. Tali siti permettono di scambiare Bitcoin con Euro, Dollaro Americano o altre monete emesse dai governi, dette anche \textbf{monete fiat}\footnote{Moneta legale (o moneta a corso legale o, ancora, moneta fiduciaria)}. Il primo Exchange è andato online nel marzo del 2010 e quotava bitcoin a soli 0,003\$. Il 22 maggio 2010 vengono acquistate due pizze in Florida per 10.000,00 bitcoin. Meno di un anno dopo la criptomoneta raggiunge il valore di 1,00\$. Nel 2013 la valutazione subisce alti e bassi arrivando a toccare un massimo di 1200,00\$. Con l'apertura di nuovi exchange e grazie alla speculazioni da parte di un numero sempre maggiore di utenti il prezzo sale fino a 10.000,00\$ a novembre 2017. Oggi (fine luglio 2022) ha un valore di 20.893,00\$ circa. L'andamento del bitcoin è illustrato in Figura \ref{fig:bitcoin_quotation}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{bitcoin_quotation.png}
+  \caption{Andamento del bitcoin}
+  \label{fig:bitcoin_quotation}
+\end{figure}
+
+\section{Cos'è la blockchain}
+La blockchain è una sottofamiglia di tecnologie in cui il registro è strutturato come una catena di blocchi contenenti le transazioni e la cui validazione è affidata a un meccanismo di consenso, distribuito su tutti i nodi della rete nel caso delle \textit{blockchain permissionless o pubbliche} o su tutti i nodi i nodi che sono autorizzati a partecipare al processo di validazione delle transazioni da includere nel registro nel caso delle \textit{blockchain permissioned o private}.
+
+Per alcuni, la blockchain è la nuova generazione di Internet, o meglio ancora è la Nuova Internet. Si ritiene che possa rappresentare una sorta di Internet delle Transazioni arrivndo a creare e rappresentare la Internet del Valore sulla base di sette caratteristiche \cite{bellini_2021}:
+\begin{enumerate}
+  \item Decentralizzazione
+  \item Trasparenza
+  \item Sicurezza
+  \item Immutabilità
+  \item Consenso
+  \item Responsabilità
+  \item Programmabilità
+\end{enumerate}
+
+\subsection{Architettura della blockchain}
+
+\subsection{Come funziona una Blockchain}
+
+\section{Algoritmi di Consenso}
+
+\subsection{Proof of Work}
+
+\subsection{Proof of Stake}
+
+\section{Blockchain pubbliche e private}
+
+\subsection{Blockchain pubbliche}
+
+\subsection{Blockchain private}
+
+\section{Generazioni di Blockchain}
+
+\subsection{Prima generazione: criptovalute}
+
+\subsection{Seconda generazione: digital assets, smart contract e dApp}
+
+\subsection{Terza generazione: scalabilità, interoperabilità e IoT}
