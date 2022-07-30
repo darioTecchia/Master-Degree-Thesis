@@ -147,38 +147,198 @@ La legge di mercato della domanda e offerta determinano il valore economico assu
 La blockchain è una sottofamiglia di tecnologie in cui il registro è strutturato come una catena di blocchi contenenti le transazioni e la cui validazione è affidata a un meccanismo di consenso, distribuito su tutti i nodi della rete nel caso delle \textit{blockchain permissionless o pubbliche} o su tutti i nodi i nodi che sono autorizzati a partecipare al processo di validazione delle transazioni da includere nel registro nel caso delle \textit{blockchain permissioned o private}.
 
 Per alcuni, la blockchain è la nuova generazione di Internet, o meglio ancora è la Nuova Internet. Si ritiene che possa rappresentare una sorta di Internet delle Transazioni arrivndo a creare e rappresentare la Internet del Valore sulla base di sette caratteristiche \cite{bellini_2021}:
+
 \begin{enumerate}
-  \item Decentralizzazione
-  \item Trasparenza
-  \item Sicurezza
-  \item Immutabilità
-  \item Consenso
-  \item Responsabilità
-  \item Programmabilità
+  \item \textbf{Decentralizzazione}
+  \item \textbf{Trasparenza}
+  \item \textbf{Sicurezza}
+  \item \textbf{Immutabilità}
+  \item \textbf{Consenso}
+  \item \textbf{Responsabilità}
+  \item \textbf{Programmabilità}
 \end{enumerate}
 
-Partendo da questi principi, la blockchain introduce un nuovo concetto di fiducia al punto che alcuni ritengono che la blockchain possa assumere anche un valore per certi aspetti di tipo “sociale e politico”: le operazioni avvengono in modo onesto e trasparente, senza la dipendenza da un supervisore.
+Partendo da questi principi, la blockchain introduce un nuovo concetto di fiducia al punto che alcuni ritengono che la blockchain possa assumere anche un valore per certi aspetti di tipo “sociale e politico": le operazioni avvengono in modo onesto e trasparente, senza la dipendenza da un supervisore.
+
+Bisogna però distinguere la blockchain dalla Blockchain Bitcoin, che è la prima Blockchain. A questa identificazione si è sovrapposta anche quella con la criptocurrency bitcoin e ha portato un pò a "confondere" la blockchain con altri ambiti di innovazione come le digital currency. Forse per quest'ultima ragione la blockchain è stata spesso associata ad un concetto di digital currency alternativa o complementare e di digital payment. In realtà, come vedremo, la blockchain è un fenomeno assai più ampio e articolato.
 
 \subsection{Architettura della blockchain}
+La tecnologia blockchain è un database pubblico decentralizzato che tiene testimonianza di chi possiede beni digitali e di chi effettua transazioni attraverso una rete peer-to-peer. Queste sono protette da crittografia e raccolte cronologicamente all'interno di blocchi di dati, a loro volta protetti e collegati. In tal modo viene creato un registro immutabile, che tiene traccia di tutte le transazioni effettuate, replicato su ogni computer che sfrutta la rete. La blockchain può essere considerata come un insieme di meccanismi interconnessi che forniscono funzionalità specifiche all'infrastruttura, come illustrato in Figura \ref{fig:blockchain_architettura}.
 
-\subsection{Come funziona una Blockchain}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{blockchain_architettura.png}
+  \caption{Architettura della blockchain di bitcoin}
+  \label{fig:blockchain_architettura}
+\end{figure}
 
-\section{Algoritmi di Consenso}
+Alla base di questa infrastruttura ci sono le \textbf{transazioni}, firmate tra i peers. Queste indicano un accordo tra due partecipanti, che può comportare il trasferimento di risorse fisiche o digitali. Almeno un partecipante firma questa transazione, poi divulgata ai suoi vicini. L'entità connessa alla blockchain è chiamata \textbf{nodo} e i nodi che verificano tutte le regole blockchain sono chiamati nodi completi (\textbf{miner}). Questi raggruppano le transazioni in \textbf{blocchi} e determinano se le transazioni sono valide, quindi conservate nella blockchain, e quali no.
 
+Al livello del \textbf{Meccanismo di consenso}, i nodi devono raggiungere un accordo su quali transazioni devono essere mantenute nella blockchain per garantire che non ci siano rami corrotti e divergenze.
+La \textbf{Computer Interface} permette alle blockchain di offrire più funzionalità: mentre una blockchain memorizza uno stato, ad esempio l'insieme di tutte le transazioni effettuate dagli utenti, la Computer Interface permette di memorizzare stati complessi che vengono aggiornati dinamicamente utilizzando il calcolo distribuito.
+Infine, il livello di \textbf{Governance} estende l'architettura blockchain coprendo le interazioni umane che avvengono nel mondo fisico. I protocolli blockchain sono influenzati da input di diversi gruppi di persone che integrano nuovi metodi, migliorano i protocolli e applicano patch al sistema. Benchè queste parti siano necessarie per la crescita di ciascuna blockchain, costituiscono processi esterni alla catena. Per cui, la governance della blockchain si occupa di come questi diversi attori si uniscono per produrre, mantenere o modificare gli input che compongono una blockchain.
+
+\subsection{Funzionamento della Blockchain}
+Prendendo in considerazione la più famosa blockchain e cioè la blockchain di Bitcoin, verranno di seguito analizzate le caratteristiche ed il funzionamento generale della tecnologia blockchain. I suoi principali elementi sono:
+
+\begin{itemize}
+  \item Nodi
+  \item Transazioni
+  \item Hash
+  \item Blocchi
+  \item Registro (Ledger)
+  \item Nodi completi (Miner)
+\end{itemize}
+
+\subsubsection{Hashing}
+Viene utilizzata una funzione hash \(h\), per convertire un messaggio di una certa lunghezza in una stringa di dimensioni fisse che genera valori hash (digest). La mappatura avviene in maniera tale da non consentire di risalire al messaggio originale partendo dalla stringa, la cui lunghezza è direttamente proporzionale al livello di sicurezza della funzione. Una funzione hash ideale dovrebbe:
+
+\begin{enumerate}
+  \item Conteggiare facilmente i valori hash, per qualsiasi dato a disposizione;
+  \item Generare i medesimi digest per due o più input uguali;
+  \item Garantire difficoltà di previsione dei digest conoscendo i dati in ingresso;
+  \item Ostacolare di risalire alle informazioni iniziali a prescindere dalla tipologia di input;
+  \item Generare valori hash molto diversi tra loro anche per input simili.
+\end{enumerate}
+
+A seconda dell'algoritmo adottato varia la lunghezza dei digest. Bitcoin
+usa l'algoritmo \textbf{SHA-256} che restituisce un output di 256 bit.
+
+Ecco un esempio:
+\begin{quote}
+  \$ hash("Ciao, Mondo!");
+
+  \textit{SDFSDF98S8J9238FJ130F2K3FM23F0MI23923F023F230MF203F}
+\end{quote}
+
+\subsubsection{Nodi, transazioni e blocchi}
+La \textbf{transazione} è un'operazione di scambio di risorse fisiche o digitali tra utenti (\textbf{nodi}) connessi ad una rete peer-to-peer. Al suo interno saranno contenuti gli indirizzi pubblici dei nodi coinvolti nello scambio, l'amount della transazione e la firma digitale del mittente (Figura \ref{fig:sitir}).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{sitir.png}
+  \caption{Principali componenti della transazione}
+  \label{fig:sitir}
+\end{figure}
+
+Le firme digitali sono utili ai nodi per dimostrare la loro identità senza rivelare la propria chiave privata. La firma è il risultato della combinazione tra la chiave privata del mittente e la funzione hash (Figura \ref{fig:hash_in_transazione}).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{hash_in_transazione.png}
+  \caption{Uso della firma digitale nelle transazioni}
+  \label{fig:hash_in_transazione}
+\end{figure}
+
+Il destinatario riceve i dati crittografati insieme alla firma digitale, e sfruttando la chiave privata del mittente, può decifrare i dati. La chiave pubblica è stata precedentemente condivisa tra gli utenti coinvolti o consultabile all'interno del server. L'algoritmo usato per la creazione della firma digitale è l'\textit{Elliptic Curve Digital Signature Algorithm (ECDSA)}[19].
+I \textbf{blocchi}, unità fondamentali della catena, sono caratterizzati da un insieme di transazioni, un timestamp che li colloca temporalmente, un valore hash posto nell'header (Figura \ref{fig:multi_sitir}) e l'hash dei blocchi precedenti, in modo tale da poter monitorare lo stato attuale della catena anche a seguito dell'aggiunta di nuovi blocchi. Come possiamo vedere nella (Figura \ref{fig:hash_chain}), ogni blocco contiene più transazioni, un valore hash proprio e quello del blocco precedente: forma una catena di hash o blockchain. L'ordine dei blocchi è deterministico. Ogni nodo conserva una copia dell'intera blockchain, in modo da poter verificare ogni transazione.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{multi_sitir.png}
+  \caption{Struttura di un blocco contenente diverse transazioni}
+  \label{fig:multi_sitir}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{blockchain_struttura.png}
+  \caption{Hash Chain}
+  \label{fig:hash_chain}
+\end{figure}
+
+\subsubsection{Il registro (Ledger)}
+Abbiamo tre tipi di network differenti:
+\begin{description}
+  \item[Rete centralizzata (Centralized Network)] I dati vengono raccolti all'interno di un'unica macchina, alla quale gli utenti si connettono per accedere alle informazioni desiderate. Si crea un \textit{single-point-of-failure}. Se l'intermediario centrale non è attivo o viene attaccato, l'intera rete smette di funzionare (Figura \ref{fig:tipologie_reti} Sinistra).
+  \item[Rete Decentralizzata (Decentralized Network)] Non esiste un'unica macchina per l'archiviazione dei dati in quanto più server lavorano assieme per fornire agli utenti le informazioni desiderate. Non contiene \textit{single-point-of-failure}. Se uno dei nodi, è inattivo o è attaccato, il resto della rete può ancora funzionare normalmente (Figura \ref{fig:tipologie_reti} Centro).
+  \item[Rete Distribuita (Distributed Network)] Non esiste alcuna macchina specializzata all'archiviazione dei dati, in quanto ogni singolo nodo della rete contiene le medesime informazioni. Tutti i nodi possono vedere tutto ed esiste un meccanismo di timestamp distribuito (Figura \ref{fig:tipologie_reti} Destra).
+\end{description}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1\textwidth]{tipologia_reti.png}
+  \caption{Confronto delle tipologie di rete}
+  \label{fig:tipologie_reti}
+\end{figure}
+
+L'ultima configurazione è tipica della tecnologia blockchain nella quale il registro, definito anch'esso distribuito, tiene nota di tutte le transazioni avvenute all'interno della rete e offre informazioni aggiornate sullo stato attuale della catena. La configurazione distribuita è più sicura di quella centralizzata per due motivi: in primis non esiste un punto vulnerabile centrale; in secondo luogo la potenza di calcolo richiesta ad un hacker per modificare una transazione all'interno di un blocco, e di conseguenza in tutti i blocchi della catena, non è raggiungibile con le attuali tecnologie.
+
+\section{Algoritmi di consenso}
 \subsection{Proof of Work}
+L'algoritmo di consenso adottato dalla Bitcoin blockchain è il protocollo \textit{Proof-of-Work (PoW)} illustrato in Figura \ref{fig:bitcoin_pow}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1\textwidth]{bitcoin_pow.png}
+  \caption{Meccanismo Proof-of-Work di bitcoin}
+  \label{fig:bitcoin_pow}
+\end{figure}
+
+Per provare (\textbf{proof}) il lavoro di hashing, il \textit{nonce}\footnote{Generalmente di 32 bit, è un contatore aggiunto al blocco che funge da input della funzione hash} viene incrementato di 1 bit per ogni calcolo dell'hash (\textbf{work}) finchè il digest da 256 bit (SHA-256) non conterrà 16 bit zero iniziali (target).
+Le transazioni non confermate vengono raccolte in un pool di memoria per ciascun nodo, mentre al primo nodo che riesce a completare la Proof-of-Work, viene concessa la creazione di un nuovo blocco, la verifica delle transazioni, lo spostamento delle transazioni confermate in un nuovo blocco al fine di allungare la catena e una ricompensa (token). Questo processo è detto mining nella blockchain Bitcoin, e i nodi coinvolti sono i miner. Essi sono chiamati ad affrontare dei problemi computazionali proposti dall'algoritmo, al fine di convalidare nuovi blocchi della catena a seguito della loro risoluzione. Tra i problemi troviamo:
+
+\begin{itemize}
+  \item Individuare un input partendo dal digest della funzione hash;
+  \item Scomposizione in numeri primi;
+  \item \textit{Guided tour puzzle control}: ad alcuni nodi è richiesto il calcolo di una funzione di hash in caso di attacco \textit{DoS (Denial of Service)}.
+\end{itemize}
+
+La difficoltà del problema è proporzionale al numero di miner, alla potenza di calcolo e al carico della rete e deve essere bilanciata: se troppo elevata rallenta la creazione dei blocchi, se troppo bassa rende la rete facilmente attaccabile. La creazione di un blocco richiede mediamente 10 minuti. Il problema in Bitcoin è definito Hashcash, e l'utente che riesce a risolverlo è ricompensato in Bitcoin Figura \ref{fig:hashcash}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{hashcash.png}
+  \caption{Esempio di funzionamento di Hashcash}
+  \label{fig:hashcash}
+\end{figure}
+
+Sulla base di quanto visto fin qui, la tecnologia blockchain può definirsi \textbf{sicura}, \textbf{trasparente}, \textbf{immutabile} e \textbf{trustless}.
 
 \subsection{Proof of Stake}
+La \textit{Proof-of-Stake} è un metodo di verifica alternativo alla Proof-of-Work. Non viene difatti più usata l'idea di dover dimostrare di aver svolto dei calcoli fornendo un risultato computazionalmente complesso da calcolare, bensì viene introdotto un nuovo concetto, la \textit{coin age}. Essa serve per dimostrare di avere interesse nella gestione della moneta e acquisire quindi la fiducia della comunità per la fase di mining. La coin age è facile da calcolare: ad esempio se Bob ha ricevuto 10 coin da Alice e li ha posseduti per 90 giorni, Bob ha 900 coin-days di coin age. Quando Bob spenderà quei 10 coin ricevuti da Alice, la coin age accumulata da Bob con quei coin sarà detta consumata (o distrutta).
 
-\section{Blockchain pubbliche e private}
+\subsubsection{Scelta del blocco successivo}
+Ogni qualvolta un nuovo blocco è aggiunto alla blockchain, deve essere scelto il creatore del blocco successivo. Poichè quest'ultimo non può essere l'account che possiede la maggiore quantità della criptovaluta (altrimenti potrebbe creare tutti i blocchi), sono stati ideati diversi metodi di selezione:
 
-\subsection{Blockchain pubbliche}
+\begin{description}
+  \item[Selezione casuale] Nei BlackCoin è utilizzata una funzione casuale per predire il generatore del blocco successivo, impiegando una formula che cerca il valore hash più basso rapportato alla dimensione della somma in gioco. Essendo quest'ultimo pubblico, è facile fare previsioni su quale account si aggiudicherà il diritto di minare il nuovo blocco.
+  \item[Selezione basata sulla velocità] Per evitare di far accumulare agli utenti grandi quantità di monete ed aumentare il proprio patrimonio di coin age, alcune monete come i Reddcoin scelgono il minatore successivo in base alla velocità di movimentazione, incoraggiando quindi lo scambio di moneta.
+  \item[Selezione basata sul voto] A differenza di altre monete che si basano su funzioni del tutto estranee ad interventi umani diretti, alcune monete come i BitShares hanno implementato un sistema che permette agli utenti di votare e scegliere chi far diventare il minatore successivo.
+  \item[Selezione basata sull'anzianità] Nei PPCoin è stato introdotto, affiancato ad una selezione casuale, il concetto di anzianità. L'anzianità è misurata in coin age, valore calcolato considerando solamente monete non spese per almeno 30 giorni e non più di 90, ciò permette di non avere utenti con un anzianità tale da dominare gli altri. Ad ogni mining il minatore consuma la quantità di coin age: si ha così la garanzia che non sia sempre lo stesso a dominare la blockchain.
+\end{description}
 
-\subsection{Blockchain private}
+Al giorno d'oggi sono poche le monete che hanno implementato la Proof-of-Stake in maniera pulita, una di queste è \textit{Nxt} (AGGIUNGERE CIT), che però ha numerosi problemi di sicurezza su si cui sta ancora cercando una soluzione efficace.
+
+\section{Blockchain Pubbliche e Private}
+La tecnologia Blockchain è in continua evoluzione: dalla comparsa di Bitcoin la ricerca ha fatto venire alla luce diverse varianti ed evoluzioni, tanto che oggi è già possibile farne una prima classificazione suddividendo le blockchain in due famiglie principali, \textbf{blockchain pubbliche} e \textbf{blockchain private} (o \textbf{permissioned}).
+
+\subsection{Blockchain Pubbliche}
+Le Blockchain Pubbliche non prevedono alcun tipo di restrizione, chiunque vi può prendere parte senza che sia necessario alcun permesso; sono tipicamente open-source.
+
+In particolare, tutti possono:
+
+\begin{itemize}
+  \item Scaricare l'intera blockchain e il programma per diventare un nodo della rete iniziando così a partecipare alla validazione delle transazioni da aggiungere alla blockchain secondo il protocollo di consenso adottato;
+  \item Inviare transazioni alla rete che verranno inserite nella blockchain se valide;
+  \item Visualizzare tutte le transazioni memorizzate all'interno della blockchain attraverso un \textit{block explorer}. Le transazioni possono essere più o meno trasparenti garantendo un certo livello di privacy e anonimato a seconda del tipo di blockchain.
+\end{itemize}
+
+Questo tipo di blockchain adotta delle forme di incentivi economici per coloro che si occupano della validazione delle transazioni (i cosiddetti "miner") adottando sistemi come Proof of Work o Proof of Stake. Tali schemi permettono di conservare la blockchain al sicuro e di funzionare in un contesto totalmente trustless, ovvero in un ambiente dove i nodi della rete non si conoscono e non si fidano l'un con l'altro. 
+
+La fondamentale caratteristica delle blockchain pubbliche è dunque quella di offrire un mezzo tecnologico per poter realizzare la deintermediazione nella fornitura di molteplici servizi e consentono la creazione e l'esecuzione di applicazioni decentralizzate senza che sia necessario sostenere alcun costo per l'infrastruttura. Ai vantaggi appena indicati si contrappongono alcuni svantaggi quali la possibilità di gestire un numero di transazioni al secondo significativamente più basso rispetto a quelle che sono in grado di gestire le blockchain permissioned e l'impossibilità di memorizzare all'interno della blockchain informazioni riservate dal momento l'intera catena di blocchi è pubblicamente consultabile \cite{vukolic2015quest}. Le blockchain pubbliche più note sono Bitcoin \cite{nakamoto2008bitcoin} e Ethereum \cite{yafimava_2019}.
+
+\subsection{Blockchain Private}
+Le blockchain private prevedono limitazioni sull'accesso contemplando la presenza di un sottosistema per l'identificazione e la gestione dei permessi associati ai vari nodi. Esclusivamente chi è stato autorizzato dall'amministratore a prendere parte alla rete può quindi, in base ai diritti che gli sono stati concessi, ricercare il contenuto della blockchain, inviare o verificare nuove transazioni.
+
+Tale tipologia di blockchain trova impiego in tutti quei settori dove vi è un consorzio di attori che lavorano insieme e che desiderano scambiarsi informazioni in modo riservato ma che non si fidano completamente l'uno dell'altro. Una delle applicazioni più abituali che vengono citate quando si parla di blockchain permissioned, è quella della gestione della filiera logistico-produttiva, un contesto nel quale vi sono diverse parti (fornitori, trasportatori, intermediari finanziari, catene di distribuzione) che hanno bisogno di condividere fra loro informazioni senza che però siano pubbliche e visibili a tutto il mondo (si consideri il caso di segreti o strategie aziendali che rappresentano un vantaggio rispetto alla concorrenza) o anche solamente ad altre parti coinvolte nella filiera stessa (si pensi ad esempio ad un prezzo speciale concordato con una certa catena di distribuzione che non vuole essere reso noto alle altre).
+
+Le blockchain permissioned risolvono positivamente questo problema, permettendo la costituzione una base di dati distribuita e condivisa tra tutte le parti dove tutte le modifiche rimangono registrate e immutabili e dove tutti partecipano alla validazione delle transazioni evitando così di concentrare tutto il potere presso un unico ente in cui tutte le parti dovrebbero riporre la fiducia, esattamente come accadrebbe adottando un database condiviso tradizionale. La ricerca nel campo delle blockchain permissioned è iniziata solo negli ultimi anni e risulta essere ancora agli inizi. Fra le blockchain più promettenti di questo tipo oggi la più famosa è probabilmente \textit{Hyperledger Fabric} \cite{10.1145/3190508.3190538}.
 
 \section{Generazioni di Blockchain}
-
-\subsection{Prima generazione: criptovalute}
-
-\subsection{Seconda generazione: digital assets, smart contract e dApp}
-
-\subsection{Terza generazione: scalabilità, interoperabilità e IoT}
+La suddivisione in generazioni in base alle caratteristiche e funzionalità offerte dalla blockchain stessa è un ulteriore modo adottato per la classificazione delle blockchain. Ad oggi si possono conteggiare tre generazioni:
+\begin{description}
+  \item[Prima generazione: Criptovalute] La prima applicazione della blockchain è stata la realizzazione di criptovalute come Bitcoin e altre semplici alt-coin come \textit{Litecoin}. Con il loro ingresso è stato reso possibile per la prima volta lo scambio diretto di denaro tra due parti senza la necessità di nessun intermediario (peer-to-peer) in modo sicuro, veloce ed economico.
+  \item[Seconda generazione: Digital Assets, Smart Contract e dApp] L'avvento della seconda generazione di blockchain si è avuto con la nascita di \textit{Ethereum}, la prima blockchain ad introdurre il concetto di smart contract, ossia semplici programmi che possono essere scritti, distribuiti ed eseguiti all'interno di un sistema informatico decentralizzato, sicuro, immutabile e affidabile.\\Le blockchain di seconda generazione permettono anche la definizione e lo scambio di un qualsiasi asset digitale e non solo si limita più quindi a permettere lo scambio di denaro. Gli sviluppatori possono creare su di esse nuovi token e applicazioni decentralizzate (\textit{dApps}).
+  \item[Terza generazione: Scalabilità, interoperabilità e IoT] La definizione esatta di blockchain di terza generazione è un tema ancora estremamente dibattuto, ma sono già diversi i progetti che si sono dati questa etichetta, il più noto fra questi è Cardano \cite{conor_2021}.\\I problemi che le blockchain di terza generazione stanno cercando di risolvere sono legati all'interoperabilità tra blockchain diverse, allo sviluppo di tecnologie ad-hoc per la realizzazione di applicazioni blockchain \textit{M2M (machine to machine)} in ottica Internet of Things e alla scalabilità, segnatamente attraverso la creazione di molteplici layer. Questo ha portato anche alla nascita di Lightning Network, layer di secondo di livello per Bitcoin che avremo modo di affrontare più avanti.
+\end{description}
