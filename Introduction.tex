@@ -1,19 +1,4 @@
 \chapter*{Introduzione}
 \addcontentsline{toc}{chapter}{\protect\numberline{}Introduzione}%
-Si può asserire con certezza che il sistema internazionale economico ha subito un drastico cambiamento dopo l'introduzione di concetti come la \textit{blockchain}, il \textit{Bitcoin} e, più in generale, le \textit{criptovalute}. La rivoluzione è iniziata nel 2008 quando venne pubblicato il \textit{white paper} intitolato \textit{"Bitcoin: A Peer-to-Peer Eletronic Cash System"} di Satoshi Nakamoto \cite{bitcoin-white-paper}. Da allora, la blockchain ha subito rapidamente innumerevoli evoluzioni e ha visto ampliarsi notevolmente i suoi campi di utilizzo, passando dall'essere una semplice base per le monete  elettroniche, per poi essere utilizzata come fondamento per il concetto di  \textit{smart contract} e \textit{DApp}\footnote{App Decentralizzate simili alle app tradizionali, con la differenza fondamentale che al posto di appoggiarsi su server centralizzati sfruttano le piattaforme blockchain e il loro network distribuito.}, fino all'avvento degli \textit{NFT (Non Fungible Token)}.
 
-Come vedremo, la blockchain porta un numero grande di vantaggi che però rischiano di essere compromessi con l'avvento di una recente tecnologia che sta prendendo sempre più piede, il \textit{quantum computing}. Il quantum computing o calcolo quantistico è una tecnologia emergente che sfrutta le leggi della meccanica quantistica per risolvere problemi troppo complessi per i computer classici. Analogamente all'informatica tradizionale, anche il calcolo quantistico ha un'unità base che è il \textit{qubit}. L'evoluzione di questi calcolatori, in contrario a quanto affermato dalla Legge di Moore, sta avvenendo in maniera esponenziale passando in pochi anni da pochi qbit ad un centinaio.
-
-Tutta questa capacità computazionale può mettere in seria difficoltà gli attuali algoritmi di firma con l'\textit{ECDSA}\footnote{In crittografia, l'Elliptic Curve Digital Signature Algorithm offre una variante del Digital Signature Algorithm usando la crittografia ellittica.} che è alla base di bitcoin e di innumerevoli altri sistemi altamente critici. Bisogna quindi trovare un modo per rendere la blockchain immune a questa nuova potenza computazionale. L'implementazione e lo studio degli attuali metodi di protezione proposti sono alla base di questo lavoro di tesi.
-
-È stato implementato un nuovo modello di blockchain, chiamato bitcoin QR, che nasce come fork dell'attuale bitcoin. L'algoritmo hashcash, alla base della proof of work di bitcoin classico, è stato sostituito con \textit{equiash}, che risulta essere resistente nei confronti degli attacchi quantistici basati sull'algoritmo di Grover. Dopodichè, una volta aver analizzato i vari algoritmi di firma post quantistica, l'algoritmo \textit{ECDSA}\footnotemark[2] è stato sostituito con XMSS che, come suggerito dal \textit{PQCRYPTO (European Consortium of Universities and Companies for Post-Quantum Cryptography Issues)}, risulta essere quantum safe. Infine, è stata proposta una possibile rete ausiliaria off-chain volta a risolvere i problemi di scalabilità di bitcoin, alternativa alla lighting network, denominata quantum lighting network, resa sicura tramite la distribuzione a chiave quantistica QKD.
-
-L'elaborato di tesi si articola sui seguenti capitoli.
-\begin{itemize}
-  \item Nel \textbf{Capitolo 1} viene fatta un'introduzione all'elaborato.
-  \item Nel \textbf{Capitolo 2} viene approfondito il concetto di computer-quantistica, da come avviene la rappresentazione dell'informazione fino alla gestione di quest'ultima.
-  \item Nel \textbf{Capitolo 3} viene introdotto il concetto di blockchain, dalla nascita fino alle idee rivoluzionarie di Satoshi Nakamoto.
-  \item Nel \textbf{Capitolo 4} vengono illustrate le debolezze della blockchain nell'era quantistica e come queste posso essere irrobustite.
-  \item Nel \textbf{Capitolo 5} vengono implementati gli irrobustimenti introdotti nei capitoli precedenti.
-  \item Nel \textbf{Capitolo 6} vengono tratte le conclusioni e i possibili sviluppi futuri.
-\end{itemize}
+Introduzione
