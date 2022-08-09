@@ -11,6 +11,7 @@ Nel 1982, il crittografo David Chaum ha proposto per la prima volta un protocoll
   \centering
   \scalebox{1.2}{
     \begin{tabular}{r | @{\foo} l}
+      1400 & Isola di Yap \newline \\
       1982 & Sistemi di Chaum \newline \\
       1991 & Timestamp \newline \\
       1992 & Alberi di Merkle \newline \\
@@ -25,19 +26,18 @@ Nel 1982, il crittografo David Chaum ha proposto per la prima volta un protocoll
 \subsection{Introduzione ai Sistemi di Chaum}
 Probabilmente, molti degli elementi delle blockchain odierne sono contenuti nel sistema di caveau di David Chaum del 1979, descritto nella sua tesi di laurea del 1982 a Berkeley. Chaum descrive la progettazione di un sistema informatico distribuito che può essere creato, mantenuto e reso attendibile da gruppi di individui reciprocamente sospettosi.
 
-Si tratta di un sistema contenente record in grado di manetere la sicurezza e la privacy dei singoli individui tramite sicurezza fisica. Gli elementi costitutivi di questo sistema includono "caveau" fisici (sicuri), primitive crittografiche (crittografia simmetrica e asimmetrica, funzioni hash crittografiche e firme digitali), e una nuova primitia introdotta da Chaum.
+Si tratta di un sistema contenente record in grado di manetere la sicurezza e la privacy dei singoli individui tramite sicurezza fisica. Gli elementi costitutivi di questo sistema includono "caveau" fisici (sicuri), primitive crittografiche (crittografia simmetrica e asimmetrica, funzioni hash crittografiche e firme digitali), e una nuova primitiva introdotta da Chaum.
 
 \subsection{Timestamp}
-Un ulteriore lavoro su una catena di blocchi protetta da crittografia è stato descritto nel 1991 da Stuart Haber e W. Scott Stornetta \cite{haber1990time}. Essi volevano implementare un sistema in cui i timestamp dei documenti non potessero essere manomessi, oggi considerata la prima applicazione della blockchain.
+Un ulteriore lavoro su una catena di blocchi protetta da crittografia è stata descritta nel 1991 da Stuart Haber e W. Scott Stornetta \cite{haber1990time}. Essi volevano implementare un sistema in cui i timestamp dei documenti non potessero essere manomessi, oggi considerata la prima applicazione della blockchain.
 
 L'utilizzo del timestamp richiede il superamento di due problematiche:
-
 \begin{itemize}
   \item I dati DEVONO essere contrassegnati con l'ora esatta
   \item Il calendario DEVE essere immutabile
 \end{itemize}
 
-I due, idearono una soluzione a queste problematiche, definita "naive", la quale consisteva nell'utilizzo di una \textit{cassetta di sicurezza digitale}. Ogni volta che un cliente ha un documento da marcare temporalmente, lo trasmette a un servizio di marcatura temporale (TSS). Il servizio registra la data e l'ora di ricezione del documento e ne conserva una copia. Se l'integrità del documento del cliente viene messa in discussione, viene confrontata con la copia conservata dal TSS. Se le due copie sono identiche, è la prova che il documento non è stato manomesso dopo la data riportata nei registri del TSS.
+I due, idearono una soluzione a queste problematiche definita "naive", la quale consisteva nell'utilizzo di una \textit{cassetta di sicurezza digitale}. Ogni volta che un cliente ha un documento da marcare temporalmente, lo trasmette a un servizio di marcatura temporale (TSS). Il servizio registra la data e l'ora di ricezione del documento e ne conserva una copia. Se l'integrità del documento del cliente viene messa in discussione, viene confrontata con la copia conservata dal TSS. Se le due copie sono identiche, è la prova che il documento non è stato manomesso dopo la data riportata nei registri del TSS.
 
 Questa procedura soddisfa di fatto il requisito centrale per la marcatura temporale di un documento digitale. Tuttavia, questo approccio solleva diverse preoccupazioni:
 
