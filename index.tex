@@ -12,7 +12,29 @@
 \usepackage{setspace}
 \usepackage{url}
 \usepackage{color}
+\usepackage{subcaption}
 \usepackage{listings}
+\lstset{
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+\makeatletter
+\def\@tempA#1#2\@end{%
+    \@tempA@{#1}%
+    \ifx\relax#2\relax
+    \else
+        \@tempA#2\@end
+    \fi
+}
+\def\@tempA@#1{{\noexpand#1}{{\char`\noexpand#1 \allowbreak}}1 }
+\edef\@tempB{\noexpand\lstdefinelanguage{logfile}{%
+    columns=fixed,%
+    keepspaces=true,%
+    breaklines=true,%
+    literate=\@tempA 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!()*+,-./:;<=>?@[]_|`^"'\&\$\\\~\#\%\{\}\@end
+}}
+\@tempB
+\makeatother
 \usepackage{makeidx}
 \usepackage{amsfonts}
 \usepackage{quiver}
@@ -47,6 +69,13 @@
 	alsoletter={.}
 }
 \graphicspath{ {./Figure/} }
+
+%formato didascalie immagini
+\DeclareCaptionFormat{custom}
+{%
+    \textbf{\small #1#2}\textit{\small #3}
+}
+\captionsetup{format=custom}
 
 %formato capitoli, paragrafi e sottoparagrafi
 % \usepackage{titlesec}

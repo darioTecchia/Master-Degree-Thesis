@@ -37,7 +37,7 @@ L'utilizzo del timestamp richiede il superamento di due problematiche:
   \item Il calendario DEVE essere immutabile
 \end{itemize}
 
-I due, idearono una soluzione a queste problematiche definita "naive", la quale consisteva nell'utilizzo di una \textit{cassetta di sicurezza digitale}. Ogni volta che un cliente ha un documento da marcare temporalmente, lo trasmette a un servizio di marcatura temporale (TSS). Il servizio registra la data e l'ora di ricezione del documento e ne conserva una copia. Se l'integrità del documento del cliente viene messa in discussione, viene confrontata con la copia conservata dal TSS. Se le due copie sono identiche, è la prova che il documento non è stato manomesso dopo la data riportata nei registri del TSS.
+I due, idearono una soluzione a queste problematiche definita "\textit{naive}", la quale consisteva nell'utilizzo di una \textit{cassetta di sicurezza digitale}. Ogni volta che un cliente ha un documento da marcare temporalmente, lo trasmette a un servizio di marcatura temporale (TSS). Il servizio registra la data e l'ora di ricezione del documento e ne conserva una copia. Se l'integrità del documento del cliente viene messa in discussione, viene confrontata con la copia conservata dal TSS. Se le due copie sono identiche, è la prova che il documento non è stato manomesso dopo la data riportata nei registri del TSS.
 
 Questa procedura soddisfa di fatto il requisito centrale per la marcatura temporale di un documento digitale. Tuttavia, questo approccio solleva diverse preoccupazioni:
 
@@ -49,7 +49,7 @@ Questa procedura soddisfa di fatto il requisito centrale per la marcatura tempor
 \end{description}
 
 Per risolvere queste criticità, Haber e Stornetta, formularono una soluzione: proposero di sottoporre il documento ad un algoritmo di hashing crittografico, ottenendo così un ID univoco ed immutabile del documento.
-Semplicemente, anzichè trasmettere al TSS il documento x, viene trasmesso il suo valore \(hash(x) = y\). Per quanto riguarda l'autenticazione, il timestamp di y sarà valido quanto il timestamp di x. Inoltre, questa soluzione riduce drasticamente il problme della larghezza di banda e dell'archiviazione e in più risolve anche il problema della privacy in quanto non viene trasmesso il documento in toto. A seconda degli obiettivi di progettazione, potrebbe essere una singola funzione di hash comune o una per ogni singola utenza.
+Semplicemente, anzichè trasmettere al TSS il documento x, viene trasmesso il suo valore \(hash(x) = y\). Per quanto riguarda l'autenticazione, il timestamp di y sarà valido quanto il timestamp di x. Inoltre, questa soluzione riduce drasticamente il problema della larghezza di banda e dell'archiviazione e in più risolve anche il problema della privacy in quanto non viene trasmesso il documento in toto. A seconda degli obiettivi di progettazione, potrebbe essere una singola funzione di hash comune o una per ogni singola utenza.
 
 A ciò si abbinava la firma digitale, utilizzata per identificare in modo univoco il firmatario. Controllando la firma, al client viene garantito che il TSS abbia elaborato la richiesta, che l'hash sia stato ricevuto correttamente e che l'ora inclusa sia corretta. Questo risolve il problema dell'incompetenza da parte del TSS.
 
@@ -79,12 +79,12 @@ Nella figura \ref{fig:merkle_tree} possiamo vedere come i valori hash dei blocch
 \subsection{Bit gold}
 Nel 2005, si ha avuto il primo tentativo di moneta decentralizzata grazie all'informatico Nick Szabo, il quale ha proposto una nuova valuta basata sulla blockchain: \textbf{Bit gold} \cite{szabo_2005}. Moneta che però non ha riscosso molto successo, ma nonostante ciò il 2005 rappresenta un anno cruciale nel contesto blockchain.
 
-La proposta dell'informatico si basa sul calcolo di una stringa di bit a partire da una stringa di bit di sfida, utilizzando funzioni chiamate in vario modo "client puzzle function", "proof of work function" o "secure benchmark function". La stringa di bit risultante è la proof of work.
+La proposta dell'informatico si basa sul calcolo di una stringa di bit a partire da una stringa di bit di sfida, utilizzando funzioni chiamate in vario modo "\textit{client puzzle function}", "\textit{proof of work function}" o "\textit{secure benchmark function}". La stringa di bit risultante è la proof of work.
 
 Ecco le fasi principali del sistema bit gold che Szabo ha definito:
 
 \begin{enumerate}
-  \item Viene creata una stringa pubblica di bit, la "stringa di sfida" (vedi passo 5).
+  \item Viene creata una stringa pubblica di bit, la "stringa di sfida" (\textbf{vedi passo 5}).
   \item Alice sul suo computer genera la stringa di proof of work dai bit di sfida utilizzando una funzione di benchmark.
   \item La proof of work viene registrata in modo sicuro con un timestamp. Questo dovrebbe funzionare in modo distribuito, con diversi servizi di timestamp in modo che non sia necessario affidarsi a un particolare servizio di timestamp.
   \item Alice aggiunge la stringa di sfida e la stringa di proof of work con timestamp a un registro di proprietà distribuito per il bit gold. Anche in questo caso, non si fa affidamento su un singolo server per il corretto funzionamento del registro.
@@ -101,7 +101,7 @@ Hal Finney ha implementato una variante di bit gold chiamata \textbf{RPOW (Reusa
 
 Il problema principale di tutti questi schemi è che gli schemi di proof of work dipendono dall'architettura del computer, non solo da una matematica astratta basata su un "ciclo di calcolo" astratto. (Pertanto, potrebbe essere possibile essere un produttore a bassissimo costo (di diversi ordini di grandezza) e inondare il mercato di bit gold. Tuttavia, dal momento che il bit gold è marcato a tempo, il tempo creato e la difficoltà matematica del lavoro possono essere dimostrati automaticamente. Da ciò si può solitamente dedurre il costo di produzione in quel periodo.
 
-A differenza degli atomi d'oro fungibili, ma come nel caso degli oggetti da collezione, una grande disponibilità in un determinato periodo di tempo farà scendere il valore di questi particolari oggetti. Da questo punto di vista, il "bit gold" si comporta più come gli oggetti da collezione che come l'oro. Tuttavia, la corrispondenza tra questo mercato ex post e l'asta che determina il valore iniziale potrebbe creare un profitto molto consistente per il "minatore di bit gold" che inventa e distribuisce un'architettura informatica ottimizzata.
+A differenza dell'oro fisico, ma come nel caso degli oggetti da collezione, una grande disponibilità in un determinato periodo di tempo farà scendere il valore di questi particolari oggetti. Da questo punto di vista, il "bit gold" si comporta più come gli oggetti da collezione che come l'oro.
 
 Pertanto, il bit gold non sarà fungibile in base a una semplice funzione, ad esempio, della lunghezza della stringa. Per creare unità fungibili, i commercianti dovranno invece combinare unità di valore diverso.
 
@@ -110,12 +110,12 @@ Bitcoin nasce ufficialmente agli inizi del 2009 con la creazione del "blocco gen
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.7\textwidth]{bitcoin_genesis_block.jpeg}
+  \includegraphics[width=0.9\textwidth]{bitcoin_genesis_block.png}
   \caption{Messaggio di Satoshi Nakamoto incorporato nella coinbase del primo blocco}
   \label{fig:bitcoin_genesis_block}
 \end{figure}
 
-Il \textbf{libro bianco o "whitepaper" di Bitcoin} fu pubblicato in un articolo scientifico tramite Cryptography Mailing List nel mese di \textbf{ottobre del 2018}. Essendo pubblicato in modo anonimo sotto lo pseudonimo Satoshi Nakamoto genera ancora più mistero e confusione. Così tanto che ancora oggi si cerca un vero nome dietro quel soprannome.
+Il \textbf{libro bianco o "whitepaper" di Bitcoin} fu pubblicato in un articolo scientifico tramite Cryptography Mailing List nel mese di \textbf{ottobre del 2018}. Essendo pubblicato in modo anonimo sotto lo pseudonimo Satoshi Nakamoto genera ancora più mistero e confusione. Così tanto che ancora oggi si cerca un vero nome dietro quel soprannome. Ad oggi si pensa che dietro lo pseudonimo di Satoshi Nakamoto ci sia Elon Musk, fondatore di Tesla.
 
 \textit{Prima di iniziare è bene fare una precisazione: bitcoin con la b minuscola è la moneta digitale, Bitcoin con la b maiuscola è il protocollo che la governa.}
 
@@ -134,7 +134,7 @@ La moneta fisica risolve alla radice questo problema non potendo esistere in due
 
 Satoshi propone una soluzione al problema della doppia spesa mediante l'utilizzo di una rete peer-to-peer, includendo elementi di crittografia.
 
-La legge di mercato della domanda e offerta determinano il valore economico assunto dal bitcoin. Bitcoin è quotato su siti appositi chiamati Exchange. Tali siti permettono di scambiare Bitcoin con Euro, Dollaro Americano o altre monete emesse dai governi, dette anche \textbf{monete fiat}\footnote{Moneta legale (o moneta a corso legale o, ancora, moneta fiduciaria)}. Il primo Exchange è andato online nel marzo del 2010 e quotava bitcoin a soli 0,003\$. Il 22 maggio 2010 vengono acquistate due pizze in Florida per 10.000,00 bitcoin. Meno di un anno dopo la criptomoneta raggiunge il valore di 1,00\$. Nel 2013 la valutazione subisce alti e bassi arrivando a toccare un massimo di 1200,00\$. Con l'apertura di nuovi exchange e grazie alla speculazioni da parte di un numero sempre maggiore di utenti il prezzo sale fino a 10.000,00\$ a novembre 2017. Oggi (fine luglio 2022) ha un valore di 20.893,00\$ circa. L'andamento del bitcoin è illustrato in Figura \ref{fig:bitcoin_quotation}.
+La legge di mercato della domanda e offerta determinano il valore economico assunto dal bitcoin. Bitcoin è quotato su siti appositi chiamati Exchange. Tali siti permettono di scambiare bitcoin con euro, dollaro americano o altre monete emesse dai governi, dette anche \textbf{monete fiat}\footnote{Moneta legale (o moneta a corso legale o, ancora, moneta fiduciaria)}. Il primo Exchange è andato online nel marzo del 2010 e quotava bitcoin a soli 0,003\$. Il 22 maggio 2010 vengono acquistate due pizze in Florida per 10.000,00 bitcoin. Meno di un anno dopo la criptomoneta raggiunge il valore di 1,00\$. Nel 2013 la valutazione subisce alti e bassi arrivando a toccare un massimo di 1200,00\$. Con l'apertura di nuovi exchange e grazie alla speculazioni da parte di un numero sempre maggiore di utenti il prezzo sale fino a 10.000,00\$ a novembre 2017. Oggi (fine luglio 2022) ha un valore di 20.893,00\$ circa. L'andamento del bitcoin è illustrato in Figura \ref{fig:bitcoin_quotation}.
 
 \begin{figure}[htbp]
   \centering
@@ -160,7 +160,7 @@ Per alcuni, la blockchain è la nuova generazione di Internet, o meglio ancora �
 
 Partendo da questi principi, la blockchain introduce un nuovo concetto di fiducia al punto che alcuni ritengono che la blockchain possa assumere anche un valore per certi aspetti di tipo “sociale e politico": le operazioni avvengono in modo onesto e trasparente, senza la dipendenza da un supervisore.
 
-Bisogna però distinguere la blockchain dalla Blockchain Bitcoin, che è la prima Blockchain. A questa identificazione si è sovrapposta anche quella con la criptocurrency bitcoin e ha portato un pò a "confondere" la blockchain con altri ambiti di innovazione come le digital currency. Forse per quest'ultima ragione la blockchain è stata spesso associata ad un concetto di digital currency alternativa o complementare e di digital payment. In realtà, come vedremo, la blockchain è un fenomeno assai più ampio e articolato.
+Bisogna però distinguere la blockchain dalla Blockchain Bitcoin, che è la prima Blockchain. A questa identificazione si è sovrapposta anche quella con la criptovaluta bitcoin e ha portato un pò a "confondere" la blockchain con altri ambiti di innovazione come le valute digitali. Forse per quest'ultima ragione la blockchain è stata spesso associata ad un concetto di valuta digitale alternativa o complementare e di pagamenti digitali. In realtà, come vedremo, la blockchain è un fenomeno assai più ampio e articolato.
 
 \subsection{Architettura della blockchain}
 La tecnologia blockchain è un database pubblico decentralizzato che tiene testimonianza di chi possiede beni digitali e di chi effettua transazioni attraverso una rete peer-to-peer. Queste sono protette da crittografia e raccolte cronologicamente all'interno di blocchi di dati, a loro volta protetti e collegati. In tal modo viene creato un registro immutabile, che tiene traccia di tutte le transazioni effettuate, replicato su ogni computer che sfrutta la rete. La blockchain può essere considerata come un insieme di meccanismi interconnessi che forniscono funzionalità specifiche all'infrastruttura, come illustrato in Figura \ref{fig:blockchain_architettura}.
@@ -202,14 +202,19 @@ Viene utilizzata una funzione hash \(h\), per convertire un messaggio di una cer
 \end{enumerate}
 
 A seconda dell'algoritmo adottato varia la lunghezza dei digest. Bitcoin
-usa l'algoritmo \textbf{SHA-256} che restituisce un output di 256 bit.
+usa l'algoritmo \textbf{SHA256} che restituisce un output di 256 bit.
 
 Ecco un esempio:
-\begin{quote}
-  \$ hash("Ciao, Mondo!");
+\begin{lstlisting}[language=logfile,breaklines]
+  hash("Ciao, Mondo!", "md5")
+  2b0a9b27997c7e4cc82030e26a7d6e14
 
-  \textit{SDFSDF98S8J9238FJ130F2K3FM23F0MI23923F023F230MF203F}
-\end{quote}
+  hash("Ciao, Mondo!", "SHA1")
+  822df6170b6b4ee8eda17d7258f5443195479886
+
+  hash("Ciao, Mondo!", "SHA256")
+  F7177D0763BA15F844B8E2E2BD6C1B5058039B0819BBA071C4E1D4110D087922 SHA256
+\end{lstlisting}
 
 \subsubsection{Nodi, transazioni e blocchi}
 La \textbf{transazione} è un'operazione di scambio di risorse fisiche o digitali tra utenti (\textbf{nodi}) connessi ad una rete peer-to-peer. Al suo interno saranno contenuti gli indirizzi pubblici dei nodi coinvolti nello scambio, l'amount della transazione e la firma digitale del mittente (Figura \ref{fig:sitir}).
@@ -230,8 +235,8 @@ Le firme digitali sono utili ai nodi per dimostrare la loro identità senza rive
   \label{fig:hash_in_transazione}
 \end{figure}
 
-Il destinatario riceve i dati crittografati insieme alla firma digitale, e sfruttando la chiave privata del mittente, può decifrare i dati. La chiave pubblica è stata precedentemente condivisa tra gli utenti coinvolti o consultabile all'interno del server. L'algoritmo usato per la creazione della firma digitale è l'\textit{Elliptic Curve Digital Signature Algorithm (ECDSA)}[19].
-I \textbf{blocchi}, unità fondamentali della catena, sono caratterizzati da un insieme di transazioni, un timestamp che li colloca temporalmente, un valore hash posto nell'header (Figura \ref{fig:multi_sitir}) e l'hash dei blocchi precedenti, in modo tale da poter monitorare lo stato attuale della catena anche a seguito dell'aggiunta di nuovi blocchi. Come possiamo vedere nella (Figura \ref{fig:hash_chain}), ogni blocco contiene più transazioni, un valore hash proprio e quello del blocco precedente: forma una catena di hash o blockchain. L'ordine dei blocchi è deterministico. Ogni nodo conserva una copia dell'intera blockchain, in modo da poter verificare ogni transazione.
+Il destinatario riceve i dati crittografati insieme alla firma digitale e, sfruttando la chiave privata del mittente, può decifrare i dati. La chiave pubblica è stata precedentemente condivisa tra gli utenti coinvolti o consultabile all'interno del server. L'algoritmo usato per la creazione della firma digitale è l'\textit{Elliptic Curve Digital Signature Algorithm (ECDSA)} \cite{comparitech_2019}.
+I \textbf{blocchi}, unità fondamentali della catena, sono caratterizzati da un insieme di transazioni, un timestamp che li colloca temporalmente, un valore hash posto nell'header (Figura \ref{fig:multi_sitir}) e l'hash dei blocchi precedenti, in modo tale da poter monitorare lo stato attuale della catena anche a seguito dell'aggiunta di nuovi blocchi. Come possiamo vedere nella Figura \ref{fig:hash_chain}, ogni blocco contiene più transazioni, un valore hash proprio e quello del blocco precedente: forma una catena di hash o blockchain. L'ordine dei blocchi è deterministico. Ogni nodo conserva una copia dell'intera blockchain, in modo da poter verificare ogni transazione.
 
 \begin{figure}[htbp]
   \centering
@@ -250,9 +255,9 @@ I \textbf{blocchi}, unità fondamentali della catena, sono caratterizzati da un 
 \subsubsection{Il registro (Ledger)}
 Abbiamo tre tipi di network differenti:
 \begin{description}
-  \item[Rete centralizzata (Centralized Network)] I dati vengono raccolti all'interno di un'unica macchina, alla quale gli utenti si connettono per accedere alle informazioni desiderate. Si crea un \textit{single-point-of-failure}. Se l'intermediario centrale non è attivo o viene attaccato, l'intera rete smette di funzionare (Figura \ref{fig:tipologie_reti} Sinistra).
-  \item[Rete Decentralizzata (Decentralized Network)] Non esiste un'unica macchina per l'archiviazione dei dati in quanto più server lavorano assieme per fornire agli utenti le informazioni desiderate. Non contiene \textit{single-point-of-failure}. Se uno dei nodi, è inattivo o è attaccato, il resto della rete può ancora funzionare normalmente (Figura \ref{fig:tipologie_reti} Centro).
-  \item[Rete Distribuita (Distributed Network)] Non esiste alcuna macchina specializzata all'archiviazione dei dati, in quanto ogni singolo nodo della rete contiene le medesime informazioni. Tutti i nodi possono vedere tutto ed esiste un meccanismo di timestamp distribuito (Figura \ref{fig:tipologie_reti} Destra).
+  \item[Rete centralizzata (Centralized Network)] I dati vengono raccolti all'interno di un'unica macchina, alla quale gli utenti si connettono per accedere alle informazioni desiderate. Si crea un \textit{single-point-of-failure}. Se l'intermediario centrale non è attivo o viene attaccato, l'intera rete smette di funzionare (Figura \ref{fig:tipologie_reti} - Sinistra).
+  \item[Rete Decentralizzata (Decentralized Network)] Non esiste un'unica macchina per l'archiviazione dei dati in quanto più server lavorano assieme per fornire agli utenti le informazioni desiderate. Non contiene \textit{single-point-of-failure}. Se uno dei nodi, è inattivo o è attaccato, il resto della rete può ancora funzionare normalmente (Figura \ref{fig:tipologie_reti} - Centro).
+  \item[Rete Distribuita (Distributed Network)] Non esiste alcuna macchina specializzata all'archiviazione dei dati, in quanto ogni singolo nodo della rete contiene le medesime informazioni. Tutti i nodi possono vedere tutto ed esiste un meccanismo di timestamp distribuito (Figura \ref{fig:tipologie_reti} - Destra).
 \end{description}
 
 \begin{figure}[htbp]
@@ -275,7 +280,7 @@ L'algoritmo di consenso adottato dalla Bitcoin blockchain è il protocollo \text
   \label{fig:bitcoin_pow}
 \end{figure}
 
-Per provare (\textbf{proof}) il lavoro di hashing, il \textit{nonce}\footnote{Generalmente di 32 bit, è un contatore aggiunto al blocco che funge da input della funzione hash} viene incrementato di 1 bit per ogni calcolo dell'hash (\textbf{work}) finchè il digest da 256 bit (SHA-256) non conterrà 16 bit zero iniziali (target).
+Per provare (\textbf{proof}) il lavoro di hashing, il \textit{nonce}\footnote{Generalmente di 32 bit, è un contatore aggiunto al blocco che funge da input della funzione hash.} viene incrementato di 1 bit per ogni calcolo dell'hash (\textbf{work}) finchè il digest da 256 bit (SHA-256) non conterrà 16 bit zero iniziali (target).
 Le transazioni non confermate vengono raccolte in un pool di memoria per ciascun nodo, mentre al primo nodo che riesce a completare la Proof-of-Work, viene concessa la creazione di un nuovo blocco, la verifica delle transazioni, lo spostamento delle transazioni confermate in un nuovo blocco al fine di allungare la catena e una ricompensa (token). Questo processo è detto mining nella blockchain Bitcoin, e i nodi coinvolti sono i miner. Essi sono chiamati ad affrontare dei problemi computazionali proposti dall'algoritmo, al fine di convalidare nuovi blocchi della catena a seguito della loro risoluzione. Tra i problemi troviamo:
 
 \begin{itemize}
@@ -284,7 +289,7 @@ Le transazioni non confermate vengono raccolte in un pool di memoria per ciascun
   \item \textit{Guided tour puzzle control}: ad alcuni nodi è richiesto il calcolo di una funzione di hash in caso di attacco \textit{DoS (Denial of Service)}.
 \end{itemize}
 
-La difficoltà del problema è proporzionale al numero di miner, alla potenza di calcolo e al carico della rete e deve essere bilanciata: se troppo elevata rallenta la creazione dei blocchi, se troppo bassa rende la rete facilmente attaccabile. La creazione di un blocco richiede mediamente 10 minuti. Il problema in Bitcoin è definito Hashcash, e l'utente che riesce a risolverlo è ricompensato in Bitcoin Figura \ref{fig:hashcash}.
+La difficoltà del problema è proporzionale al numero di miner, alla potenza di calcolo, al carico della rete; e deve essere bilanciata: se troppo elevata, la difficoltà, rallenta la creazione dei blocchi, se troppo bassa rende la rete facilmente attaccabile. La creazione di un blocco richiede mediamente 10 minuti. Il problema in Bitcoin è definito Hashcash, e l'utente che riesce a risolverlo è ricompensato in Bitcoin Figura \ref{fig:hashcash}.
 
 \begin{figure}[htbp]
   \centering
@@ -308,7 +313,7 @@ Ogni qualvolta un nuovo blocco è aggiunto alla blockchain, deve essere scelto i
   \item[Selezione basata sull'anzianità] Nei PPCoin è stato introdotto, affiancato ad una selezione casuale, il concetto di anzianità. L'anzianità è misurata in coin age, valore calcolato considerando solamente monete non spese per almeno 30 giorni e non più di 90, ciò permette di non avere utenti con un anzianità tale da dominare gli altri. Ad ogni mining il minatore consuma la quantità di coin age: si ha così la garanzia che non sia sempre lo stesso a dominare la blockchain.
 \end{description}
 
-Al giorno d'oggi sono poche le monete che hanno implementato la Proof-of-Stake in maniera pulita, una di queste è \textit{Nxt} (AGGIUNGERE CIT), che però ha numerosi problemi di sicurezza su si cui sta ancora cercando una soluzione efficace.
+Al giorno d'oggi sono poche le monete che hanno implementato la Proof-of-Stake in maniera pulita, una di queste è \textit{Nxt}, che però ha numerosi problemi di sicurezza su si cui sta ancora cercando una soluzione efficace.
 
 \section{Blockchain Pubbliche e Private}
 La tecnologia Blockchain è in continua evoluzione: dalla comparsa di Bitcoin la ricerca ha fatto venire alla luce diverse varianti ed evoluzioni, tanto che oggi è già possibile farne una prima classificazione suddividendo le blockchain in due famiglie principali, \textbf{blockchain pubbliche} e \textbf{blockchain private} (o \textbf{permissioned}).
@@ -317,7 +322,6 @@ La tecnologia Blockchain è in continua evoluzione: dalla comparsa di Bitcoin la
 Le Blockchain Pubbliche non prevedono alcun tipo di restrizione, chiunque vi può prendere parte senza che sia necessario alcun permesso; sono tipicamente open-source.
 
 In particolare, tutti possono:
-
 \begin{itemize}
   \item Scaricare l'intera blockchain e il programma per diventare un nodo della rete iniziando così a partecipare alla validazione delle transazioni da aggiungere alla blockchain secondo il protocollo di consenso adottato;
   \item Inviare transazioni alla rete che verranno inserite nella blockchain se valide;
@@ -326,7 +330,7 @@ In particolare, tutti possono:
 
 Questo tipo di blockchain adotta delle forme di incentivi economici per coloro che si occupano della validazione delle transazioni (i cosiddetti "miner") adottando sistemi come Proof of Work o Proof of Stake. Tali schemi permettono di conservare la blockchain al sicuro e di funzionare in un contesto totalmente trustless, ovvero in un ambiente dove i nodi della rete non si conoscono e non si fidano l'un con l'altro. 
 
-La fondamentale caratteristica delle blockchain pubbliche è dunque quella di offrire un mezzo tecnologico per poter realizzare la deintermediazione nella fornitura di molteplici servizi e consentono la creazione e l'esecuzione di applicazioni decentralizzate senza che sia necessario sostenere alcun costo per l'infrastruttura. Ai vantaggi appena indicati si contrappongono alcuni svantaggi quali la possibilità di gestire un numero di transazioni al secondo significativamente più basso rispetto a quelle che sono in grado di gestire le blockchain permissioned e l'impossibilità di memorizzare all'interno della blockchain informazioni riservate dal momento l'intera catena di blocchi è pubblicamente consultabile \cite{vukolic2015quest}. Le blockchain pubbliche più note sono Bitcoin \cite{nakamoto2008bitcoin} e Ethereum \cite{yafimava_2019}.
+La fondamentale caratteristica delle blockchain pubbliche è dunque quella di offrire un mezzo tecnologico per poter realizzare la disintermediazione nella fornitura di molteplici servizi e consentono la creazione e l'esecuzione di applicazioni decentralizzate senza che sia necessario sostenere alcun costo per l'infrastruttura. Ai vantaggi appena indicati si contrappongono alcuni svantaggi quali la possibilità di gestire un numero di transazioni al secondo significativamente più basso rispetto a quelle che sono in grado di gestire le blockchain permissioned e l'impossibilità di memorizzare all'interno della blockchain informazioni riservate dal momento l'intera catena di blocchi è pubblicamente consultabile \cite{vukolic2015quest}. Le blockchain pubbliche più note sono Bitcoin \cite{nakamoto2008bitcoin} e Ethereum \cite{yafimava_2019}.
 
 \subsection{Blockchain Private}
 Le blockchain private prevedono limitazioni sull'accesso contemplando la presenza di un sottosistema per l'identificazione e la gestione dei permessi associati ai vari nodi. Esclusivamente chi è stato autorizzato dall'amministratore a prendere parte alla rete può quindi, in base ai diritti che gli sono stati concessi, ricercare il contenuto della blockchain, inviare o verificare nuove transazioni.
@@ -338,7 +342,7 @@ Le blockchain permissioned risolvono positivamente questo problema, permettendo 
 \section{Generazioni di Blockchain}
 La suddivisione in generazioni in base alle caratteristiche e funzionalità offerte dalla blockchain stessa è un ulteriore modo adottato per la classificazione delle blockchain. Ad oggi si possono conteggiare tre generazioni:
 \begin{description}
-  \item[Prima generazione: Criptovalute] La prima applicazione della blockchain è stata la realizzazione di criptovalute come Bitcoin e altre semplici alt-coin come \textit{Litecoin}. Con il loro ingresso è stato reso possibile per la prima volta lo scambio diretto di denaro tra due parti senza la necessità di nessun intermediario (peer-to-peer) in modo sicuro, veloce ed economico.
+  \item[Prima generazione: Criptovalute] La prima applicazione della blockchain è stata la realizzazione di criptovalute come bitcoin e altre semplici alt-coin come \textit{Litecoin}. Con il loro ingresso è stato reso possibile per la prima volta lo scambio diretto di denaro tra due parti senza la necessità di nessun intermediario (peer-to-peer) in modo sicuro, veloce ed economico.
   \item[Seconda generazione: Digital Assets, Smart Contract e dApp] L'avvento della seconda generazione di blockchain si è avuto con la nascita di \textit{Ethereum}, la prima blockchain ad introdurre il concetto di smart contract, ossia semplici programmi che possono essere scritti, distribuiti ed eseguiti all'interno di un sistema informatico decentralizzato, sicuro, immutabile e affidabile.\\Le blockchain di seconda generazione permettono anche la definizione e lo scambio di un qualsiasi asset digitale e non solo si limita più quindi a permettere lo scambio di denaro. Gli sviluppatori possono creare su di esse nuovi token e applicazioni decentralizzate (\textit{dApps}).
-  \item[Terza generazione: Scalabilità, interoperabilità e IoT] La definizione esatta di blockchain di terza generazione è un tema ancora estremamente dibattuto, ma sono già diversi i progetti che si sono dati questa etichetta, il più noto fra questi è Cardano \cite{conor_2021}.\\I problemi che le blockchain di terza generazione stanno cercando di risolvere sono legati all'interoperabilità tra blockchain diverse, allo sviluppo di tecnologie ad-hoc per la realizzazione di applicazioni blockchain \textit{M2M (machine to machine)} in ottica Internet of Things e alla scalabilità, segnatamente attraverso la creazione di molteplici layer. Questo ha portato anche alla nascita di Lightning Network, layer di secondo di livello per Bitcoin che avremo modo di affrontare più avanti.
+  \item[Terza generazione: Scalabilità, interoperabilità e IoT] La definizione esatta di blockchain di terza generazione è un tema ancora estremamente dibattuto, ma sono già diversi i progetti che si sono dati questa etichetta, il più noto fra questi è Cardano \cite{conor_2021}.\\I problemi che le blockchain di terza generazione stanno cercando di risolvere sono legati all'interoperabilità tra blockchain diverse, allo sviluppo di tecnologie ad-hoc per la realizzazione di applicazioni blockchain \textit{M2M (machine to machine)} in ottica Internet of Things e alla scalabilità, segnatamente attraverso la creazione di molteplici layer. Questo ha portato anche alla nascita di Lightning Network, layer di secondo di livello per Bitcoin.
 \end{description}
