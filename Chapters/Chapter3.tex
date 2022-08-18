@@ -18,3 +18,36 @@ Attualmente la ricerca sulla crittografia post-quantistica si concentra principa
   \item[Crittografia isogenica a curva ellittica supersingolare] Questo sistema crittografico si basa sulle proprietà delle \textit{curve ellittiche supersingolari} e dei \textit{grafi isogenici supersingolari} per creare una sostituzione Diffie-Hellman con segretezza in avanti.
   \item[Crittografia basata su chiavi simmetriche] Se si utilizzano chiavi di dimensioni sufficientemente grandi, i sistemi crittografici a chiave simmetrica come \textit{AES} e \textit{SNOW 3G} sono già resistenti agli attacchi di un computer quantistico. Inoltre, i sistemi e i protocolli di gestione delle chiavi che utilizzano la crittografia a chiave simmetrica anziché quella a chiave pubblica, come \textit{Kerberos} e la \textit{Mobile Network Authentication Structure del 3GPP}, sono intrinsecamente sicuri contro gli attacchi di un computer quantistico.
 \end{description}
+
+\subsection{Confronto}
+Una caratteristica comune a molti algoritmi di crittografia post-quantistica è che richiedono chiavi di dimensioni maggiori rispetto agli algoritmi a chiave pubblica "pre-quantistica" comunemente utilizzati. Spesso è necessario trovare un compromesso tra la dimensione della chiave, l'efficienza computazionale e la dimensione del testo cifrato o della firma. La tabella \ref{tab:confronto} elenca alcuni valori per diversi schemi a un livello di sicurezza post-quantistico di 128 bit.
+
+\begin{table}[]
+  \resizebox{\columnwidth}{!}{
+    \begin{tabular}{|l|l|l|l|l|}
+    \hline
+    \textbf{Algorithm}                  & \textbf{Type}  & \textbf{Public Key} & \textbf{Private Key} & \textbf{Signature} \\ \hline
+    NTRU Encrypt                        & Lattice        & 766.25 B            & 842.875 B            &                    \\ \hline
+    Streamlined NTRU Prime              & Lattice        & 154 B               &                      &                    \\ \hline
+    Rainbow                             & Multivariate   & 124 KB              & 95 KB                &                    \\ \hline
+    \textbf{SPHINCS}                             & \textbf{Hash Signature} & \textbf{1 KB}                & \textbf{1 KB}                 & \textbf{41 KB}              \\ \hline
+    SPHINCS+                            & Hash Signature & 32 B                & 64 B                 & 8 KB               \\ \hline
+    BLISS-II                            & Lattice        & 7 KB                & 2 KB                 & 5 KB               \\ \hline
+    GLP-Variant GLYPH Signature         & Ring-LWE       & 2 KB                & 0.4 KB               & 1.8 KB             \\ \hline
+    NewHope                             & Ring-LWE       & 2 KB                & 2 KB                 &                    \\ \hline
+    Goppa-based McEliece                & Code-based     & 1 MB                & 11.5 KB              &                    \\ \hline
+    Random Linear Code based encryption & RLCE           & 115 KB              & 3 KB                 &                    \\ \hline
+    Quasi-cyclic MDPC-based McEliece    & Code-based     & 1,232 B             & 2,464 B              &                    \\ \hline
+    SIDH                                & Isogeny        & 564 B               & 48 B                 &                    \\ \hline
+    SIDH (compressed keys)              & Isogeny        & 330 B               & 48 B                 &                    \\ \hline
+    3072-bit Discrete Log               & not PQC        & 384 B               & 32 B                 & 96 B               \\ \hline
+    256-bit Elliptic Curve              & not PQC        & 32 B                & 32 B                 & 65 B               \\ \hline
+    \end{tabular}
+  }
+  \caption{Confronto tra diversi algoritmi}
+  \label{tab:confronto}
+\end{table}
+
+Una considerazione pratica sulla scelta tra gli algoritmi di crittografia post-quantistica è lo sforzo richiesto per inviare le chiavi pubbliche su Internet. Da questo punto di vista, gli algoritmi Ring-LWE, NTRU e SIDH forniscono chiavi di dimensioni comodamente inferiori a 1KB, le chiavi pubbliche con firma hash sono inferiori a 5KB e McEliece basato su MDPC richiede circa 1KB. D'altra parte, gli schemi Rainbow richiedono circa 125KB e McEliece basato su Goppa richiede una chiave di quasi 1MB.
+
+Nel nostro caso di studio prenderemo in esame l'algoritmo basato su hash \textbf{SPHINCS}, che sembra essere un ottimo compromesso tra facilità d'utilizzo, supportabilità e dimensioni delle chiavi.

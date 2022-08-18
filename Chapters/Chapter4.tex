@@ -1,1 +1,30 @@
 \chapter{Proof-of-Stake QR}
+Lo scopo di tale capitolo è la progettazione e l'implementazione di un algoritmo di consenso, che chiameremo Proof-Of-Stake QR (o PoS QR), alla cui base vengono utilizzati non più algoritmi vulnerabili agli attacchi quantistici ma bensì algoritmi resistenti agli attacchi quantistici, nel nostro caso lo SPHINCS.
+
+\section{Proof-of-Stake}
+All'interno del capitolo \ref{chap:blockchain} abbiamo già introdotto parte dell'algoritmo di consenso in questione che però andremo ad approfondire all'interno di questo capitolo.
+
+\subsection{Cos'è una Proof-of-Stake?}
+È detto proof-of-stake un tipo di protocollo per la messa in sicurezza di una rete di criptovaluta e per il conseguimento di un consenso distribuito. È basato sul principio che a ogni utente venga richiesto di dimostrare il possesso di un certo ammontare di criptovaluta. Si differenzia dai sistemi proof-of-work che sono basati su algoritmi di hash che validano le transazioni elettroniche.
+
+\subsection{Utilizzatori}
+\textit{Peercoin} è stata la prima criptovaluta ad introdurre sin dal lancio il sistema Proof of Stake senza mai implementarlo completamente. Altre note implementazioni del PoS sono \textit{BitShares}, \textit{Nxt}, \textit{GridCoin}, \textit{BlackCoin} e \textit{Cardano}.
+
+\subsection{Varianti per la selezione di un blocco}
+Ogni qualvolta un nuovo blocco viene aggiunto alla blockchain, deve essere scelto il creatore del blocco successivo. Dato che quest'ultimo non può essere l'account che possiede la maggiore quantità della criptovaluta (altrimenti questo creerebbe tutti i blocchi), sono stati escogitati diversi metodi di selezione.
+
+\begin{description}
+  \item[Selezione casuale (random)] Nxt e BlackCoin utilizzano una funzione casuale per predire il generatore del blocco successivo, impiegando una formula che cerca il valore hash più basso rapportato alla dimensione della somma in gioco. Dato che la conoscenza delle somme è pubblica, ogni nodo della rete può predire - con ragionevole accuratezza - quale account si aggiudicherà il diritto di forgiare un nuovo blocco.
+  \item[Selezione basata sull'anzianità] La PoS di Peercoin mescola la selezione casuale con il concetto di "anzianità", un numero ottenuto tramite il prodotto del numero di monete per il numero di giorni in cui tali monete sono state possedute. Le monete che non sono state spese per almeno 30 giorni competono per la creazione del blocco successivo. Gli ammontari di monete più anziani e più grandi hanno una maggiore probabilità di firmare il blocco successivo. Eppure quando un ammontare di monete è utilizzato per firmare un blocco, questo ammontare deve ricominciare con "anzianità zero" e quindi aspettare almeno altri 30 giorni prima di poter firmare un altro blocco. E inoltre la probabilità di trovare il blocco successivo è massima dopo 90 giorni, per prevenire che somme consistenti e molto "anziane" possano dominare la blockchain. Questo processo mette in sicurezza la rete e produce gradualmente nuova valuta nel corso del tempo senza consumare una potenza computazionale significativa. Gli sviluppatori di Peercoin sostengono che questo renda più difficile attaccare la rete dato che cade il bisogno di piattaforme centralizzate di mining e inoltre acquistare più di metà delle monete è probabilmente più costoso che acquisire il 51\% della potenza di hashing della proof-of-work.
+  \item[Selezione basata sulla velocità] Il concetto di PoS di Reddcoin basata sulla velocità rivendica di incoraggiare la movimentazione di moneta piuttosto che il suo accumulo.
+  \item[Selezione basata sul voto] Invece di utilizzare solamente il concetto di posta in gioco (stake), i creatori dei blocchi possono essere selezionati mediante votazione. BitShares utilizza un sistema che comprende 101 delegati e sceglie casualmente tra essi. Il voto della comunità aumenta l'incentivo dei creatori dei blocchi ad agire responsabilmente, ma al contempo apre alla prospettiva di scenari di sybil attack - come ad esempio nell'eventualità che un singolo utente impersoni i primi cinque delegati. 
+\end{description}
+
+\subsection{Vantaggi, svantaggi e critiche}
+Il PoS viene considerato il meccanismo di consenso più decentralizzato, richiede minori barriere tecniche per partecipare alla rete, i nodi sono più distribuiti e di conseguenza la sicurezza è maggiore. Una critica che viene mossa al PoS è quella di avvantaggiare i grandi holder che, avendo più criptovalute in staking, vengono selezionati più spesso per validare i blocchi e guadagnare gli incentivi. Tuttavia la grandezza dello stake è un incentivo a svolgere il lavoro di validazione correttamente e frequentemente. Più la posta in gioco è alta, più alto è il rischio di perderla quando si commettono degli errori nella validazione.
+
+La proof-of-work si basa sul consumo di energia. Ciò significa che un bene tangibile esterno mette in sicurezza la rete. Di contro, ciò porta al consumo incrementale di energia. Invece, le criptovalute basate sulla Proof of Stake possono essere migliaia di volte più efficienti. Questi costi di mining esercitano la funzione di calmierare il prezzo della valuta.
+
+\subsection{Attacchi alla Proof-of-Stake}
+
+\section{PoS QR}
