@@ -17,5 +17,5 @@ jobs:
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "index.pdf"
-        bodyFile: "body.md"
+        bodyFile: "README.md"
         token: ${{ secrets.YOUR_GITHUB_TOKEN }}
