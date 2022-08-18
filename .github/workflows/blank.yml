@@ -22,4 +22,3 @@ jobs:
       with:
         artifacts: "index.pdf"
         bodyFile: "README.md"
-        token: ${{ secrets.YOUR_GITHUB_TOKEN }}
