@@ -51,3 +51,64 @@ Una caratteristica comune a molti algoritmi di crittografia post-quantistica è 
 Una considerazione pratica sulla scelta tra gli algoritmi di crittografia post-quantistica è lo sforzo richiesto per inviare le chiavi pubbliche su Internet. Da questo punto di vista, gli algoritmi Ring-LWE, NTRU e SIDH forniscono chiavi di dimensioni comodamente inferiori a 1KB, le chiavi pubbliche con firma hash sono inferiori a 5KB e McEliece basato su MDPC richiede circa 1KB. D'altra parte, gli schemi Rainbow richiedono circa 125KB e McEliece basato su Goppa richiede una chiave di quasi 1MB.
 
 Nel nostro caso di studio prenderemo in esame l'algoritmo basato su hash \textbf{SPHINCS}, che sembra essere un ottimo compromesso tra facilità d'utilizzo, supportabilità e dimensioni delle chiavi.
+
+\section{Le vulnerabilità della blockchain nell'era quantistica}
+Vediamo quindi ora quali sono i principali algoritmi quantistici che minacciano le attuali implementazioni della blockchain. In particolare, presenteremo l'algoritmo di Shor e di Grover, i potenziali rischi che questi comportano alle primitive crittografiche utilizzate dalla Blockchain.
+
+\subsection{L'algoritmo di fattorizzazione di Shor}
+Nel 1994, l'informatico teorico statunitense Peter Shor progetta un efficiente algoritmo quantistico capace di risolvere il problema della fattorizzazione di interi molto grandi in tempo polinomiale e non più in tempo esponenziale.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{shor_example.png}
+  \caption{Esempio di algoritmo di Shor per fattorizzare il numero 15}
+  \label{fig:shor_example}
+\end{figure}
+
+L'algoritmo di Shor si basa sulla teoria per la fattorizzazione dei numeri.
+
+Supponiamo di voler fattorizzare un numero \(N\), l'algoritmo:
+
+\begin{enumerate}
+  \item Controlla se \(N\) è numero primo o potenza di un numero primo, attraverso l'utilizzo di un qualsiasi test di primalità che sia polinomiale, e se è così si ferma, altrimenti passa al punto numero 2;
+  \item Sceglie un numero casuale \(a\) tale che \(1 < a < N\);
+  \item Se \(b = mcd\left(a, N\right) > 1\), dove \(mcd\) può essere calcolato in tempo polinomiale utilizzando l'algoritmo di Euclide, restituisce \(b\) e si ferma, altrimenti passa al punto numero 4;
+  \item Trova l'ordine \(a \% N\) tale che
+    \[
+      a^r \equiv 1 \% N \;\; con \; r > 0
+    \]
+  \item Se \(r\) è dispari torna al punto numero 2, altrimenti passa al punto numero 6;
+  \item Calcola
+  \[
+    x = a^{\frac{r}{2}} + 1 \% N
+  \]
+  \[
+    y = a^{\frac{r}{2}} - 1 \% N
+  \]
+  \item Se \(x = 0\), torna al punto numero 2;
+  \item Se \(y = 0\), prende \(r=\frac{r}{2}\) e torna al punto numero 5;
+  \item Calcola \(p = gcd(x,N)\) e \(q = gcd(y,N)\). Uno tra i due sarà fattore non banale di \(N\).
+\end{enumerate}
+
+L'algoritmo appena illustrato potrebbe essere svolto in tempo ottimale anche da un computer classico se non fosse per il punto 4 che è computazionalmente molto oneroso, quindi l'ideale è utilizzare un computer quantistico. In termini di tempo, l'algoritmo di Shor può fattorizzare un intero \(N\) in tempo \(O(\log^3 N)\) e in spazio \(O(\log N)\).
+
+\subsubsection{Algoritmo di Shor e minacce sulla Blockchain}
+La maggior parte dei sistemi crittografici a chiave pubblica possono essere rotti utilizzando questo algoritmo quantistico, che andrà semplicemente ad utilizzare un numero di qubit pari al doppio della dimensione della chiave. Per comprendere al meglio il problema, basta prendere in considerazione l'RSA 2048: un computer classico con una CPU da 5 Ghz impiegherebbe circa 13,7 miliardi di anni per decifrarne un codice mentre un computer quantistico con CPU da 10 Mhz sarebbe in grado di fare ciò in circa 42 minuti\cite{kearney2021vulnerability}.
+
+Lo schema di crittografia asimmetrico Rivest Shamir Adleman (RSA), che consiste nello scambio di messaggi tramite utilizzo di una chiave pubblica, che li cifra, e una privata, che li decifra, è molto simile al metodo utilizzato dalle tecnologie Blockchain per la creazione e la crittografia di wallet di criptovalute. In questo caso, quindi, viene generata una coppia di chiavi: quella pubblica, utilizzata per ricevere criptovalute e consultare il saldo presente sulla Blockchain, e quella privata, utilizzata per spendere le criptovalute. Questo tipo di schema si basa quindi su funzioni matematiche \textit{one-way} e numeri primi, motivo per il quale, l'applicazione dell'algoritmo quantistico di Shor, porterebbe alla violazione della crittografia RSA, con chiave a 2048 bit, attraverso l'utilizzo di un computer quantistico a 4096 qubit logici.
+
+\subsection{L'algoritmo di ricerca di Grover}
+Ideato nel 1996 da Lov Grover, è un algoritmo di ricerca che, sfruttando l'amplificazione d'ampiezza, è in grado di cercare un elemento o un valore, in un insieme non ordinato, in tempo \(O\left(\sqrt{N}\right)\) a differenza degli algoritmi classici che risolvono lo stesso problema in tempo \(O\left(N\right)\).
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{grover_example.png}
+  \caption{Esempio di algoritmo di Glover per 3 qubit}
+  \label{fig:grover_example}
+\end{figure}
+
+\subsubsection{Algoritmo di Grover e minacce sulla Blockchain}
+L'algoritmo di consenso della Blockchain, si basa sul calcolo di funzioni
+crittografiche hash che, a partire da un input, genera una stringa di byte a lunghezza fissa. La produzione di transizioni hash, però, renderebbe la Blockchain sicura e non manomettibile se non fosse che, l'algoritmo di Grover permette di individuare, con poco sforzo computazionele, i dati originali su cui è stato applicato l'hash: ciò permette la generazione di collisioni hash più efficiente rispetto alla ricerca a forza bruta, che richiede invece tempo lineare.
+
+Inoltre, c'è da sottolineare che, nonostante gli attacchi tramite algoritmo di Grover sono considerati meno rischiosi rispetto a quelli di Shor, non è noto un sistema PoW abbastanza resistente a tali attacchi mentre, nel secondo caso, è possibile sostituire la crittografia vulnerabile con una crittografia post-quantistica, permettendo quindi di affrontare al meglio le minacce ricevute.
