@@ -59,12 +59,12 @@ Considerando i modelli di attacco quantistico illustrati, vediamo quali possono 
 \subsection{Considerazioni sulla progettazione del sistema}
 Ecco alcune considerazioni di sicurezza che riguardano però il design iniziale di un sistema Blockchain:
 
-\begin{itemize}
-  \item Considerazioni sulla crittografia simmetrica. Per gli algoritmi colpiti dall'attacco di Grover, gli stessi livelli di sicurezza classici si ottengono raddoppiando la dimensione della chiave. Per le funzioni hash, anche raddoppiare i bit dell'output della funzione di hash, dato l'attacco più noto, è una contromisura sicura.
-  \item Affidarsi agli indirizzi piuttosto che alle chiavi pubbliche, quando possibile. Poiché un indirizzo è una versione hash della chiave pubblica, la sua pubblicazione è sicura, a differenza della diffusione della chiave pubblica stessa. Deve essere utilizzato in tutte le occasioni possibili.
-  \item Impedire il riutilizzo degli indirizzi. Spendere risorse dallo stesso indirizzo non è solo insicuro nel contesto quantistico, ma è anche vulnerabile in quello classico. Il riutilizzo dello stesso indirizzo rivela la chiave pubblica e consente attacchi quantistici alla firma.
-  \item Considerare nuovi schemi di firma digitale. La crittografia post-quantistica sta maturando sempre di più e può sostituire gli schemi di firma esistenti che sono vulnerabili agli attacchi quantistici. Affidarsi a tali schemi per i PoS risolverebbe gli attacchi ai meccanismi di staking e a quelli di transazione.
-\end{itemize}
+\begin{description}
+  \item [Considerazioni sulla crittografia simmetrica] Per gli algoritmi colpiti dall'attacco di Grover, gli stessi livelli di sicurezza classici si ottengono raddoppiando la dimensione della chiave. Per le funzioni hash, anche raddoppiare i bit dell'output della funzione di hash, dato l'attacco più noto, è una contromisura sicura.
+  \item [Affidarsi agli indirizzi piuttosto che alle public key] Poiché un indirizzo è una versione hash della chiave pubblica, la sua pubblicazione è sicura, a differenza della diffusione della chiave pubblica stessa. Deve essere utilizzato in tutte le occasioni possibili.
+  \item [Impedire il riutilizzo degli indirizzi] Spendere risorse dallo stesso indirizzo non è solo insicuro nel contesto quantistico, ma è anche vulnerabile in quello classico. Il riutilizzo dello stesso indirizzo rivela la chiave pubblica e consente attacchi quantistici alla firma.
+  \item [Considerare nuovi schemi di firma digitale] La crittografia post-quantistica sta maturando sempre di più e può sostituire gli schemi di firma esistenti che sono vulnerabili agli attacchi quantistici. Affidarsi a tali schemi per i PoS risolverebbe gli attacchi ai meccanismi di staking e a quelli di transazione.
+\end{description}
 
 Prenderemo in considerazione l'utlimo punto, ovvero la sostituzione degli attuali algoritmi di firma digitale con algoritmi quantum-resistant.
 
