@@ -1,7 +1,35 @@
-\chapter{GoodChain-QR}
-Lo scopo di tale capitolo è la progettazione e l'implementazione di una blockchain decentralizzata basata sull'algoritmo di consenso PoS che chiameremo \textit{GoodChain-QR} (o \textit{GC-QR}), alla cui base vengono utilizzati non più algoritmi vulnerabili agli attacchi quantistici ma bensì algoritmi resistenti agli attacchi quantistici, nel nostro caso lo SPHINCS.
+\chapter{QRChain}
+Lo scopo di tale capitolo è la progettazione e l'implementazione di una blockchain decentralizzata basata sull'algoritmo di consenso PoS che chiameremo \textit{QRChain}, alla cui base vengono utilizzati non più algoritmi vulnerabili agli attacchi quantistici ma bensì algoritmi resistenti agli attacchi quantistici, nel nostro caso lo SPHINCS.
+
+\section{Cos'è QRChain?}
+QRChain, inizialmente ideata con il nome di GoodChain \cite{Ghorbanzadeh_GoodChain_2022}, è una blockchain decentralizzata basata su Proof-of-Stake, scritta con Node.js.
+
+All'interno di QRChain chiunque può essere un miner o un validatore. Ha due monete native: \textit{GTC} e \textit{MCT}. GTC è utilizzata per pagare le commissioni di transazione e MCT è utilizzata per pagare la convalida di un blocco. Gli MCT possono essere guadagnati puntando GTC.
+
+Ogni volta che un convalidatore estrae un blocco, riceve una parte di GTC come ricompensa del blocco più le commissioni di transazione.
+I validatori consumano anche alcuni MCT come tassa di estrazione. La quantità di MCT consumati è una percentuale della quantità totale di MCT che il validatore possiede.
+Questo approccio offre maggiori possibilità di ottenere una ricompensa ai minatori con un numero inferiore di puntate. Inoltre, rende la rete più distribuita.
+
+Inoltre, QRChain, introduce un meccanismo di "beneficenza" in cui ogni volta che un validatore estrae un blocco, il 20-25\% della rimcompensa del blocco, più le commissioni della transazione, viene devoluto a enti di beneficenza e ad altre organizzazioni simili.
+
+\subsection{Meccanismo di consenso}
+Per consenso si intende che la maggioranza dei validatori si è accordata sullo stesso blocco.
+QRChain utilizza una versione personalizzata dell'algoritmo Proof-of-Stake per raggiungere questo obiettivo. Seleziona semplicemente il blocco candidato dal validatore con il maggior numero di MCT (non GCT).
+La rete è tenuta al sicuro dal fatto che i nodi maligni devono avere costantemente il 51\% della quantità totale di MCT nei loro conti. Voglio ricordare che la tassa di estrazione è una percentuale della quantità totale di MCT che il validatore possiede. Quindi avere costantemente il 51\% dell'MCT totale è quasi impossibile. Quindi già a livello di design iniziamo a raggiungere un buon livello di sicurezza.
+
+\subsection{Meccanismo di selezione della catena}
+Nelle blockchain PoW come Bitcoin, la catena fiduciaria (o corretta) è la catena più lunga, che è determinata dalla difficoltà cumulativa totale della catena di Proof-of-Work. In altre parole, la catena che ha richiesto più energia per essere costruita.
+Nelle blockchain PoS, come abbiamo detto, non viene richiesto un lavoro oneroso della CPU. Quindi è necessario un altro approccio per determinare la catena di fiducia.
+
+In QRChain, ogni nodo elabora il blocco successivo e lo aggiunge al suo elenco di blocchi candidati. Poi inizia a ricevere l'elenco dei blocchi candidati degli altri nodi e li aggiunge al proprio elenco di blocchi candidati.
+Quindi ogni nodo seleziona il blocco candidato con il maggior numero di MCT e aggiorna il proprio stato e la catena.
+Poi ogni nodo cerca di assicurarsi che la sua catena sia quella corretta chiedendo agli altri nodi il loro ultimo blocco, se questo combacia con il proprio allora va tutto bene, altrimenti deve aggiornare o sostituire la sua catena.
+
+Per questo, QRChain, utilizza un semplice meccanismo di reputazione. Il nodo confuso sceglie la catena tra i nodi di cui si fida di più. Questo elenco può essere inserito manualmente dal validatore o può utilizzare l'algoritmo predefinito per creare l'elenco.
+
+L'algoritmo predefinito esamina la catena del nodo confuso e calcola un punto di fiducia per ogni validatore in base al numero di volte in cui il validatore ha estratto un blocco.
+Quindi il nodo sceglierà la catena con il punto di fiducia più alto.
 
 \section{Progettazione}
-
 
 \section{Implementazione}
