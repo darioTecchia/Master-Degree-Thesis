@@ -15,7 +15,7 @@ Inoltre, QRChain, introduce un meccanismo di "beneficenza" in cui ogni volta che
 \subsection{Meccanismo di consenso}
 Per consenso si intende che la maggioranza dei validatori si è accordata sullo stesso blocco.
 QRChain utilizza una versione personalizzata dell'algoritmo Proof-of-Stake per raggiungere questo obiettivo. Seleziona semplicemente il blocco candidato dal validatore con il maggior numero di MCT (non GCT).
-La rete è tenuta al sicuro dal fatto che i nodi maligni devono avere costantemente il 51\% della quantità totale di MCT nei loro conti. Voglio ricordare che la tassa di estrazione è una percentuale della quantità totale di MCT che il validatore possiede. Quindi avere costantemente il 51\% dell'MCT totale è quasi impossibile. Quindi già a livello di design iniziamo a raggiungere un buon livello di sicurezza.
+La rete è tenuta al sicuro dal fatto che i nodi maligni devono avere costantemente il 51\% della quantità totale di MCT nei loro conti. Voglio ricordare che la tassa di estrazione è una percentuale della quantità totale di MCT che il validatore possiede. Quindi avere costantemente il 51\% dell'MCT totale è quasi impossibile. Quindi, già a livello di design, iniziamo a raggiungere un buon livello di sicurezza.
 
 \subsection{Meccanismo di selezione della catena}
 Nelle blockchain PoW come Bitcoin, la catena fiduciaria (o corretta) è la catena più lunga, che è determinata dalla difficoltà cumulativa totale della catena di Proof-of-Work. In altre parole, la catena che ha richiesto più energia per essere costruita.
@@ -30,6 +30,137 @@ Per questo, QRChain, utilizza un semplice meccanismo di reputazione. Il nodo con
 L'algoritmo predefinito esamina la catena del nodo confuso e calcola un punto di fiducia per ogni validatore in base al numero di volte in cui il validatore ha estratto un blocco.
 Quindi il nodo sceglierà la catena con il punto di fiducia più alto.
 
-\section{Progettazione}
-
 \section{Implementazione}
+Vediamo nel dettaglio quali sono le componenti caratteristiche della libreria. La sostituzione degli algoritmi ha impattato la quasi totalità del codice poichè la libreria che implementa SPHICS utilizza delle funzioni asincrone, quindi c'è stata la necessità di adattare le funzioni esistenti da funzioni asincrone a funzioni sincrone.
+
+Invece, le funzioni che hanno il compito di firmare, validare e generare le chiavi sono principalmente 5:
+
+\subsubsection{signBlock}
+\begin{lstlisting}[language=JavaScript,breaklines]
+  // Firma un blocco con la privateKey del validatore per assicurarsi che l'indirizzo appartenga al validatore; un validatore non dovrebbe essere in grado di inserire indirizzi di altri, perche' in questo modo gli verrebbero sottratti alcuni MCT.
+  async signBlock(block) {
+    const self = this
+    const shaHash = self.hash(block)
+
+    return await sphincs.sign(Buffer.from(shaHash, "utf8"), Buffer.from(self.validator.privateKey, 'hex'))
+  }
+\end{lstlisting}
+
+\subsubsection{checkBlockSign}
+\begin{lstlisting}[language=JavaScript,breaklines]
+  // Verifica se il blocco e' firmato dal validatore
+  async checkBlockSign(block, sign, publicKey) {
+    const self = this
+    const shaHash = self.hash(block)
+    const verified = await sphincs.open(Buffer.from(sign, "base64"), Buffer.from(publicKey, 'hex'));
+
+    return verified.toString() == shaHash
+  }
+\end{lstlisting}
+
+\subsubsection{signTransaction}
+\begin{lstlisting}[language=JavaScript,breaklines]
+  // Firma una transazione usando privateKey
+  async signTransaction(trx, privateKey) {
+    const self = this;
+    trx.from = QRChain.hex(trx.from);
+    trx.to = QRChain.hex(trx.to);
+    const trxHash = self.hash(trx);
+
+    return await sphincs.sign(Buffer.from(trxHash, "utf8"), Buffer.from(privateKey, 'hex'))
+  }
+\end{lstlisting}
+
+\subsubsection{checkTransactionSign}
+\begin{lstlisting}[language=JavaScript,breaklines]
+  // Verifica se una transazione e' firmata dal validatore
+  async checkTransactionSign(trx, sign, publicKey) {
+    const self = this;
+    const trxHash = self.hash(trx);
+
+    const verified = await sphincs.open(Buffer.from(sign, "base64"), Buffer.from(publicKey, 'hex'));
+    return verified == trxHash;
+  }
+\end{lstlisting}
+
+\subsubsection{generateKeyPairs}
+\begin{lstlisting}[language=JavaScript,breaklines]
+  // Genera una coppia composta da chiave pubblica e privata utilizzando l'algoritmo SPHINCS
+  static async generateKeyPairs(path) {
+    const keyPair = await sphincs.keyPair();
+
+    if (path) {
+      mkdirp.sync(path);
+      fs.writeFileSync(join(path, "public_key.pem"), Buffer.from(keyPair.publicKey).toString('hex'));
+      fs.writeFileSync(join(path, "private_key.pem"), Buffer.from(keyPair.privateKey).toString('hex'));
+      fs.writeFileSync(join(path, "public_key.hex"), Buffer.from(keyPair.publicKey).toString('hex'));
+    }
+    return keyPair;
+  }
+\end{lstlisting}
+
+\subsubsection{Costruttore}
+La classe principale, QRChain, è composta dalle seguenti variabili d'istanza e i seguenti parametri abbastanza autoesplicativi:
+
+\begin{lstlisting}[language=JavaScript,breaklines]
+  ...
+  class QRChain {
+    constructor({ chain, state, nodes, dbPath, validator } = {}) {
+      const self = this
+      // catena di blocchi
+      self.chain = chain || []
+      // stato della blockchain
+      self.state = state || {}
+      // lista di nodi, validatori o miner
+      self.nodes = nodes || [] 
+      // lista delle transazioni correnti per il prossimo blocco candidato
+      self.transactions_pool = []
+      // rimcompensa del blocco per aver minato un blocco (in GCT)
+      self.blockReward = 30
+      // la percentuale di MCT che un validatore paghera' per validare un blocco
+      self.validationFee = 0.25
+      // la percentuale di tassa inviata in beneficenza
+      self.feesToCharity = 0.25
+      // la percentuale della ricompensa del blocco che verra' inviata in beneficenza
+      self.rewardToCharity = 0.2
+      // indirizzo del wallet di beneficenza
+      self.charityAddress = "..." 
+
+      self.executeScriptPath = dirname(process.argv[1])
+      // percorso del database: state.json and chain.json
+      self.dbPath = dbPath || self.executeScriptPath 
+      return (async () => {
+        // inizializzazione dell'oggetto validatore
+        self.validator = await self.init_validator(validator)
+        // inizializzazione della catena e del database di stati
+        await self.init_database()
+        // crezione del blocco genesi
+        if (self.chain.length == 0) {
+          await self.genesis_block()
+        }
+        return self
+      })();
+    }
+  ...
+\end{lstlisting}
+
+\subsection{Tecnologie usate}
+\subsubsection{JavaScript}
+QRChain è stata implementata completamente in JavaScript. Quest'ultimo, a volta abbreviato con JS, è un linguaggio di programmazione multi paradigma orientato agli eventi, standardizzato per la prima volta il 1997 dalla ECMA con il nome ECMAScript, l'ultimo standard, di giugno 2022, è ECMA-262 Edition 13 ed è anche uno standard ISO (ISO/IEC 16262).
+
+\subsubsection{NodeJs}
+Node.js è un runtime system open source multipiattaforma orientato agli eventi per l'esecuzione di codice JavaScript, costruito sul motore JavaScript V8 di Google Chrome.
+
+\subsubsection{SPHINCS e SPHINCS+}
+SPHINCS+ è uno schema di firma stateless basato su hash, presentato al progetto di crittografia post-quantistica del NIST. Il progetto è un'evoluzione dello schema di firma SPHINCS, presentato a EUROCRYPT 2015. Incorpora diversi miglioramenti, mirati in particolare a ridurre le dimensioni della firma.
+
+La presentazione propone tre diversi schemi di firma:
+\begin{itemize}
+  \item SPHINCS+-SHAKE256
+  \item SPHINCS+-SHA-256
+  \item SPHINCS+-Haraka
+\end{itemize}
+
+Questi schemi di firma si ottengono istanziando la costruzione SPHINCS+ con SHAKE256, SHA-256 e Haraka, rispettivamente.
+
+La seconda presentazione di SPHINCS+ introduce una suddivisione dei tre schemi di firma sopra citati in una variante semplice e una robusta per ogni scelta di funzione hash. La variante robusta è esattamente la versione di SPHINCS+ presentata al primo turno e presenta tutte le garanzie di sicurezza conservative fornite in precedenza. Le varianti semplici sono pure istanziazioni di oracoli casuali. Queste istanziazioni raggiungono una velocità di circa un fattore tre rispetto alle controparti robuste. Ciò avviene al costo di un argomento di sicurezza puramente euristico.

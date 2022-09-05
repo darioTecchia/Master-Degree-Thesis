@@ -4,7 +4,7 @@ La Blockchain è indiscutibilmente una delle tecnologie più recenti e fiorente 
 In particolare ci concentreremo sull'algoritmo di consenso Proof-of-Stake limitando l'attenzione a due noti algoritmi quantistici, quello di Grover e quello di Shor, che sono alla base dell'odierna Blockchain. Questi due algoritmi, come vedremo, possono risolvere alcuni problemi in tempi considerevolmente minori rispetto alle controparti tradizionali, dando quindi la possibilità di violare schemi di crittografia a chiave pubblica.
 
 \section{Proof-of-Stake}
-All'interno del capitolo \ref{chap:blockchain} abbiamo già introdotto parte dell'algoritmo di consenso in questione che però andremo ad approfondire all'interno di questo capitolo, cercando di illustrare qual è il rationale che c'è dietro questa scelta.
+All'interno del capitolo \ref{chap:blockchain} abbiamo già introdotto parte dell'algoritmo di consenso in questione che però andremo ad approfondire all'interno di questo capitolo, cercando di illustrare qual è il razionale che c'è dietro questa scelta.
 
 \subsection{Cos'è una Proof-of-Stake?}
 È detto Proof-of-Stake un tipo di protocollo per la messa in sicurezza di una rete di criptovaluta e per il conseguimento di un consenso distribuito. È basato sul principio che a ogni utente venga richiesto di dimostrare il possesso di un certo ammontare di criptovaluta. Si differenzia dai sistemi Proof-of-Work che sono basati su algoritmi di hash che validano le transazioni elettroniche.
@@ -15,7 +15,7 @@ All'interno del capitolo \ref{chap:blockchain} abbiamo già introdotto parte del
 \subsection{Vantaggi, svantaggi e critiche}
 Il PoS viene considerato il meccanismo di consenso più decentralizzato, richiede minori barriere tecniche per partecipare alla rete, i nodi sono più distribuiti e di conseguenza la sicurezza è maggiore. Una critica che viene mossa al PoS è quella di avvantaggiare i grandi holder che, avendo più criptovalute in staking, vengono selezionati più spesso per validare i blocchi e guadagnare gli incentivi. Tuttavia la grandezza dello stake è un incentivo a svolgere il lavoro di validazione correttamente e frequentemente. Più la posta in gioco è alta, più alto è il rischio di perderla quando si commettono degli errori nella validazione.
 
-La Proof-of-Work si basa sul consumo di energia. Ciò significa che un bene tangibile esterno mette in sicurezza la rete. Di contro, ciò porta al consumo incrementale di energia. Invece, le criptovalute basate sulla Proof of Stake possono essere migliaia di volte più efficienti. Questi costi di mining esercitano la funzione di calmierare il prezzo della valuta.
+La Proof-of-Work si basa sul consumo di energia: ciò significa che un bene tangibile esterno mette in sicurezza la rete. Di contro, questo porta ad un consumo sempre maggiore di energia. Invece, le criptovalute basate sulla Proof-of-Stake possono essere migliaia di volte più efficienti. Questi costi di mining esercitano la funzione di calmierare il prezzo della valuta.
 
 \section{Modelli di attacco}
 Vediamo le due principali modalità di attacco alla Blockchain.
@@ -42,9 +42,9 @@ Nel 1994, l'informatico teorico statunitense Peter Shor progetta un efficiente a
   \label{fig:shor_example}
 \end{figure}
 
-L'algoritmo di Shor potrebbe essere svolto in tempo ottimale anche da un computer classico se non fosse per un determinato punto che è computazionalmente molto oneroso, quindi l'ideale è utilizzare un computer quantistico. In termini di tempo, l'algoritmo di Shor può fattorizzare un intero \(N\) in tempo \(\Omega(\log^3 N)\) e in spazio \(\Omega(\log N)\).
+L'algoritmo di Shor potrebbe essere svolto in tempo ottimale anche da un computer classico se non fosse per un determinato punto dell'algoritmo che è computazionalmente molto oneroso, quindi l'ideale è utilizzare un computer quantistico. In termini di tempo, l'algoritmo di Shor può fattorizzare un intero \(N\) in tempo \(\Omega(\log^3 N)\) e in spazio \(\Omega(\log N)\).
 
-La maggior parte dei sistemi crittografici a chiave pubblica possono essere rotti utilizzando questo algoritmo quantistico, che andrà semplicemente ad utilizzare un numero di qubit pari al doppio della dimensione della chiave. Per comprendere al meglio il problema, basta prendere in considerazione l'RSA 2048: un computer classico con una CPU da 5 Ghz impiegherebbe circa 13,7 miliardi di anni per decifrarne un codice mentre un computer quantistico con CPU da 10 Mhz sarebbe in grado di fare ciò in circa 42 minuti\cite{kearney2021vulnerability}.
+La maggior parte dei sistemi crittografici a chiave pubblica possono essere rotti utilizzando questo algoritmo quantistico, che andrà semplicemente ad utilizzare un numero di qubit pari al doppio della dimensione della chiave. Per comprendere al meglio il problema, basta prendere in considerazione l'RSA 2048: un computer classico con una CPU da 5 Ghz impiegherebbe circa 13,7 miliardi di anni per decifrarne un codice mentre un computer quantistico con CPU da 10 Mhz sarebbe in grado di fare ciò in circa 42 minuti \cite{kearney2021vulnerability}.
 
 \section{Attacchi alla Proof-of-Stake}
 Con la Proof-of-Work, il meccanismo di creazione delle risorse, o \textit{mining}, viene attaccato con l'algoritmo di Grover per ottenere una velocità quadratica rispetto al mining classico. Tuttavia, i progressi e la specializzazione degli \textit{Application-Specific Integrated Circuits (ASIC)} possono superare questo miglioramento quadratico.
@@ -54,7 +54,7 @@ I meccanismi di transazione e conservazione sono influenzati dall'algoritmo di S
 Nella Proof-of-Stake, entrambi gli attacchi ai meccanismi di transazione e di conservazione degli asset per PoW sono ugualmente applicabili. Tuttavia, durante il meccanismo di creazione degli asset, la transazione di staking è vulnerabile all'attacco di Shor, che mette gli staker a rischio di perdere gli asset partecipando al processo. Allo stesso tempo, tale partecipazione è necessaria per accettare e convalidare le transazioni e proteggere la rete dagli attacchi all'algoritmo di consenso.
 
 \section{Difese}
-Considerando i modelli di attacco quantistico illustrati, vediamo quali possono essere le difese contro questi attacchi.
+Considerando i modelli di attacco quantistico illustrati, vediamo quali possono essere le difese contro questi attacchi partendo da semplici considerazioni sulla progettazione del sistema stesso fino alla sostituzione degli algoritmi tradizionali con algoritmi quantum-safe.
 
 \subsection{Considerazioni sulla progettazione del sistema}
 Ecco alcune considerazioni di sicurezza che riguardano però il design iniziale di un sistema Blockchain:
