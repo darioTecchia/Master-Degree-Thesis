@@ -2,7 +2,8 @@
 Lo scopo di tale capitolo è la progettazione e l'implementazione di una blockchain decentralizzata basata sull'algoritmo di consenso PoS che chiameremo \textit{QRChain}, alla cui base vengono utilizzati non più algoritmi vulnerabili agli attacchi quantistici ma bensì algoritmi resistenti agli attacchi quantistici, nel nostro caso lo SPHINCS.
 
 \section{Cos'è QRChain?}
-QRChain, inizialmente ideata con il nome di GoodChain \cite{Ghorbanzadeh_GoodChain_2022}, è una blockchain decentralizzata basata su Proof-of-Stake, scritta con Node.js.
+NOTE: RIVEDERE L'ITALIANO
+Quantum Resistant Chain o, in breve, QRChain, inizialmente ideata con il nome di GoodChain \cite{Ghorbanzadeh_GoodChain_2022}, è una blockchain decentralizzata basata su Proof-of-Stake, scritta con Node.js.
 
 All'interno di QRChain chiunque può essere un miner o un validatore. Ha due monete native: \textit{GTC} e \textit{MCT}. GTC è utilizzata per pagare le commissioni di transazione e MCT è utilizzata per pagare la convalida di un blocco. Gli MCT possono essere guadagnati puntando GTC.
 
@@ -25,13 +26,17 @@ In QRChain, ogni nodo elabora il blocco successivo e lo aggiunge al suo elenco d
 Quindi ogni nodo seleziona il blocco candidato con il maggior numero di MCT e aggiorna il proprio stato e la catena.
 Poi ogni nodo cerca di assicurarsi che la sua catena sia quella corretta chiedendo agli altri nodi il loro ultimo blocco, se questo combacia con il proprio allora va tutto bene, altrimenti deve aggiornare o sostituire la sua catena.
 
+NOTE: TROVARE UNA TRADUZIONE MIGLIOR DI NODO CONFUSO
+
 Per questo, QRChain, utilizza un semplice meccanismo di reputazione. Il nodo confuso sceglie la catena tra i nodi di cui si fida di più. Questo elenco può essere inserito manualmente dal validatore o può utilizzare l'algoritmo predefinito per creare l'elenco.
 
 L'algoritmo predefinito esamina la catena del nodo confuso e calcola un punto di fiducia per ogni validatore in base al numero di volte in cui il validatore ha estratto un blocco.
 Quindi il nodo sceglierà la catena con il punto di fiducia più alto.
 
+NOTE: DESCRIVERE LE FUNZIONI
+
 \section{Implementazione}
-Vediamo nel dettaglio quali sono le componenti caratteristiche della libreria. La sostituzione degli algoritmi ha impattato la quasi totalità del codice poichè la libreria che implementa SPHICS utilizza delle funzioni asincrone, quindi c'è stata la necessità di adattare le funzioni esistenti da funzioni asincrone a funzioni sincrone.
+Vediamo nel dettaglio quali sono le componenti caratteristiche della libreria. La sostituzione degli algoritmi ha impattato la quasi totalità del codice poichè la libreria che implementa SPHINCS utilizza delle funzioni asincrone, quindi c'è stata la necessità di adattare le funzioni esistenti da funzioni asincrone a funzioni sincrone.
 
 Invece, le funzioni che hanno il compito di firmare, validare e generare le chiavi sono principalmente 5:
 
@@ -150,17 +155,3 @@ QRChain è stata implementata completamente in JavaScript. Quest'ultimo, a volta
 
 \subsubsection{NodeJs}
 Node.js è un runtime system open source multipiattaforma orientato agli eventi per l'esecuzione di codice JavaScript, costruito sul motore JavaScript V8 di Google Chrome.
-
-\subsubsection{SPHINCS e SPHINCS+}
-SPHINCS+ è uno schema di firma stateless basato su hash, presentato al progetto di crittografia post-quantistica del NIST. Il progetto è un'evoluzione dello schema di firma SPHINCS, presentato a EUROCRYPT 2015. Incorpora diversi miglioramenti, mirati in particolare a ridurre le dimensioni della firma.
-
-La presentazione propone tre diversi schemi di firma:
-\begin{itemize}
-  \item SPHINCS+-SHAKE256
-  \item SPHINCS+-SHA-256
-  \item SPHINCS+-Haraka
-\end{itemize}
-
-Questi schemi di firma si ottengono istanziando la costruzione SPHINCS+ con SHAKE256, SHA-256 e Haraka, rispettivamente.
-
-La seconda presentazione di SPHINCS+ introduce una suddivisione dei tre schemi di firma sopra citati in una variante semplice e una robusta per ogni scelta di funzione hash. La variante robusta è esattamente la versione di SPHINCS+ presentata al primo turno e presenta tutte le garanzie di sicurezza conservative fornite in precedenza. Le varianti semplici sono pure istanziazioni di oracoli casuali. Queste istanziazioni raggiungono una velocità di circa un fattore tre rispetto alle controparti robuste. Ciò avviene al costo di un argomento di sicurezza puramente euristico.

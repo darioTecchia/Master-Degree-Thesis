@@ -1,7 +1,7 @@
 \chapter{Attacchi quantistici alla Proof-of-Stake}
 La Blockchain è indiscutibilmente una delle tecnologie più recenti e fiorente degli ultimi dieci anni, se non la tecnologia del futuro. Però a minacciare la sicurezza di quest'utlima è l'ormai incombente crescita di un ulteriore tecnologia: il Quantum Computing.
 
-In particolare ci concentreremo sull'algoritmo di consenso Proof-of-Stake limitando l'attenzione a due noti algoritmi quantistici, quello di Grover e quello di Shor, che sono alla base dell'odierna Blockchain. Questi due algoritmi, come vedremo, possono risolvere alcuni problemi in tempi considerevolmente minori rispetto alle controparti tradizionali, dando quindi la possibilità di violare schemi di crittografia a chiave pubblica.
+In particolare ci concentreremo sull'algoritmo di consenso Proof-of-Stake limitando l'attenzione a due noti algoritmi quantistici, quello di Grover e quello di Shor. Questi due algoritmi, come vedremo, possono risolvere alcuni problemi in tempi considerevolmente minori rispetto alle controparti tradizionali, dando quindi la possibilità di violare schemi di crittografia a chiave pubblica.
 
 \section{Proof-of-Stake}
 All'interno del capitolo \ref{chap:blockchain} abbiamo già introdotto parte dell'algoritmo di consenso in questione che però andremo ad approfondire all'interno di questo capitolo, cercando di illustrare qual è il razionale che c'è dietro questa scelta.
@@ -18,10 +18,14 @@ Il PoS viene considerato il meccanismo di consenso più decentralizzato, richied
 La Proof-of-Work si basa sul consumo di energia: ciò significa che un bene tangibile esterno mette in sicurezza la rete. Di contro, questo porta ad un consumo sempre maggiore di energia. Invece, le criptovalute basate sulla Proof-of-Stake possono essere migliaia di volte più efficienti. Questi costi di mining esercitano la funzione di calmierare il prezzo della valuta.
 
 \section{Modelli di attacco}
-Vediamo le due principali modalità di attacco alla Blockchain.
+Nonostante la Blockchain sia considerata una delle tecnologie più all'avanguardia dell'ultimo decennio, se non la tecnologia del futuro, a minacciare la sua sicurezza è l'ormai rilevante crescita di un'ulteriore innovativa e fiorente tecnologia: il Quantum Computing. In particolare, algoritmi quantistici, come l'algoritmo di fattorizzazione di Shor e l'algoritmo di ricerca di Grover, possono risolvere alcuni problemi in tempi considerevolmente minori rispetto alla loro corrispondente classica, dando quindi la possibilità ai computer quantistici di violare, utilizzando migliaia di qubit, schemi di crittografia a chiave pubblica, come RSA ed Elliptic Curve, che sono alla base della sicurezza dei sistemi come la Blockchain.
+
+È proprio per questo motivo che il NIST, National Institute of Standards and Technology, ha iniziato un processo di ricerca, valutazione e standardizzazione di uno o più algoritmi di cifratura resistenti alla computazione quantistica.
+
+Vediamo di seguito le principali modalità di attacco alla Blockchain.
 
 \subsection{Algoritmo di ricerca di Grover}
-Ideato nel 1996 da Lov Grover, è un algoritmo di ricerca che, sfruttando l'amplificazione d'ampiezza, è in grado di cercare un elemento o un valore, in un insieme non ordinato, in tempo \(\Omega\left(\sqrt{N}\right)\) a differenza degli algoritmi classici che risolvono lo stesso problema in tempo \(\Omega\left(N\right)\).
+Ideato nel 1996 da Lov Grover, è un algoritmo di ricerca che, sfruttando l'amplificazione d'ampiezza, è in grado di cercare un elemento o un valore, in un insieme non ordinato, in tempo \(O\left(\sqrt{N}\right)\) a differenza degli algoritmi classici che risolvono lo stesso problema in tempo \(O\left(N\right)\).
 
 \begin{figure}[h]
   \centering
@@ -31,6 +35,29 @@ Ideato nel 1996 da Lov Grover, è un algoritmo di ricerca che, sfruttando l'ampl
 \end{figure}
 
 Nei sistemi blockchain, l'algoritmo di Grover fornisce una ricerca più veloce rispetto alle funzioni hash crittografiche utilizzate per generare gli indirizzi degli asset e per proteggere gli hash dei blocchi e delle transazioni.
+
+Andiamo ad analizzare i due passaggi fondamentali dell'algoritmo.
+\subsubsection{Funzionamento - Passo 1}
+Dato \(n\), un numero necessario per rappresentare uno spazio di ricerca di dimensione \(2^n = N\) tutti inizializzati su \(|0\rangle\), tale che
+\[ |0\rangle \otimes n = |0\rangle \]
+il primo passo dell'algoritmo di Grover consiste nell'accesso ad un registro di \(n\) qubit. Dobbiamo quindi creare una sovrapposizione uguale di stati, applicando l'operatore Hadmard:
+\[ |\psi\rangle = H \otimes n |0\rangle \otimes n = \frac{1}{\sqrt{2^n}} \sum_{x=0}^{2^n} |0\rangle \]
+
+\subsubsection{Funzionamento - Passo 2}
+Il secondo passo dell'algoritmo, nonchè anche parte centrale definita come iterazione di Grover, viene ripetuto per un totale di \( \frac{\pi}{4}\sqrt{2^n} \) volte. A sua volta, il secondo passo può essere diviso in due: il primo passo che non è altro che una query quantistica \(\theta\), e il secondo passo definito come trasformazione di diffusione.
+
+\begin{description}
+  \item[Oracolo] Definiamo un oracolo quantistico come una "black box", ovvero una scatola nera capace di riconoscere le soluzioni al problema di ricerca e di osservare e modificare il sistema, riconoscendo se è nello stato corretto. Supponiamo di avere uno spazio di ricerca composto da \(N\) elementi etichettati da indici che saranno rappresentati da un valore numerico compreso tra \(0\) e \(N - 1\). Sia \(n\) il numero di bit necessari per rappresentare un indice, poniamo \(N = 2^n\), tale che il numero \(L\) di soluzioni ammesse dalla nostra ricerca sia \(1 \geqslant L \leqslant N\). Definiamo, quindi, una funzione \(f(x)\) con \(x \in [0, N - 1]\) tale che \(f (x) = 1\) se \(x\) è una soluzione al nostro problema mentre \(f(x) = 0\) se \(x\) non è soluzione al nostro problema.
+  Tornando quindi al nostro oracolo, definendo \(|q\rangle\) come qubit oracolo e \(|x\rangle\) il nostro indice, allora questo agirà nel seguente modo
+  \[ |x\rangle |q\rangle \rightarrow |x\rangle |q \otimes f(x)\rangle \]
+  tale che se \(f(x) = 0\), il qubit oracolo resta invariato mentre se \(f(x) = 1\) verrà invertito.
+  In sintesi, quindi, l’implementazione dell’oracolo quantistico può essere definita come
+  \[ |x\rangle \underrightarrow{\theta} (-1)^{f(x)} |x\rangle \]
+  \item[Trasformata di diffusione] La seconda parte dell'iterazione di Grover, definita come trasformazione di diffusione, consiste in un'ulteriore applicazione dell'operatore Hadmard, in modo tale da avere una sovrapposizione uniforme, seguita da uno spostamento condizionale che sposta ogni stato, escluso \(|0\rangle\), di -1.
+  \[ |x\rangle \rightarrow -(-1)^{\delta x 0} |x\rangle \]
+  Alla fine, si procede con una seconda applicazione dell'operatore Hadmard. In sintesi, quindi, andando ad includere l'oracolo \(\theta\), l'iterazione di Grover può essere scritta come
+  \[ G = (2 | \psi \rangle \langle \psi | - I) \theta \]
+\end{description}
 
 \subsection{Algoritmo di fattorizzazione di Shor}
 Nel 1994, l'informatico teorico statunitense Peter Shor progetta un efficiente algoritmo quantistico capace di risolvere il problema della fattorizzazione di interi molto grandi in tempo polinomiale e non più in tempo esponenziale.
@@ -42,7 +69,28 @@ Nel 1994, l'informatico teorico statunitense Peter Shor progetta un efficiente a
   \label{fig:shor_example}
 \end{figure}
 
-L'algoritmo di Shor potrebbe essere svolto in tempo ottimale anche da un computer classico se non fosse per un determinato punto dell'algoritmo che è computazionalmente molto oneroso, quindi l'ideale è utilizzare un computer quantistico. In termini di tempo, l'algoritmo di Shor può fattorizzare un intero \(N\) in tempo \(\Omega(\log^3 N)\) e in spazio \(\Omega(\log N)\).
+\subsubsection{Funzionamento}
+Supponiamo di voler fattorizzare un numero N, l'algoritmo:
+\begin{enumerate}
+  \item Controlla se N è numero primo o potenza di un numero primo, attraverso l'utilizzo di un qualsiasi test di primalità che sia polinomiale, e se è così si ferma, altrimenti passa al punto numero 2;
+  \item Sceglie un numero casuale a tale che \(1 < a < N\);
+  \item Se \(b = mcd\left(a, N\right) > 1\), dove \(mcd\) può essere calcolato in tempo polinomiale utilizzando l'algoritmo di Euclide, restituisce \(b\) e si ferma, altrimenti passa al punto numero 4;
+  \item Trova l'ordine \(a \; mod \; N\) tale che: \[a^r \equiv \; 1 \; mod \; N \; con \; r>0\]
+  \item Se \(r\) è dispari torna al punto numero 2, altrimenti passa al punto numero 6;
+  \item Calcola: 
+    \[x = a^{\frac{r}{2}} + 1 \; mod \; N\]
+    \[Y = a^{\frac{r}{2}} - 1 \; mod \; N\]
+  \item Se \(x = 0\), torna al punto numero 2;
+  \item Se \(y = 0\), prende \(r = \frac{r}{2}\) e torna al punto numero 5;
+  \item Calcola \(p = gcd(x, N)\) e \(q = gcd(y, N)\). Uno tra i due sarà fattore non banale di \(N\).
+\end{enumerate}
+
+Andando ad analizzare i vari passi del nostro algoritmo, possiamo notare che quasi tutti i punti potrebbero essere eseguiti, in un tempo ottimo, da un calcolatore classico. A fare eccezione è il punto numero 4: dati due interi positivi \(x\) e \(N\), dove \(x < N\) e tale che non hanno alcun fattore in comune, definiamo ordine di \(x \; mod \; N\) come il più piccolo intero \(r\) tale che 
+\[ x^r \equiv 1 \; mod \; N\]
+
+Dovendo quindi andare a calcolare l'ordine di \(x \; mod ;\ N\), utilizzando un calcolatore classico si andrebbe a svolgere un lavoro computazionalmente molto costoso: l'ideale è quindi utilizzare un computer quantistico.
+
+In termini di tempo, l'algoritmo di Shor può fattorizzare un intero \(N\) in tempo \(\Omega(\log^3 N)\) e in spazio \(\Omega(\log N)\).
 
 La maggior parte dei sistemi crittografici a chiave pubblica possono essere rotti utilizzando questo algoritmo quantistico, che andrà semplicemente ad utilizzare un numero di qubit pari al doppio della dimensione della chiave. Per comprendere al meglio il problema, basta prendere in considerazione l'RSA 2048: un computer classico con una CPU da 5 Ghz impiegherebbe circa 13,7 miliardi di anni per decifrarne un codice mentre un computer quantistico con CPU da 10 Mhz sarebbe in grado di fare ciò in circa 42 minuti \cite{kearney2021vulnerability}.
 
@@ -65,8 +113,6 @@ Ecco alcune considerazioni di sicurezza che riguardano però il design iniziale 
   \item [Impedire il riutilizzo degli indirizzi] Spendere risorse dallo stesso indirizzo non è solo insicuro nel contesto quantistico, ma è anche vulnerabile in quello classico. Il riutilizzo dello stesso indirizzo rivela la chiave pubblica e consente attacchi quantistici alla firma.
   \item [Considerare nuovi schemi di firma digitale] La crittografia post-quantistica sta maturando sempre di più e può sostituire gli schemi di firma esistenti che sono vulnerabili agli attacchi quantistici. Affidarsi a tali schemi per i PoS risolverebbe gli attacchi ai meccanismi di staking e a quelli di transazione.
 \end{description}
-
-Prenderemo in considerazione l'utlimo punto, ovvero la sostituzione degli attuali algoritmi di firma digitale con algoritmi quantum-resistant.
 
 \subsection{Schemi di firma post-quantistica}
 La crittografia post-quantistica si riferisce agli algoritmi classici che resistono agli attacchi noti dei potenti computer quantistici. Analizziamo e confrontiamo diversi schemi di firma post-quantistica proposti in letteratura (vedi Tabella \ref{tab:pq_sign}). Essi sono classificati in (I) \textit{multivariati}, (II) \textit{basati su reticoli}, (III) \textit{basati su hash}, (IV) \textit{basati su codici} e (V) basati su \textit{isogenesi di curve ellittiche supersingolari}.
@@ -130,9 +176,41 @@ Il primo schema di firma supersingolare basato sull'isogenia delle curve ellitti
   \label{tab:factorization}
 \end{table}
 
-\subsection{Selezione di uno schema di firma post-quantistica}
+\subsection{Selezione di uno schema di firma post quantistica}
 Come accennato in precedenza, l'ECC è ampiamente utilizzato nei sistemi blockchain, in particolare curve come secp256k1 per ECDSA e Ed25519 per EdDSA. Per raggiungere il livello di sicurezza \(t\)-bit di \(\log_2\) operazioni in questi schemi, un livello rappresentativo degli attacchi più noti, è necessario scegliere una dimensione della chiave pubblica di \(2t\) e una dimensione della firma di \(4t\). Per lo schema di Schnorr, \(3t\) è sufficiente per raggiungere il livello di sicurezza di \(t\)-bit. Per l'analisi pratica, le dimensioni teoriche della chiave pubblica e della firma sono aggiunte alla Tabella \ref{tab:factorization}.
 
-Poiché le blockchain sono utilizzate nei dispositivi mobili, i requisiti di risorse limitate, come la potenza di elaborazione, la memoria e l'utilizzo di energia per i dispositivi di firma, influiscono sulla scelta di uno schema di firma. Nella maggior parte dei casi, gli schemi post-quantum hanno prestazioni paragonabili o addirittura migliori rispetto agli schemi a chiave pubblica attualmente in uso. Considerando le dimensioni della firma e della chiave pubblica, si può scegliere uno schema post-quantum. Le firme basate su codici offrono le prestazioni più basse tra tutti gli schemi post-quantum. Nell'eventualità di trovare nuovi attacchi che richiedano un aumento dei parametri di CFS-parallel, le chiavi pubbliche possono diventare poco pratiche. Sebbene gli schemi multivariati mostrino forti garanzie di sicurezza e buone dimensioni della firma, sono necessarie ulteriori ottimizzazioni delle dimensioni della chiave pubblica prima di un utilizzo pratico. Poiché gli schemi basati su hash si basano su presupposti di sicurezza minimi, sono considerati un candidato forte per i sistemi blockchain, in particolare per gli schemi stateless. Anche le firme basate su reticoli sono buoni candidati, in base alla dimensione totale della chiave pubblica e della firma.
+Poiché le blockchain sono utilizzate nei dispositivi mobili, i requisiti di risorse limitate, come la potenza di elaborazione, la memoria e l'utilizzo di energia per i dispositivi di firma, influiscono sulla scelta di uno schema di firma. Nella maggior parte dei casi, gli schemi post-quantum hanno prestazioni paragonabili o addirittura migliori rispetto agli schemi a chiave pubblica attualmente in uso. Considerando le dimensioni della firma e della chiave pubblica, si può scegliere uno schema post-quantum.
 
-In conclusione, gli attacchi alla firma sulle blockchain minacciano i loro vantaggi in termini di sicurezza. Le funzioni di hash sono meno vulnerabili ai progressi dei computer quantistici e quindi PoW è più sicuro di PoS da questo punto di vista. Tuttavia, entrambi sono vulnerabili se gli schemi di firma non sono resistenti ai quanti. Rintengo che le firme basate su reticoli e hash siano le più adatte per questa migrazione.
+Elenchiamo brevemente le debolezze delle tipologie di schemi su cui si basano gli attuali algoritmi di cifratura post-quantistica:
+
+\begin{itemize}
+  \item RSA ed ECC, ad oggi molto leggeri e veloci, possono essere rotti in tempo polinomiale dall'algoritmo di Shor.
+  \item Gli schemi di firma basati sui reticoli sono ragionevolmente veloci e forniscono firme e chiavi ragionevolmente piccole per i parametri proposti. Tuttavia, i loro livelli di sicurezza quantitativi non sono affatto chiari. Non sorprende che uno schema basato su reticolo prometta una sicurezza di "100 bit" per un set di parametri nel 2012 e corregga questa promessa a "75-80 bit" nel 2013. Inoltre, entrambe le promesse sono state fatte solo contro attacchi pre-quantistici, e sembra probabile che gli stessi parametri saranno violabili in pratica dai computer quantistici.
+  \item Gli schemi di firma multivariata hanno firme estremamente brevi, sono ragionevolmente veloci e, in alcuni casi, hanno chiavi pubbliche sufficientemente brevi per applicazioni tipiche. Tuttavia, la sicurezza a lungo termine di questi schemi è ancora meno chiara di quella degli schemi basati su reticoli.
+  \item Gli schemi di firma basati su codici forniscono firme brevi e in alcuni casi sono stati studiati a sufficienza per supportare congetture quantitative sulla sicurezza. Tuttavia, gli schemi che hanno attirato il maggior numero di analisi di sicurezza hanno chiavi di molti megabyte e avrebbero bisogno di chiavi ancora più grandi per essere sicuri contro i computer quantistici.
+\end{itemize}
+
+In conclusione, gli schemi di firma basati su hash sono forse la risposta più interessante. Basti pensare che ogni schema di firma esistente utilizza una funzione hash crittografica; le firme basate su hash non utilizzano nient'altro. Molti schemi di firma basati su hash offrono prove di sicurezza relative a proprietà comprensibili e plausibili della funzione hash, proprietà che non sono state violate nemmeno quando la funzione hash è MD5. Un recente risultato di Song \cite{Song} dimostra che queste prove sono ancora valide per gli avversari quantistici; invece queste affermazioni non sono valide per molte altre proposte di firma post-quantistica. La firma basata su hash è ragionevolmente veloce, anche senza accelerazione hardware; la verifica è più rapida; le firme e le chiavi sono ragionevolmente piccole. Tuttavia, tutti gli schemi di firma basati su hash presenti in letteratura sono stateful. La firma legge una chiave segreta e un messaggio e genera una firma, ma genera anche una chiave segreta aggiornata. Questo non si adatta alle API standard; non si adatta nemmeno alla definizione standard di firma in crittografia. Se l'aggiornamento fallisce (ad esempio, se una chiave viene copiata da un dispositivo a un altro, o se viene eseguito un backup e successivamente ripristinato), la sicurezza si disintegra. Lo SPHINCS, che andremo ad illustrare in seguito, risolve anche quest'ultima problematica essendo stateless e può quindi sostituire gli attuali schemi di firma.
+
+\section{SPHINCS}
+SPHINCS lavora su un ipergrafo di altezza \(h\) che consiste di \(d\) strati di alberi di altezza \(\frac{h}{d}\). Ognuno di questi alberi ha il seguente aspetto. Le foglie di un albero sono \(2^{\frac{h}{d}}\) nodi radice di un L-Tree che comprimono ciascuno la chiave pubblica di una coppia di chiavi WOTS+. Pertanto, un albero può essere visto come una coppia di chiavi che può essere utilizzata per firmare \(2^{\frac{h}{d}}\) messaggi. L'ipergrafo è strutturato in \(d\) strati. Sullo strato \(d - 1\) ha un singolo albero. Sullo strato \(d - 2\) ha \(2^{\frac{h}{d}}\) alberi. Le radici di questi alberi sono firmate utilizzando le coppie di chiavi WOTS+ dell'albero sullo strato \(d - 1\). In generale, il livello \(i\) è composto da \(2^{(d-1-i)(\frac{h}{d})}\) alberi e le radici di questi alberi sono firmate utilizzando le coppie di chiavi WOTS+ degli alberi del livello \(i + 1\). Infine, sul livello 0 ogni WOTS+ ha un solo albero e ogni coppia di chiavi WOTS+ viene utilizzata per firmare una chiave pubblica HORST. Si parla di struttura \textit{"virtuale"} in quanto tutti i valori al suo interno sono determinati scegliendo un seme e le maschere di bit, e in quanto la struttura completa non viene mai calcolata. Il seme fa parte della chiave segreta e viene utilizzato per la generazione di chiavi pseudo-randomiche.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.4\textwidth]{shpincs_structure.png}
+  \caption{Struttura virtuale di una firma SPHINCS}
+  \label{fig:shpincs_structure}
+\end{figure}
+
+Per facilitare la comprensione, la Figura \ref{fig:sphincs_structure} mostra la struttura virtuale di una firma SPHINCS, cioè di un percorso all'interno dell'ipergrafo. Contiene \(d\) alberi \(TREE_i\) dove \(i \in [d - 1]\) (ognuno dei quali consiste in un albero di hash binario che autentica i nodi radice di \(2^{\frac{h}{d}}\) L-Trees che a loro volta hanno come foglie i nodi delle chiavi pubbliche di una coppia di chiavi WOTS+). Ogni albero autentica l'albero sottostante utilizzando una firma WOTS+ \(\sigma_{W,i}\). L'unica eccezione è \(TREE_0\) che autentica una chiave pubblica HORST utilizzando una firma WOTS+. Infine, la coppia di chiavi HORST viene utilizzata per firmare il messaggio. Quali alberi all'interno dell'ipergrafo vengono utilizzati (il che determina a sua volta le coppie di chiavi WOTS+ utilizzate per la firma) e quale coppia di chiavi HORST è determinata dall'indice generato in modo pseudorandom, non mostrato qui.
+
+Per la generazione pseudo-randomica delle chiavi utilizziamo un semplice schema di indirizzamento. Un indirizzo è una stringa di bit di lunghezza \(a = \lceil \log(d + 1)\rceil + (d - 1)(\frac{h}{d}) + (\frac{h}{d}) = \lceil \log(d + 1)\rceil + h\). L'indirizzo di una coppia di chiavi WOTS+ si ottiene codificando il livello dell'albero a cui appartiene come una stringa di \(\log(d+1)\)-bit (usando \(d-1\) per il livello superiore con un singolo albero). Quindi, si aggiunge l'indice dell'albero nel livello codificato come una stringa di \((d - 1)(\frac{h}{d})\)-bit (si numerano gli alberi da sinistra a destra, partendo da 0 per l'albero più a sinistra). Infine, si aggiunge l'indice della coppia di chiavi WOTS+ all'interno dell'albero, codificato come una stringa di \((\frac{h}{d})\)-bit (anche in questo caso si numera da sinistra a destra, partendo da 0). L'indirizzo della coppia di chiavi HORST si ottiene utilizzando l'indirizzo della coppia di chiavi WOTS+ utilizzata per firmare la sua chiave pubblica e ponendo d come valore di livello nella stringa dell'indirizzo, codificata come stringa di bit \(\lceil \log(d + 1) \rceil\). Per fare un esempio: In SPHINCS-256, un indirizzo ha bisogno di 64 bit.
+
+\subsection{Algoritmo di generazione delle chiavi}
+
+\subsection{Algoritmo di firma}
+
+\subsection{Algoritmo di verifica}
+
+
+NOTE: ILLUSTRARE MEGLIO SPHINCS.
