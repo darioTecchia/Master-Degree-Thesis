@@ -202,15 +202,19 @@ SPHINCS lavora su un ipergrafo di altezza \(h\) che consiste di \(d\) strati di 
   \label{fig:shpincs_structure}
 \end{figure}
 
-Per facilitare la comprensione, la Figura \ref{fig:sphincs_structure} mostra la struttura virtuale di una firma SPHINCS, cioè di un percorso all'interno dell'ipergrafo. Contiene \(d\) alberi \(TREE_i\) dove \(i \in [d - 1]\) (ognuno dei quali consiste in un albero di hash binario che autentica i nodi radice di \(2^{\frac{h}{d}}\) L-Trees che a loro volta hanno come foglie i nodi delle chiavi pubbliche di una coppia di chiavi WOTS+). Ogni albero autentica l'albero sottostante utilizzando una firma WOTS+ \(\sigma_{W,i}\). L'unica eccezione è \(TREE_0\) che autentica una chiave pubblica HORST utilizzando una firma WOTS+. Infine, la coppia di chiavi HORST viene utilizzata per firmare il messaggio. Quali alberi all'interno dell'ipergrafo vengono utilizzati (il che determina a sua volta le coppie di chiavi WOTS+ utilizzate per la firma) e quale coppia di chiavi HORST è determinata dall'indice generato in modo pseudorandom, non mostrato qui.
+Per facilitare la comprensione, la Figura \ref{fig:sphincs_structure} mostra la struttura virtuale di una firma SPHINCS, cioè di un percorso all'interno dell'ipergrafo. Contiene \(d\) alberi \(TREE_i\) dove \(i \in [d - 1]\) (ognuno dei quali consiste in un albero di hash binario che autentica i nodi radice di \(2^{\frac{h}{d}}\) L-Trees che a loro volta hanno come foglie i nodi delle chiavi pubbliche di una coppia di chiavi WOTS+). Ogni albero autentica l'albero sottostante utilizzando una firma WOTS+ \(\sigma_{W,i}\). L'unica eccezione è \(TREE_0\) che autentica una chiave pubblica HORST utilizzando una firma WOTS+. Infine, la coppia di chiavi HORST viene utilizzata per firmare il messaggio. Quali alberi all'interno dell'ipergrafo vengono utilizzati (il che determina a sua volta le coppie di chiavi WOTS+ utilizzate per la firma) e quale coppia di chiavi HORST è determinata dall'indice generato in modo pseudo-randomiche, non mostrato qui.
 
 Per la generazione pseudo-randomica delle chiavi utilizziamo un semplice schema di indirizzamento. Un indirizzo è una stringa di bit di lunghezza \(a = \lceil \log(d + 1)\rceil + (d - 1)(\frac{h}{d}) + (\frac{h}{d}) = \lceil \log(d + 1)\rceil + h\). L'indirizzo di una coppia di chiavi WOTS+ si ottiene codificando il livello dell'albero a cui appartiene come una stringa di \(\log(d+1)\)-bit (usando \(d-1\) per il livello superiore con un singolo albero). Quindi, si aggiunge l'indice dell'albero nel livello codificato come una stringa di \((d - 1)(\frac{h}{d})\)-bit (si numerano gli alberi da sinistra a destra, partendo da 0 per l'albero più a sinistra). Infine, si aggiunge l'indice della coppia di chiavi WOTS+ all'interno dell'albero, codificato come una stringa di \((\frac{h}{d})\)-bit (anche in questo caso si numera da sinistra a destra, partendo da 0). L'indirizzo della coppia di chiavi HORST si ottiene utilizzando l'indirizzo della coppia di chiavi WOTS+ utilizzata per firmare la sua chiave pubblica e ponendo d come valore di livello nella stringa dell'indirizzo, codificata come stringa di bit \(\lceil \log(d + 1) \rceil\). Per fare un esempio: In SPHINCS-256, un indirizzo ha bisogno di 64 bit.
 
-\subsection{Algoritmo di generazione delle chiavi}
+\subsection{Algoritmo di generazione delle chiavi\\\((SK, PK) \leftarrow kg(1^n)\)}
+L'algoritmo di generazione della chiave campiona innanzitutto due valori di chiave segreta \( (SK_1, SK_2) \in \left\{0,1\right\}^n \times \left\{0,1\right\}^n \). Il valore \(SK_1\) viene utilizzato per la generazione di chiavi pseudo-randomiche. Il valore \(SK_2\) è usato per generare un indice imprevedibile nella firma e valori pseudo-randomici per randomizzare l'hash del messaggio nella firma. Inoltre, \(p\) valori casuali uniformi di \(n\)-bit \(Q \underleftarrow{\$} \left\{0, 1\right\}^{p \times n}\) sono campionati come bitmask, dove \( p = max\left\{w-1, 2(h + \lceil \log l \rceil), 2 \log t\right\} \). Queste bitmaschere sono utilizzate per tutte le istanze WOTS+ e HORST e per gli alberi. Nel seguito utilizzeremo \(Q_{WOTS+}\) per le prime \(w - 1\) bitmaschere (di lunghezza \(n\)) in Q, \(Q_{HORST}\) per le prime \(2 \log t\), \(Q_{L-TREE}\) per le prime \( 2 \lceil \log l \rceil \) e \(Q_{TREE}\) per le \(2h\) stringhe di lunghezza n in Q che seguono \(Q_{L-TREE}\).
 
-\subsection{Algoritmo di firma}
 
-\subsection{Algoritmo di verifica}
+\subsection{Algoritmo di firma\\\(\sum \leftarrow sign(M, SK)\)}
+PLUTO
+
+\subsection{Algoritmo di verifica\\\(b \leftarrow vf(M, \sum, PK)\)}
+PAPERINO
 
 
 NOTE: ILLUSTRARE MEGLIO SPHINCS.
