@@ -211,7 +211,18 @@ L'algoritmo di generazione della chiave campiona innanzitutto due valori di chia
 
 
 \subsection{Algoritmo di firma\\\(\sum \leftarrow sign(M, SK)\)}
-PLUTO
+Su un messaggio in input \(M \in \left\{0,1\right\}^*\) e una chiave segreta \(SK = \left(SK_1,SK_2,Q\right)\), l'algoritmo di firma calcola un messaggio digest randomizzato \(D \in \left\{0,1\right\}^m\): In primo luogo, viene calcolato uno pseudorandom \(R = (R_1, R_2) \in \left\{0, 1\right\}n \times \left\{0, 1\right\}n\) come viene calcolato \(R \leftarrow F(M, SK_2)\). Quindi, \(D \leftarrow H(R_1,M)\) viene calcolato come hash randomizzato di \(M\) utilizzando i primi \(n\) bit di \(R\) come casualità. Gli ultimi \(n\) bit di \(R\) sono utilizzati per selezionare una coppia di chiavi HORST, calcolando un indice di \(h\) bit \(i \leftarrow CHOP(R_2 , h)\) come il primo \(h\) bit di \(R_2\).
+
+Dato un indice \(i\), la coppia di chiavi HORST con indirizzo \((d\|i(0, (d - 1)\frac{h}{d})||i((d - 1)\frac{h}{d}, \frac{h}{d}))\) viene usato per firmare il messaggio digest D, cioè, i primi \((d - 1)\frac{h}{d}\) bit di \(i\) sono usati come indice dell'albero e i restanti bit per l'indice all'interno dell'albero.
+
+La firma SPHINCS \( \sum(i, R_1, \sigma_H, \sigma_W,0, AUTH_{A_0} , . . . , \sigma_W,d-1, AUTH_{A_{d-1}}) \) contiene oltre all'indice \(i\), la casualità \(R_1\) e alla firma HORST \(\sigma_H\) anche una firma WOTS+ e un percorso di autenticazione \(\sigma_W,i, AUTH_{A_i} , dove \; i \in [d-2]\) per livello. Questi sono calcolati come segue: La coppia di chiavi WOTS+ con indirizzo \(A_0\) viene utilizzata per firmare \(pk_H\), dove \(A_0\) è l'indirizzo ottenuto prendendo \(A_{HORST}\) e impostando i primi \(\lceil \log(d + 1)\rceil\) bit a zero. Questo viene fatto eseguendo \(\sigma_{W,1} \leftarrow (pk_H, S_{A_0} , Q_{WOTS+} )\) utilizzando le maschere di bit di WOTS+. Quindi viene calcolato il percorso di autenticazione \(AUTH_i((d-1)\frac{h}{d},\frac{h}{d}))\) della coppia di chiavi WOTS+ utilizzata. Quindi, la chiave pubblica WOTS+ \(pk_{W,0}\) viene calcolata eseguendo \\ \(pk_{W,0} \leftarrow WOTS.vf(pkH, \sigma_W, 0, QWOTS+)\). Il nodo radice \(ROOT_0\) dell'albero viene calcolato comprimendo prima \(pk_{W,0}\) con un L-Tree. Quindi si applica l'algoritmo che,  data una foglia \(L_i\) insieme al suo percorso di autenticazione \(AUTH_i\), calcola la radice dell'albero utilizzando, in questo caso, l'indice della coppia di chiavi WOTS+ all'interno dell'albero, la radice dell'L-Tree e \(AUTH_i((d-1)\frac{h}{d},\frac{h}{d}))\).
+
+Questa procedura viene ripetuta dal livello 1 al livello \(d - 1\) con le due seguenti differenze: Su livello \( 1 \ \leqslant j < \), WOTS+ viene usato per firmare \(ROOT_{j-1}\), la radice calcolata al termine dell'iterazione precedente.
+
+L'indirizzo della coppia di chiavi WOTS+ usata sul livello \(j\) viene calcolata come \( A_j = (j\|i(0, (d - 1 - j)\frac{h}{d})\|i((d - 1 - j)\frac{h}{d}, \frac{h}{d})) \), cioè su ogni livello gli ultimi \((\frac{h}{d})\) bit dell'indirizzo dell'albero diventano il nuovo indirizzo della foglia e i bit rimanenti del precedente indirizzo dell'albero diventano il nuovo indirizzo dell'albero.
+
+Infine, la funzione di firma restituisce in output:
+\[ \sum = (i, R_1, \sigma_H, \sigma_W,0, AUTH_{A_0} , . . . , \sigma_{W,d-1}, AUTH_{A_{d-1}} ) \]
 
 \subsection{Algoritmo di verifica\\\(b \leftarrow vf(M, \sum, PK)\)}
 PAPERINO
