@@ -2,7 +2,6 @@
 Lo scopo di tale capitolo è la progettazione e l'implementazione di una blockchain decentralizzata basata sull'algoritmo di consenso PoS che chiameremo \textit{QRChain}, alla cui base vengono utilizzati non più algoritmi vulnerabili agli attacchi quantistici ma bensì algoritmi resistenti agli attacchi quantistici, nel nostro caso lo SPHINCS.
 
 \section{Cos'è QRChain?}
-NOTE: RIVEDERE L'ITALIANO
 Quantum Resistant Chain o, in breve, QRChain, inizialmente ideata con il nome di GoodChain \cite{Ghorbanzadeh_GoodChain_2022}, è una blockchain decentralizzata basata su Proof-of-Stake, scritta con Node.js.
 
 All'interno di QRChain chiunque può essere un miner o un validatore. Ha due monete native: \textit{GTC} e \textit{MCT}. GTC è utilizzata per pagare le commissioni di transazione e MCT è utilizzata per pagare la convalida di un blocco. Gli MCT possono essere guadagnati puntando GTC.
@@ -26,14 +25,10 @@ In QRChain, ogni nodo elabora il blocco successivo e lo aggiunge al suo elenco d
 Quindi ogni nodo seleziona il blocco candidato con il maggior numero di MCT e aggiorna il proprio stato e la catena.
 Poi ogni nodo cerca di assicurarsi che la sua catena sia quella corretta chiedendo agli altri nodi il loro ultimo blocco, se questo combacia con il proprio allora va tutto bene, altrimenti deve aggiornare o sostituire la sua catena.
 
-NOTE: TROVARE UNA TRADUZIONE MIGLIOR DI NODO CONFUSO
+Per questo, QRChain, utilizza un semplice meccanismo di reputazione. Il nodo da validare sceglie la catena tra i nodi di cui si fida di più. Questo elenco può essere inserito manualmente dal validatore o può utilizzare l'algoritmo predefinito per creare l'elenco.
 
-Per questo, QRChain, utilizza un semplice meccanismo di reputazione. Il nodo confuso sceglie la catena tra i nodi di cui si fida di più. Questo elenco può essere inserito manualmente dal validatore o può utilizzare l'algoritmo predefinito per creare l'elenco.
-
-L'algoritmo predefinito esamina la catena del nodo confuso e calcola un punto di fiducia per ogni validatore in base al numero di volte in cui il validatore ha estratto un blocco.
+L'algoritmo predefinito esamina la catena del nodo da validare e calcola un punto di fiducia per ogni validatore in base al numero di volte in cui il validatore ha estratto un blocco.
 Quindi il nodo sceglierà la catena con il punto di fiducia più alto.
-
-NOTE: DESCRIVERE LE FUNZIONI
 
 \section{Implementazione}
 Vediamo nel dettaglio quali sono le componenti caratteristiche della libreria. La sostituzione degli algoritmi ha impattato la quasi totalità del codice poichè la libreria che implementa SPHINCS utilizza delle funzioni asincrone, quindi c'è stata la necessità di adattare le funzioni esistenti da funzioni asincrone a funzioni sincrone.
@@ -41,8 +36,9 @@ Vediamo nel dettaglio quali sono le componenti caratteristiche della libreria. L
 Invece, le funzioni che hanno il compito di firmare, validare e generare le chiavi sono principalmente 5:
 
 \subsubsection{signBlock}
+La funzione \textit{signBlock}, con parametro il blocco da firmare \textit{block}, firma un blocco con la \textit{privateKey} del validatore per assicurarsi che l'indirizzo appartenga a quest ultimo; un validatore non dovrebbe essere in grado di inserire indirizzi di altri, perchè in questo modo gli verrebbero sottratti alcuni MCT. Si basa sull'algoritmo illustrato nel paragrafo \ref{sec:sign_algorithm}.
+\\
 \begin{lstlisting}[language=JavaScript,breaklines]
-  // Firma un blocco con la privateKey del validatore per assicurarsi che l'indirizzo appartenga al validatore; un validatore non dovrebbe essere in grado di inserire indirizzi di altri, perche' in questo modo gli verrebbero sottratti alcuni MCT.
   async signBlock(block) {
     const self = this
     const shaHash = self.hash(block)
@@ -52,8 +48,9 @@ Invece, le funzioni che hanno il compito di firmare, validare e generare le chia
 \end{lstlisting}
 
 \subsubsection{checkBlockSign}
+La funzione \textit{checkBlockSign}, con parametro blocco da validare \textit{block}, firma \textit{sign} e chiave pubblica \textit{publicKey}, verifica se il blocco è stato firmato da chi sta validando o meno. Si basa sull'algoritmo illustrato nel paragrafo \ref{sec:check_algorithm}.
+\\
 \begin{lstlisting}[language=JavaScript,breaklines]
-  // Verifica se il blocco e' firmato dal validatore
   async checkBlockSign(block, sign, publicKey) {
     const self = this
     const shaHash = self.hash(block)
@@ -64,8 +61,9 @@ Invece, le funzioni che hanno il compito di firmare, validare e generare le chia
 \end{lstlisting}
 
 \subsubsection{signTransaction}
+La funzione \textit{signTransaction}, con parametro la transazione da firmare \textit{trx} e la chiave privata \textit{privateKey}, firma una transazione con la \textit{privateKey} del validatore. Si basa sull'algoritmo illustrato nel paragrafo \ref{sec:sign_algorithm}.
+\\
 \begin{lstlisting}[language=JavaScript,breaklines]
-  // Firma una transazione usando privateKey
   async signTransaction(trx, privateKey) {
     const self = this;
     trx.from = QRChain.hex(trx.from);
@@ -77,8 +75,9 @@ Invece, le funzioni che hanno il compito di firmare, validare e generare le chia
 \end{lstlisting}
 
 \subsubsection{checkTransactionSign}
+La funzione \textit{checkTransactionSign}, con parametro transazione da validare \textit{trx}, firma \textit{sign} e chiave pubblica \textit{publicKey}, verifica se la transazione è stato firmato da chi sta validando o meno. Si basa sull'algoritmo illustrato nel paragrafo \ref{sec:check_algorithm}.
+\\
 \begin{lstlisting}[language=JavaScript,breaklines]
-  // Verifica se una transazione e' firmata dal validatore
   async checkTransactionSign(trx, sign, publicKey) {
     const self = this;
     const trxHash = self.hash(trx);
@@ -89,8 +88,9 @@ Invece, le funzioni che hanno il compito di firmare, validare e generare le chia
 \end{lstlisting}
 
 \subsubsection{generateKeyPairs}
+La funzione \textit{generateKeyPairs}, con parametro la PATH dove memorizzare le chiavi, genera una coppia composta da chiave pubblica e privata utilizzando l'algoritmo SPHINCS. Si basa sull'algoritmo illustrato nel paragrafo \ref{sec:sec:key_generation}.
+\\
 \begin{lstlisting}[language=JavaScript,breaklines]
-  // Genera una coppia composta da chiave pubblica e privata utilizzando l'algoritmo SPHINCS
   static async generateKeyPairs(path) {
     const keyPair = await sphincs.keyPair();
 
@@ -106,40 +106,41 @@ Invece, le funzioni che hanno il compito di firmare, validare e generare le chia
 
 \subsubsection{Costruttore}
 La classe principale, QRChain, è composta dalle seguenti variabili d'istanza e i seguenti parametri abbastanza autoesplicativi:
+\begin{description}
+  \item[chain] La lista di blocchi all'interno della catena.
+  \item[state] Lo stato attuale della blockchain.
+  \item[nodes] La lista contenente nodi, validatori o miner.
+  \item[transactions\_pool] La lista delle transazioni correnti per il prossimo blocco candidato.
+  \item[blockReward, validationFee] Sono rispettivamente la ricompensa del blocco per aver firmato minato un blocco (in GCT) e la percentuale di MCT che un validatore pagherà per validare un blocco. Entrambi impostati di default a \(30\) e \(0.25\).
+  \item[feesToCharity, rewardToCharity, charityAddress] Sono rispettivamente la percentuale di tassa inviata in beneficenza, la percentuale della ricompensa del blocco che verrà inviata in beneficenza e l'indirizzo del wallet di beneficenza.
+  \item[dbPath] È il percorso in cui avviene la persistenza dei dati. Nel dettaglio all'interno dei file \textit{state.json} e \textit{chain.json}. Questo parametro se non viene specificato corrisponderà alla PATH in cui viene eseguito la libreria.
+\end{description}
+
+Inoltre, viene inizializzato il validatore, la catena e il database di stati. Infine, avviene la creazione del blocco genesi.
 
 \begin{lstlisting}[language=JavaScript,breaklines]
   ...
   class QRChain {
     constructor({ chain, state, nodes, dbPath, validator } = {}) {
       const self = this
-      // catena di blocchi
       self.chain = chain || []
-      // stato della blockchain
       self.state = state || {}
-      // lista di nodi, validatori o miner
       self.nodes = nodes || [] 
-      // lista delle transazioni correnti per il prossimo blocco candidato
       self.transactions_pool = []
-      // rimcompensa del blocco per aver minato un blocco (in GCT)
+
       self.blockReward = 30
-      // la percentuale di MCT che un validatore paghera' per validare un blocco
       self.validationFee = 0.25
-      // la percentuale di tassa inviata in beneficenza
+
       self.feesToCharity = 0.25
-      // la percentuale della ricompensa del blocco che verra' inviata in beneficenza
       self.rewardToCharity = 0.2
-      // indirizzo del wallet di beneficenza
       self.charityAddress = "..." 
 
       self.executeScriptPath = dirname(process.argv[1])
-      // percorso del database: state.json and chain.json
       self.dbPath = dbPath || self.executeScriptPath 
+
       return (async () => {
-        // inizializzazione dell'oggetto validatore
         self.validator = await self.init_validator(validator)
-        // inizializzazione della catena e del database di stati
         await self.init_database()
-        // crezione del blocco genesi
         if (self.chain.length == 0) {
           await self.genesis_block()
         }
