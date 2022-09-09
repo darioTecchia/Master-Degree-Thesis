@@ -225,7 +225,4 @@ Infine, la funzione di firma restituisce in output:
 \[ \sum = (i, R_1, \sigma_H, \sigma_W,0, AUTH_{A_0} , . . . , \sigma_{W,d-1}, AUTH_{A_{d-1}} ) \]
 
 \subsection{Algoritmo di verifica\\\(b \leftarrow vf(M, \sum, PK)\)}
-PAPERINO
-
-
-NOTE: ILLUSTRARE MEGLIO SPHINCS.
+Su un messagio in input \( M \in \left\{0,1\right\}^* \), una firma \(\Sigma\), e una chiave pubblica PK, l'algoritmo calcola il messaggio digest \( D \leftarrow H(R_1,M) \) usando un \(R_1\) randomico contenuto nella firma. Il messaggio digest \(D\) e la maschera di bit HORST, definita come \(Q_{HORST}\), sono usate per calcolare la chiave pubblica HORST \( pk_H \leftarrow HORST.vf(D, \sigma_H, Q_{HORST}) \) dalla firma HORST. Se \(HORST.vf\) fallisce, allora la verifica restituirà \textit{false}.
