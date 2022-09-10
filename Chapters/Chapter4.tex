@@ -113,7 +113,7 @@ La classe principale, QRChain, è composta dalle seguenti variabili d'istanza e 
   \item[transactions\_pool] La lista delle transazioni correnti per il prossimo blocco candidato.
   \item[blockReward, validationFee] Sono rispettivamente la ricompensa del blocco per aver firmato minato un blocco (in GCT) e la percentuale di MCT che un validatore pagherà per validare un blocco. Entrambi impostati di default a \(30\) e \(0.25\).
   \item[feesToCharity, rewardToCharity, charityAddress] Sono rispettivamente la percentuale di tassa inviata in beneficenza, la percentuale della ricompensa del blocco che verrà inviata in beneficenza e l'indirizzo del wallet di beneficenza.
-  \item[dbPath] È il percorso in cui avviene la persistenza dei dati. Nel dettaglio all'interno dei file \textit{state.json} e \textit{chain.json}. Questo parametro se non viene specificato corrisponderà alla PATH in cui viene eseguito la libreria.
+  \item[dbPath] È il percorso in cui avviene la persistenza dei dati. Nel dettaglio all'interno dei file \textit{state.json} e \textit{chain.json}. Questo parametro, se non viene specificato esplicitamente, corrisponderà alla PATH in cui viene eseguita la libreria.
 \end{description}
 
 Inoltre, viene inizializzato il validatore, la catena e il database di stati. Infine, avviene la creazione del blocco genesi.
