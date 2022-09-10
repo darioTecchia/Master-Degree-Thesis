@@ -7,7 +7,7 @@ Tuttavia, l'emergente paradigma di calcolo basato sulle proprietà meccaniche qu
 
 R. P. Feynman fu tra i primi fisici ad occuparsi della questione, dando le linee guida sul possibile utilizzo di sistemi quantistici come costituenti di un nuovo tipo di calcolatore; sottolineò, inoltre, come un calcolatore di questo tipo sarebbe allo stesso tempo un "simulatore" ideale per i sistemi quantistici. A partire dalle osservazioni sviluppate in quel periodo, si iniziò a costruire una nuova teoria dell'informazione, che tenesse conto delle possibilità, ancora teoriche, offerte dal calcolatore quantistico. In particolare, una nuova classificazione della complessità computazionale si rese necessaria, grazie alle peculiarità ed ai vantaggi offerti dal nuovo paradigma computazionale.
 
-Contributi fondamentali sono stati dati da David Deutsch che, nel 1985, si chiese se le leggi della fisica quantistica potessero essere usate per derivare una versione ancora più forte della tesi di Church-Turing e tentò di definire un dispositivo computazionale che fosse capace di simulare in modo efficiente un sistema fisico arbitrario \cite{deutsch1985quantum}. Questo dispositivo sarebbe diventato la moderna concezione di un computer quantistico e che questi dispositivi potssero avere poteri di calcolo ben superiori a quelli dei computer tradizionali, indipendentemente dai loro progressi ottenibili nel calcolo classico.
+Contributi fondamentali sono stati dati da David Deutsch che, nel 1985, si chiese se le leggi della fisica quantistica potessero essere usate per derivare una versione ancora più forte della tesi di Church-Turing e tentò di definire un dispositivo computazionale che fosse capace di simulare in modo efficiente un sistema fisico arbitrario \cite{deutsch1985quantum}. Questo dispositivo sarebbe diventato la moderna concezione di un computer quantistico e che questi dispositivi potessero avere poteri di calcolo ben superiori a quelli dei computer tradizionali, indipendentemente dai loro progressi ottenibili nel calcolo classico.
 
 Negli anni seguenti, lo studio degli algoritmi quantistici si è evoluto come un sotto-campo dell'informatica quantistica con applicazioni di diverso tipo: ricerca e ottimizzazione, machine learning, simulazione di sistemi quantistici e crittografia.
 
@@ -93,7 +93,7 @@ Gli stati del qubit verranno collocati in punti precisi della superficie della s
   \label{fig:qubit_geom}
 \end{figure}
 
-Come possiamo vedere nella figura \ref{fig:qubit_geom}, possiamo stabilire una corrispondenza biunivoca fra la rappresentazione generica dello stato di un qubit:
+Come possiamo vedere nella Figura \ref{fig:qubit_geom}, possiamo stabilire una corrispondenza biunivoca fra la rappresentazione generica dello stato di un qubit:
 \[
   | \psi \rangle
   = \alpha | 0 \rangle
@@ -142,7 +142,7 @@ da questo lo stato di ogni qubit si può descrivere usando le due variabili \(\t
   + e^{i\phi} \sin \left( \frac{\theta}{2} \right) | 1 \rangle
 \]
 
-Interpretanto \(\theta\) e \(\phi\) come coordinate sferiche, si può tracciare qualsiasi stato del qubit sulla superficie della sfera di Bloch. In figura \ref{fig:qubit_stato} vengono visualizzati i seguenti vettori di stato del qubit:
+Interpretando \(\theta\) e \(\phi\) come coordinate sferiche, si può tracciare qualsiasi stato del qubit sulla superficie della sfera di Bloch. In Figura \ref{fig:qubit_stato} vengono visualizzati i seguenti vettori di stato del qubit:
 
 \begin{figure}[h]
   \centering
@@ -281,8 +281,7 @@ Il gate è rappresentato dalla seguente matrice:
     0 & 0 & 1 & 0
   \end{bmatrix}
 \]
-Dove effettivamente possiamo notare come gli ultimi due stati vengano rispettivamente invertiti e prendendo in esempio un sistema composto da due qubit, il CNOT eseguirà operazioni mostrate in tabella \ref{tab:cnot}:
-
+Dove effettivamente possiamo notare come gli ultimi due stati vengano rispettivamente invertiti e prendendo in esempio un sistema composto da due qubit, il CNOT eseguirà operazioni mostrate in Tabella \ref{tab:cnot}:
 \begin{table}[htbp]
   \centering
   \begin{tabular}{|cc|cc|}
@@ -312,13 +311,13 @@ In un circuito quantistico, a differenza della controparte classica, dopo la mis
 Altra differenza con la controparte classica è la predicibilità, ovvero che se l'esperimento effettuato venisse ripetuto rispettando le condizioni, ci aspettiamo esattamente lo stesso risultato cosa che in ambito quantistico risulta incerta perché coadiuvata dal coefficiente associato allo stato.
 
 \section{Registri quantistici}
-Fin'ora abbiamo visto come rappresentare un solo qubit, per rappresentare un sistema a più qubit si utilizza un \textbf{registro quantistico}, che di fatto indica in che modo i qubit sono collegati tra loro. Per rappresentare questi registri si usa il \textbf{prodotto tensore} \( \otimes \), un operatore che combina spazi vettoriali di una certa dimensione per generarne dei più grandi, infatti: \( \otimes: \mathbb{C}^k \times \mathbb{C}^m \rightarrow \mathbb{C}^{km} \) quindi lo spazio totale di un registro quantistico sarà \( \mathbb{C}^{2 \cdot...\cdot 2} = \mathbb{C}^{2^n} \).
+Fin'ora abbiamo visto come rappresentare un solo qubit, per rappresentare un sistema a più qubit si utilizza un \textbf{registro quantistico}, che di fatto indica in che modo i qubit sono collegati tra loro. Per rappresentare questi registri si usa il \textbf{prodotto tensore} \( \otimes \), un operatore che combina spazi vettoriali di una certa dimensione per generarne dei più grandi, infatti: \( \otimes: \mathbb{C}^k \times \mathbb{C}^m \rightarrow \mathbb{C}^{km} \), quindi lo spazio totale di un registro quantistico sarà \( \mathbb{C}^{2 \cdot...\cdot 2} = \mathbb{C}^{2^n} \).
 
 Formalmente si definisce un registro quantistico, secondo il quarto postulato della meccanica quantistica\footnote{Lo spazio degli stati di un sistema fisico composto è il prodotto tensore degli spazi degli stati dei sistemi fisici componenti. Se il sistema è composto da n sottosistemi e il componente i-esimo si trova nello stato \( | \phi _i \rangle \) allora lo stato del sistema totale è \( | \phi _1 \rangle \otimes | \phi _2 \rangle \otimes ... | \phi _n \rangle \)}, come:
 \[
   | i _1 \rangle \otimes | i _2 \rangle \otimes ... | i _n \rangle
 \]
-dove \(i = 0,1\) e \(n\) è il numero di qubit e per convenienze possiamo rappresentare questo vettore semplicemente come \( | i _1 i _2 ... i _n \rangle \). Consideriamo un semplice sistema a due qubit, dove il primo è \( |\psi \rangle  = \alpha _0 |0 \rangle  + \beta _0 |1 \rangle \)  mentre il secondo \( |\theta \rangle  = \alpha _1 | 0 \rangle  + \beta _1 | 1 \rangle \). Lo stato totale sarà una sovrapposizione dalla forma:
+dove \(i = 0,1\) e \(n\) è il numero di qubit e per convenienza possiamo rappresentare questo vettore semplicemente come \( | i _1 i _2 ... i _n \rangle \). Consideriamo un semplice sistema a due qubit, dove il primo è \( |\psi \rangle  = \alpha _0 |0 \rangle  + \beta _0 |1 \rangle \)  mentre il secondo \( |\theta \rangle  = \alpha _1 | 0 \rangle  + \beta _1 | 1 \rangle \). Lo stato totale sarà una sovrapposizione dalla forma:
 \[
   | \psi \rangle \otimes | \phi \rangle 
   = \alpha _{01} | 00 \rangle 
@@ -330,7 +329,7 @@ dove \(i = 0,1\) e \(n\) è il numero di qubit e per convenienze possiamo rappre
 Analogamente al singolo qubit dove il risultato della misurazione ci restituisce 0 con probabilità \( |\alpha|^2 \) e 1 con probabilità \( |\beta|^2 \). In un sistema di \(n\) qubit possiamo anche misurare solo un sottoinsieme degli \(n\) qubit. Ad esempio lo stato risulterà in \(| 00 \rangle \) con probabilità \( | \alpha _{01}|^2 \), in \(| 01 \rangle \) con probabilità \( | \alpha _0 \beta _1|^2 \) e così via. Inoltre se volessimo sapere la probabilità di ottenere 0 al primo bit basta sommare le probabilità di \(| 00 \rangle \) e \(| 01 \rangle \) cioè \( |\alpha _{01}|^2 + |\alpha _0 \beta _1|^2 \).
 
 \section{Entanglement}
-Dopo aver visto i registri quantistici una ulteriore proprietà legata ai possibili stati in cui può trovarsi il sistema è l'\textit{entanglement}, proprietà che non possiamo ritrovare in nessun oggetto della fisica classica. Questi stati chiamati entangled rappresentano quelle possibili configurazioni di n qubit componenti che non hanno un proprio stato ben definito ma solamente la loro combinazione ne rappresenta uno concreto. Più semplicemente uno stato entangled non può essere descritto come prodotto tensore degli stati dei singoli componenti.
+Dopo aver visto i registri quantistici un'ulteriore proprietà legata ai possibili stati in cui può trovarsi il sistema è l'\textit{entanglement}, proprietà che non possiamo ritrovare in nessun oggetto della fisica classica. Questi stati chiamati entangled rappresentano quelle possibili configurazioni di \(n\) qubit componenti che non hanno un proprio stato ben definito ma solamente la loro combinazione ne rappresenta uno concreto. Più semplicemente uno stato entangled non può essere descritto come prodotto tensore degli stati dei singoli componenti.
 Gli stati entangled si comportano come se fossero strettamente connessi l'uno all'altro indipendentemente dalla distanza fisica che li separa, in modo che una misurazione o un'operazione di uno dei due stati di una coppia entangled fornisce simultaneamente informazioni sulla coppia.
 Un esempio per spiegare questa proprietà è dato dallo stato \( | 00 \rangle + | 11 \rangle \) che non può essere fattorizzato nel prodotto tensore di due qubit indipendenti, in quanto non esistono dei coefficienti \( \alpha _1 \alpha _2 \beta _1 \beta _2 \) tali per cui valga:
 \[
@@ -363,7 +362,7 @@ I problemi vengono eseguiti su una macchina di Turing per individuarne la partic
 
 \begin{itemize}
   \item La classe \textbf{P} è l'insieme dei problemi di decisione che possono essere risolti da una macchina di Turing deterministica in tempo polinomiale.
-  \item La classe \textbf{NP} è l'insieme dei problemi di decisione che possono essere risolti da una macchina di Turing non deterministica in tempo polinomiale. Inoltre nella classe NP è composta anche dalle classi NP-Complete e NP-Hard.
+  \item La classe \textbf{NP} è l'insieme dei problemi di decisione che possono essere risolti da una macchina di Turing non deterministica in tempo polinomiale. Inoltre la classe NP è composta anche dalle classi NP-Complete e NP-Hard.
   \begin{itemize}
     \item La classe \textbf{NP-Complete} è l'insieme dei problemi più difficili nella classe NP nel senso che, se si trovasse un algoritmo in grado di risolvere "velocemente" (in tempo polinomiale) un qualsiasi problema NP-completo, allora si potrebbe usarlo per risolvere "velocemente" ogni problema in NP.
     \item In teoria della complessità, i problemi NP-difficili o NP-ardui sono una classe di problemi che può essere definita informalmente come la classe dei problemi almeno difficili come i più difficili problemi delle classi di complessità P e NP.
@@ -380,10 +379,10 @@ Gli informatici \textit{Bernstein} e \textit{Vazirani} nel 1997 definirono una n
 \end{figure}
 
 \subsection{Macchina di Turing Quantistica}
-La \textbf{Macchina di Turing Quantistica} (\textbf{QTM}) è stata descritta per la prima volta da Deutsch \cite{deutsch1985quantum}. L'idea di base è abbastanza semplice, un QTM è più o meno una Macchina di Turing probabilistica (PTM) con ampiezze di transizione complesse anzichè probabilità reali. A sua volta una Macchina di Turing Probabilistica (PTM) è identica a una normale Macchina di Turing tranne per il fatto che ad ogni configurazione della macchina (\(q_{i}S_{j}\)) c'è un insieme finito di regole di transizione (ognuna con una probabilità associata) che si applicano e che una scelta casuale determina quale regola applicare. Fissiamo una soglia di probabilità maggiore delle quote pari (diciamo, 75\%) e diciamo che una PTM specifica calcola \(f(x)\) sull'input \(x\) se e solo se si ferma con \(f(x)\) come output con probabilità maggiore del 75\%.
+La \textbf{Macchina di Turing Quantistica} (\textbf{QTM}) è stata descritta per la prima volta da Deutsch \cite{deutsch1985quantum}. L'idea di base è abbastanza semplice, un QTM è più o meno una Macchina di Turing probabilistica (PTM) con ampiezze di transizione complesse anzichè probabilità reali. A sua volta una Macchina di Turing Probabilistica (PTM) è identica a una normale Macchina di Turing tranne per il fatto che ad ogni configurazione della macchina (\(q_{i}S_{j}\)) c'è un insieme finito di regole di transizione (ognuna con una probabilità associata) che si applicano e che una scelta casuale determina quale regola applicare. Fissiamo una soglia di probabilità maggiore delle quote pari (diciamo 75\%) e diciamo che una PTM specifica calcola \(f(x)\) sull'input \(x\) se e solo se si ferma con \(f(x)\) come output con probabilità maggiore del 75\%.
 
 \subsection{Condizioni per la realizzazione}
-Per la realizzazione di un computer quantistico nel 2000 sono stati stilati dal fisico teorico Di Vincenzo i \textbf{criteri di DiVincenzo} \cite{DiVincenzo_2000} che consistono in sette condizioni necessarie per costruire un computer seguentdo il modello quantistico, le prime cinque sono necessarie per il calcolo quantistico e sono:
+Per la realizzazione di un computer quantistico nel 2000 sono stati stilati dal fisico teorico Di Vincenzo i \textbf{criteri di DiVincenzo} \cite{DiVincenzo_2000} che consistono in sette condizioni necessarie per costruire un computer seguendo il modello quantistico, le prime cinque sono necessarie per il calcolo quantistico e sono:
 
 \begin{enumerate}
   \item Il sistema deve essere \textit{scalabile}, con qubit ben caratterizzati;
@@ -417,10 +416,10 @@ Negli ultimi anni si stanno sperimentando vari modi per la realizzazione dei com
   \label{fig:qubit_how}
 \end{figure}
 
-Tra tutti i più utilizzati dai produttori come IBM, Google, Rigetti sono:
+Tra tutti i più utilizzati dai produttori come IBM, Google e Rigetti sono:
 
 \begin{description}
   \item[Ioni intrappolati di un atomo] In questa tipologia di approccio, vengono costruite delle cosiddette \textit{ion trap} o trappole di ioni. Il loro scopo è trattenere all'interno degli ioni, come ad esempio un atomo di calcio che tramite l'utilizzo di un raggio laser è stato privato di uno dei due elettroni più esterni. Un chip costruito con questo approccio dei qubit è molto simile ai chip di cui sono composte le CPU classiche: si tratta infatti di un chip composto di oro su cui sono presenti gli ioni di calcio e al di sopra di essi, circa ad una distanza pari al diametro di un capelli, è presente un sottile strato di oro che alternando appositamente il suo campo magnetico, riesce a tenere gli ioni nella loro posizione ed evitare che fuoriescano (da qui si capisce il termine ion trap). \\
-  Come è possibile trattare questi ioni come qubit? Innanzitutto, gli ioni naturalmente seguono i principi della meccanica quantistica, ed è possibile ottenere i due stati base di un qubit tramite l'utilizzo dello spin, presente in ogni atomo, che rappresenta una intrinseca forma di momento angolare di una particella elementare. Possiamo immaginare lo spin dell'elettrone del nostro atomo di calcio come un magnete: il nord può puntare verso l'alto, ottenendo un qubit in uno stato \(|1\rangle\) che in questo caso corrisponde a \(|\uparrow\rangle\), oppure verso il basso, ottenendo uno stato \(|0\rangle\) corrispondente a \(|\downarrow\rangle\). Per passare fra lo stato \(|\uparrow\rangle\) e \(|\downarrow\rangle\), basta utilizzare delle microonde che hanno l'effetto di ruotare lo spin dell'elettrone. È possibile quindi ruotare e fermarci in un qualsiasi stato compreso fra i due spin, ottenendo quella che abbiamo in precedenza chiamato superposizione.
+  Com'è possibile trattare questi ioni come qubit? Innanzitutto, gli ioni naturalmente seguono i principi della meccanica quantistica, ed è possibile ottenere i due stati base di un qubit tramite l'utilizzo dello spin, presente in ogni atomo, che rappresenta una intrinseca forma di momento angolare di una particella elementare. Possiamo immaginare lo spin dell'elettrone del nostro atomo di calcio come un magnete: il nord può puntare verso l'alto, ottenendo un qubit in uno stato \(|1\rangle\) che in questo caso corrisponde a \(|\uparrow\rangle\), oppure verso il basso, ottenendo uno stato \(|0\rangle\) corrispondente a \(|\downarrow\rangle\). Per passare fra lo stato \(|\uparrow\rangle\) e \(|\downarrow\rangle\), basta utilizzare delle microonde che hanno l'effetto di ruotare lo spin dell'elettrone. È possibile quindi ruotare e fermarci in un qualsiasi stato compreso fra i due spin, ottenendo quella che abbiamo in precedenza chiamato superposizione.
   \item[Superconduttori] L'approccio che utilizza i superconduttori per costruire i qubit viene utilizzato ad esempio nei computer quantistici di Google o IBM. Proprio con questo metodo di costruzione, nel 2016 Google ha annunciato di aver raggiunto la Quantum Supremacy \cite{quantum_supremacy}, cioè è stato risolto un problema che nessun calcolatore classico potrebbe risolvere in un ragionevole lasso di tempo, utilizzando un computer quantistico a 56 qubit, prodotti con questo approccio. Un superconduttore è un particolare materiale che raffreddato ad una temperatura molto vicina allo zero assoluto (0K oppure -273.15C) annulla la sua resistività elettrica completamente e grazie a queste particolari caratteristiche risulta adatto per essere utilizzato come qubit.
 \end{description}

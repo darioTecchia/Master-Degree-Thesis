@@ -1,8 +1,10 @@
 \chapter{Conclusioni e sviluppi futuri}
+\section{Conclusioni}
 In questo lavoro di tesi è stata presentata QRChain, un modello di blockchain basata su Proof-of-Stake, con lo scopo di introdurre problemi e soluzioni delle attuali blockchain in vista del sempre più rapido sviluppo dei computer quantistici. Come primo passo sono state analizzate le vulnerabilità note delle blockchain odierne. La prima vulnerabilità riguarda gli attacchi effettuati tramite l'algoritmo di ricerca di Grover e l'algoritmo di fattorizzazione di Shor. Successivamente, sono state fatte le considerazioni sulla progettazione del sistema blockchain. La soluzione adottata si basa sulla sostituzione dell'attuale schema di firma digitale sostituendo il vecchio, non quantum-safe, con uno sicuro. La scelta dello schema di firma è ricaduta sullo SPHINCS che risulta essere quantum-safe oltre che adatto al nostro caso.
 
-\section{Ethereum 2.0}
-Tra gli sviluppi futuri si propone un \textit{hard fork} di Ethereum sostituendo l'attuale algoritmo di consenso utilizzato, la Proof-of-Work, con il più sicuro e sostenibile Proof-of-Stake. Così facendo si crea una base su cui poi andare ad applicare la nostra implementazione, QRChain, per rendere Ethereum sicuro agli attacchi quantistici.
+\section{Sviluppi futuri}
+\subsection{Ethereum 2.0}
+Tra gli sviluppi futuri si propone un aggiornamento di Ethereum sostituendo l'attuale algoritmo di consenso utilizzato, la Proof-of-Work, con il più sicuro e sostenibile Proof-of-Stake. Così facendo si crea una base su cui poi andare ad applicare la nostra implementazione, QRChain, per rendere Ethereum sicuro agli attacchi quantistici.
 
 Il passaggio verso PoS permetterà di concretizzare meglio quella che è stata la visione originaria che ha portato alla realizzazione di Ethereum, passando ad una rete più scalabile, più sicura e più sostenibile. E in particolare il tema della sostenibilità, poiché con il passaggio a PoS Ethereum promette di abbattere del 99,95\% il consumo energetico necessario per il funzionamento della rete, come possiamo vedere nella Figura \ref{fig:pos_energy}.
 
@@ -22,10 +24,10 @@ Questa migrazione da PoW a PoS può avvenire tramite un \textit{merge} e non tra
   \label{fig:the_merge}
 \end{figure}
 
-\section{SPHINCS+}
+\subsection{SPHINCS+}
 Infine, un ulteriore sviluppo futuro proposto è la sostituzione dello SPHINCS con il più recente SPHINCS+.
 
-SPHINCS+ è uno schema di firma stateless basato su hash, presentato al progetto di crittografia post-quantistica del NIST. Il progetto è un'evoluzione dello schema di firma SPHINCS, presentato a EUROCRYPT 2015. Incorpora diversi miglioramenti, mirati in particolare a ridurre la dimensione della firma e velocizzare lo schema. Lo SPHINCS+, in termini di progettazione, è analogo allo SPHINCS, ma modificando alcuni aspetti interni. Riassumiamo di seguito i principali cambiamenti dello SPHINCS+:
+SPHINCS+ è uno schema di firma stateless basato su hash, presentato al progetto di crittografia post-quantistica del NIST \cite{Bernstein2017SPHINCSS}. Il progetto è un'evoluzione dello schema di firma SPHINCS, presentato a EUROCRYPT 2015. Incorpora diversi miglioramenti, mirati in particolare a ridurre la dimensione della firma e velocizzare lo schema. Lo SPHINCS+, in termini di progettazione, è analogo allo SPHINCS, ma modificando alcuni aspetti interni. Riassumiamo di seguito i principali cambiamenti dello SPHINCS+:
 \begin{description}
   \item[Protezione dagli attacchi multitarget] Ad ogni chiamata viene utilizzata una hash function diversa con una chiave diversa applicando differenti bitmask. Le chiavi e le bitmask sono generati pseudo-randomicamente da un indirizzo specificando il contesto della chiamata, e un seme pubblico.
   \item[Tree-less WOTS+ public key compression] Gli ultimi nodi della catena WOTS+ non vengono compressi usando una singola funzione hash. Come prima, viene chiamata una funzione hash diversa ad ogni invocazione.

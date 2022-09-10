@@ -31,7 +31,7 @@ L'algoritmo predefinito esamina la catena del nodo da validare e calcola un punt
 Quindi il nodo sceglierà la catena con il punto di fiducia più alto.
 
 \section{Implementazione}
-Vediamo nel dettaglio quali sono le componenti caratteristiche della libreria. La sostituzione degli algoritmi ha impattato la quasi totalità del codice poichè la libreria che implementa SPHINCS utilizza delle funzioni asincrone, quindi c'è stata la necessità di adattare le funzioni esistenti da funzioni asincrone a funzioni sincrone.
+Vediamo nel dettaglio quali sono le componenti chiave della libreria sviluppata. La sostituzione degli algoritmi ha impattato la quasi totalità del codice poichè la libreria che implementa SPHINCS utilizza delle funzioni asincrone, quindi c'è stata la necessità di adattare le funzioni esistenti da funzioni asincrone a funzioni sincrone.
 
 Invece, le funzioni che hanno il compito di firmare, validare e generare le chiavi sono principalmente 5:
 
@@ -48,7 +48,7 @@ La funzione \textit{signBlock}, con parametro il blocco da firmare \textit{block
 \end{lstlisting}
 
 \subsubsection{checkBlockSign}
-La funzione \textit{checkBlockSign}, con parametro blocco da validare \textit{block}, firma \textit{sign} e chiave pubblica \textit{publicKey}, verifica se il blocco è stato firmato da chi sta validando o meno. Si basa sull'algoritmo illustrato nel paragrafo \ref{sec:check_algorithm}.
+La funzione \textit{checkBlockSign}, con parametro il blocco da validare \textit{block}, la firma \textit{sign} e la chiave pubblica \textit{publicKey}, verifica se il blocco è stato firmato da chi sta validando o meno. Si basa sull'algoritmo illustrato nel paragrafo \ref{sec:check_algorithm}.
 \\
 \begin{lstlisting}[language=JavaScript,breaklines]
   async checkBlockSign(block, sign, publicKey) {
@@ -75,7 +75,7 @@ La funzione \textit{signTransaction}, con parametro la transazione da firmare \t
 \end{lstlisting}
 
 \subsubsection{checkTransactionSign}
-La funzione \textit{checkTransactionSign}, con parametro transazione da validare \textit{trx}, firma \textit{sign} e chiave pubblica \textit{publicKey}, verifica se la transazione è stato firmato da chi sta validando o meno. Si basa sull'algoritmo illustrato nel paragrafo \ref{sec:check_algorithm}.
+La funzione \textit{checkTransactionSign}, con parametro la transazione da validare \textit{trx}, la firma \textit{sign} e la chiave pubblica \textit{publicKey}, verifica se la transazione è stata firmata da chi sta validando o meno. Si basa sull'algoritmo illustrato nel paragrafo \ref{sec:check_algorithm}.
 \\
 \begin{lstlisting}[language=JavaScript,breaklines]
   async checkTransactionSign(trx, sign, publicKey) {
@@ -113,7 +113,7 @@ La classe principale, QRChain, è composta dalle seguenti variabili d'istanza e 
   \item[transactions\_pool] La lista delle transazioni correnti per il prossimo blocco candidato.
   \item[blockReward, validationFee] Sono rispettivamente la ricompensa del blocco per aver firmato minato un blocco (in GCT) e la percentuale di MCT che un validatore pagherà per validare un blocco. Entrambi impostati di default a \(30\) e \(0.25\).
   \item[feesToCharity, rewardToCharity, charityAddress] Sono rispettivamente la percentuale di tassa inviata in beneficenza, la percentuale della ricompensa del blocco che verrà inviata in beneficenza e l'indirizzo del wallet di beneficenza.
-  \item[dbPath] È il percorso in cui avviene la persistenza dei dati. Nel dettaglio all'interno dei file \textit{state.json} e \textit{chain.json}. Questo parametro, se non viene specificato esplicitamente, corrisponderà alla PATH in cui viene eseguita la libreria.
+  \item[dbPath] È il percorso in cui avviene la persistenza dei dati. Precisamente all'interno dei file \textit{state.json} e \textit{chain.json}. Questo parametro, se non viene specificato esplicitamente, corrisponderà alla PATH in cui viene eseguita la libreria.
 \end{description}
 
 Inoltre, viene inizializzato il validatore, la catena e il database di stati. Infine, avviene la creazione del blocco genesi.
@@ -152,7 +152,7 @@ Inoltre, viene inizializzato il validatore, la catena e il database di stati. In
 
 \subsection{Tecnologie usate}
 \subsubsection{JavaScript}
-QRChain è stata implementata completamente in JavaScript. Quest'ultimo, a volta abbreviato con JS, è un linguaggio di programmazione multi paradigma orientato agli eventi, standardizzato per la prima volta il 1997 dalla ECMA con il nome ECMAScript, l'ultimo standard, di giugno 2022, è ECMA-262 Edition 13 ed è anche uno standard ISO (ISO/IEC 16262).
+QRChain è stata implementata completamente in JavaScript, abbreviato con JS, è un linguaggio di programmazione multi paradigma orientato agli eventi, standardizzato per la prima volta il 1997 dalla ECMA con il nome ECMAScript, l'ultimo standard, di giugno 2022, è ECMA-262 Edition 13 ed è anche uno standard ISO (ISO/IEC 16262).
 
 \subsubsection{NodeJs}
 Node.js è un runtime system open source multipiattaforma orientato agli eventi per l'esecuzione di codice JavaScript, costruito sul motore JavaScript V8 di Google Chrome.

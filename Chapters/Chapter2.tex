@@ -4,7 +4,7 @@ Alla base della più moderna forma di commercio, incentrata sulle criptovalute, 
 
 \section{La storia della Blockchain}
 
-L'evoluzione della blockchain può essere riassunta nei seguenti passaggi principali mostrati nella tabella temporale \ref{tab:blockchain_evolution}.
+L'evoluzione della blockchain può essere riassunta nei seguenti passaggi principali mostrati nella Tabella \ref{tab:blockchain_evolution}.
 
 Nel 1982, il crittografo David Chaum ha proposto per la prima volta un protocollo simile alla blockchain nella sua tesi del 1982 \textit{"Computer e sistemi creati, mantenuti e resi attendibili da gruppi di individui reciprocamente sospettosi"} \cite{computer_systems_chaum}, da qui in poi li definiamo \textbf{Sistemi di Chaum}. Siamo così difronte alla prima idea di tecnologia blockchain.
 
@@ -34,8 +34,8 @@ Un ulteriore lavoro su una catena di blocchi protetta da crittografia è stata d
 
 L'utilizzo del timestamp richiede il superamento di due problematiche:
 \begin{itemize}
-  \item I dati DEVONO essere contrassegnati con l'ora esatta
-  \item Il calendario DEVE essere immutabile
+  \item I dati DEVONO essere contrassegnati con l'ora esatta.
+  \item Il calendario DEVE essere immutabile.
 \end{itemize}
 
 I due, idearono una soluzione a queste problematiche definita "\textit{naive}", la quale consisteva nell'utilizzo di una \textit{cassetta di sicurezza digitale}. Ogni volta che un cliente ha un documento da marcare temporalmente, lo trasmette a un servizio di marcatura temporale (TSS). Il servizio registra la data e l'ora di ricezione del documento e ne conserva una copia. Se l'integrità del documento del cliente viene messa in discussione, viene confrontata con la copia conservata dal TSS. Se le due copie sono identiche, è la prova che il documento non è stato manomesso dopo la data riportata nei registri del TSS.
@@ -50,11 +50,11 @@ Questa procedura soddisfa di fatto il requisito centrale per la marcatura tempor
 \end{description}
 
 Per risolvere queste criticità, Haber e Stornetta, formularono una soluzione: proposero di sottoporre il documento ad un algoritmo di hashing crittografico, ottenendo così un ID univoco ed immutabile del documento.
-Semplicemente, anzichè trasmettere al TSS il documento x, viene trasmesso il suo valore \(hash(x) = y\). Per quanto riguarda l'autenticazione, il timestamp di y sarà valido quanto il timestamp di x. Inoltre, questa soluzione riduce drasticamente il problema della larghezza di banda e dell'archiviazione e in più risolve anche il problema della privacy in quanto non viene trasmesso il documento in toto. A seconda degli obiettivi di progettazione, potrebbe essere una singola funzione di hash comune o una per ogni singola utenza.
+Semplicemente, anzichè trasmettere al TSS il documento x, viene trasmesso il suo valore \(hash(x) = y\). Per quanto riguarda l'autenticazione, il timestamp di \(y\) sarà valido quanto il timestamp di \(x\). Inoltre, questa soluzione riduce drasticamente il problema della larghezza di banda e dell'archiviazione e in più risolve anche il problema della privacy in quanto non viene trasmesso il documento in toto. A seconda degli obiettivi di progettazione, potrebbe essere una singola funzione di hash comune o una per ogni singola utenza.
 
 A ciò si abbinava la firma digitale, utilizzata per identificare in modo univoco il firmatario. Controllando la firma, al client viene garantito che il TSS abbia elaborato la richiesta, che l'hash sia stato ricevuto correttamente e che l'ora inclusa sia corretta. Questo risolve il problema dell'incompetenza da parte del TSS.
 
-Nella figura \ref{fig:blockchain_struttura} è riportata una sequenza d'esempio in cui abbiamo una catena di blocchi connessi da un valore hash.
+Nella Figura \ref{fig:blockchain_struttura} è riportata una sequenza d'esempio in cui abbiamo una catena di blocchi connessi da un valore hash.
 
 \begin{figure}[h]
   \centering
@@ -75,7 +75,7 @@ Dave Bayer, contribuì ad integrare la struttura per la marcatura temporale di H
   \label{fig:merkle_tree}
 \end{figure}
 
-Nella figura \ref{fig:merkle_tree} possiamo vedere come i valori hash dei blocchi sono definiti "foglie", mentre i valori hash dei loro figli sono detti "nodi". Gli alberi di Merkle vengono utilizzati per rilevare incongruenze tra le repliche e per ridurre al minimo la quantità di dati.
+Nella Figura \ref{fig:merkle_tree} possiamo vedere come i valori hash dei blocchi sono definiti "foglie", mentre i valori hash dei loro figli sono detti "nodi". Gli alberi di Merkle vengono utilizzati per rilevare incongruenze tra le repliche e per ridurre al minimo la quantità di dati.
 
 \subsection{Bit gold}
 Nel 2005, si ha avuto il primo tentativo di moneta decentralizzata grazie all'informatico Nick Szabo, il quale ha proposto una nuova valuta basata sulla blockchain: \textbf{Bit gold} \cite{szabo_2005}. Moneta che però non ha riscosso molto successo, ma nonostante ciò il 2005 rappresenta un anno cruciale nel contesto blockchain.
@@ -100,7 +100,7 @@ Tutto questo può essere automatizzato da un software. I limiti principali alla 
 
 Hal Finney ha implementato una variante di bit gold chiamata \textbf{RPOW (Reusable Proofs of Work)}. Si basa sulla pubblicazione del codice informatico della "zecca", che viene eseguito su un computer remoto a prova di manomissione. L'acquirente di bit gold può quindi utilizzare l'attestazione remota, che Finney chiama tecnica del server trasparente, per verificare che un determinato numero di cicli sia stato effettivamente eseguito.
 
-Il problema principale di tutti questi schemi è che gli schemi di proof of work dipendono dall'architettura del computer, non solo da una matematica astratta basata su un "ciclo di calcolo" astratto. (Pertanto, potrebbe essere possibile essere un produttore a bassissimo costo (di diversi ordini di grandezza) e inondare il mercato di bit gold. Tuttavia, dal momento che il bit gold è marcato a tempo, il tempo creato e la difficoltà matematica del lavoro possono essere dimostrati automaticamente. Da ciò si può solitamente dedurre il costo di produzione in quel periodo.
+Il problema principale di tutti questi schemi è che gli schemi di proof of work dipendono dall'architettura del computer, non solo da una matematica astratta basata su un "ciclo di calcolo" astratto. Pertanto, potrebbe essere possibile essere un produttore a bassissimo costo (di diversi ordini di grandezza) e inondare il mercato di bit gold. Tuttavia, dal momento che il bit gold è marcato a tempo, il tempo creato e la difficoltà matematica del lavoro possono essere dimostrati automaticamente. Da ciò si può solitamente dedurre il costo di produzione in quel periodo.
 
 A differenza dell'oro fisico, ma come nel caso degli oggetti da collezione, una grande disponibilità in un determinato periodo di tempo farà scendere il valore di questi particolari oggetti. Da questo punto di vista, il "bit gold" si comporta più come gli oggetti da collezione che come l'oro.
 
@@ -147,7 +147,7 @@ La legge di mercato della domanda e offerta determinano il valore economico assu
 \section{Cos'è la blockchain}
 La blockchain è una sottofamiglia di tecnologie in cui il registro è strutturato come una catena di blocchi contenenti le transazioni e la cui validazione è affidata a un meccanismo di consenso, distribuito su tutti i nodi della rete nel caso delle \textit{blockchain permissionless o pubbliche} o su tutti i nodi i nodi che sono autorizzati a partecipare al processo di validazione delle transazioni da includere nel registro nel caso delle \textit{blockchain permissioned o private}.
 
-Per alcuni, la blockchain è la nuova generazione di Internet, o meglio ancora è la Nuova Internet. Si ritiene che possa rappresentare una sorta di Internet delle Transazioni arrivndo a creare e rappresentare la Internet del Valore sulla base di sette caratteristiche \cite{bellini_2021}:
+Per alcuni, la blockchain è la nuova generazione di Internet, o meglio ancora è la Nuova Internet. Si ritiene che possa rappresentare una sorta di Internet delle Transazioni arrivando a creare e rappresentare la Internet del Valore sulla base di sette caratteristiche \cite{bellini_2021}:
 
 \begin{enumerate}
   \item \textbf{Decentralizzazione}
@@ -214,7 +214,7 @@ Ecco un esempio:
   822df6170b6b4ee8eda17d7258f5443195479886
 
   hash("Ciao, Mondo!", "SHA256")
-  F7177D0763BA15F844B8E2E2BD6C1B5058039B0819BBA071C4E1D4110D087922 SHA256
+  F7177D0763BA15F844B8E2E2BD6C1B5058039B0819BBA071C4E1D4110D087922
 \end{lstlisting}
 
 \subsubsection{Nodi, transazioni e blocchi}
@@ -336,7 +336,7 @@ La fondamentale caratteristica delle blockchain pubbliche è dunque quella di of
 \subsection{Blockchain Private}
 Le blockchain private prevedono limitazioni sull'accesso contemplando la presenza di un sottosistema per l'identificazione e la gestione dei permessi associati ai vari nodi. Esclusivamente chi è stato autorizzato dall'amministratore a prendere parte alla rete può quindi, in base ai diritti che gli sono stati concessi, ricercare il contenuto della blockchain, inviare o verificare nuove transazioni.
 
-Tale tipologia di blockchain trova impiego in tutti quei settori dove vi è un consorzio di attori che lavorano insieme e che desiderano scambiarsi informazioni in modo riservato ma che non si fidano completamente l'uno dell'altro. Una delle applicazioni più abituali che vengono citate quando si parla di blockchain permissioned, è quella della gestione della filiera logistico-produttiva, un contesto nel quale vi sono diverse parti (fornitori, trasportatori, intermediari finanziari, catene di distribuzione) che hanno bisogno di condividere fra loro informazioni senza che però siano pubbliche e visibili a tutto il mondo (si consideri il caso di segreti o strategie aziendali che rappresentano un vantaggio rispetto alla concorrenza) o anche solamente ad altre parti coinvolte nella filiera stessa (si pensi ad esempio ad un prezzo speciale concordato con una certa catena di distribuzione che non vuole essere reso noto alle altre).
+Tale tipologia di blockchain trova impiego in tutti quei settori dove vi è un consorzio di attori che lavorano insieme e che desiderano scambiarsi informazioni in modo riservato ma che non si fidano completamente l'un dell'altro. Una delle applicazioni più abituali che vengono citate quando si parla di blockchain permissioned, è quella della gestione della filiera logistico-produttiva, un contesto nel quale vi sono diverse parti (fornitori, trasportatori, intermediari finanziari, catene di distribuzione) che hanno bisogno di condividere fra loro informazioni senza che però siano pubbliche e visibili a tutto il mondo (si consideri il caso di segreti o strategie aziendali che rappresentano un vantaggio rispetto alla concorrenza) o anche solamente ad altre parti coinvolte nella filiera stessa (si pensi ad esempio ad un prezzo speciale concordato con una certa catena di distribuzione che non vuole essere reso noto alle altre).
 
 Le blockchain permissioned risolvono positivamente questo problema, permettendo la costituzione una base di dati distribuita e condivisa tra tutte le parti dove tutte le modifiche rimangono registrate e immutabili e dove tutti partecipano alla validazione delle transazioni evitando così di concentrare tutto il potere presso un unico ente in cui tutte le parti dovrebbero riporre la fiducia, esattamente come accadrebbe adottando un database condiviso tradizionale. La ricerca nel campo delle blockchain permissioned è iniziata solo negli ultimi anni e risulta essere ancora agli inizi. Fra le blockchain più promettenti di questo tipo oggi la più famosa è probabilmente \textit{Hyperledger Fabric} \cite{10.1145/3190508.3190538}.
 
