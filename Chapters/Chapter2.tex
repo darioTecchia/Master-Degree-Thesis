@@ -80,18 +80,18 @@ Nella Figura \ref{fig:merkle_tree} possiamo vedere come i valori hash dei blocch
 \subsection{Bit gold}
 Nel 2005, si ha avuto il primo tentativo di moneta decentralizzata grazie all'informatico Nick Szabo, il quale ha proposto una nuova valuta basata sulla blockchain: \textbf{Bit gold} \cite{szabo_2005}. Moneta che però non ha riscosso molto successo, ma nonostante ciò il 2005 rappresenta un anno cruciale nel contesto blockchain.
 
-La proposta dell'informatico si basa sul calcolo di una stringa di bit a partire da una stringa di bit di sfida, utilizzando funzioni chiamate in vario modo "\textit{client puzzle function}", "\textit{proof of work function}" o "\textit{secure benchmark function}". La stringa di bit risultante è la proof of work.
+La proposta dell'informatico si basa sul calcolo di una stringa di bit a partire da una stringa di bit di sfida, utilizzando funzioni chiamate in vario modo "\textit{client puzzle function}", "\textit{Proof-of-Work function}" o "\textit{secure benchmark function}". La stringa di bit risultante è la Proof-of-Work.
 
 Ecco le fasi principali del sistema bit gold che Szabo ha definito:
 
 \begin{enumerate}
   \item Viene creata una stringa pubblica di bit, la "stringa di sfida" (\textbf{vedi passo 5}).
-  \item Alice sul suo computer genera la stringa di proof of work dai bit di sfida utilizzando una funzione di benchmark.
-  \item La proof of work viene registrata in modo sicuro con un timestamp. Questo dovrebbe funzionare in modo distribuito, con diversi servizi di timestamp in modo che non sia necessario affidarsi a un particolare servizio di timestamp.
-  \item Alice aggiunge la stringa di sfida e la stringa di proof of work con timestamp a un registro di proprietà distribuito per il bit gold. Anche in questo caso, non si fa affidamento su un singolo server per il corretto funzionamento del registro.
+  \item Alice sul suo computer genera la stringa di Proof-of-Work dai bit di sfida utilizzando una funzione di benchmark.
+  \item La Proof-of-Work viene registrata in modo sicuro con un timestamp. Questo dovrebbe funzionare in modo distribuito, con diversi servizi di timestamp in modo che non sia necessario affidarsi a un particolare servizio di timestamp.
+  \item Alice aggiunge la stringa di sfida e la stringa di Proof-of-Work con timestamp a un registro di proprietà distribuito per il bit gold. Anche in questo caso, non si fa affidamento su un singolo server per il corretto funzionamento del registro.
   \item L'ultima stringa creata di bit gold fornisce i bit di sfida per la stringa creata successivamente.
   \item Per verificare che Alice sia la proprietaria di una particolare stringa di bit gold, Bob controlla la catena di titoli non falsificabile nel registro dei titoli di bit gold.
-  \item Per verificare il valore di una stringa di bit gold, Bob controlla e verifica i bit di sfida, la stringa di proof of work e il timestamp.
+  \item Per verificare il valore di una stringa di bit gold, Bob controlla e verifica i bit di sfida, la stringa di Proof-of-Work e il timestamp.
 \end{enumerate}
 
 Si noti che il controllo di Alice sul suo bit gold non dipende dal suo solo possesso dei bit, ma piuttosto dalla sua posizione di leader nella catena di titoli non falsificabile (catena di firme digitali) nel registro dei titoli.
@@ -100,7 +100,7 @@ Tutto questo può essere automatizzato da un software. I limiti principali alla 
 
 Hal Finney ha implementato una variante di bit gold chiamata \textbf{RPOW (Reusable Proofs of Work)}. Si basa sulla pubblicazione del codice informatico della "zecca", che viene eseguito su un computer remoto a prova di manomissione. L'acquirente di bit gold può quindi utilizzare l'attestazione remota, che Finney chiama tecnica del server trasparente, per verificare che un determinato numero di cicli sia stato effettivamente eseguito.
 
-Il problema principale di tutti questi schemi è che gli schemi di proof of work dipendono dall'architettura del computer, non solo da una matematica astratta basata su un "ciclo di calcolo" astratto. Pertanto, potrebbe essere possibile essere un produttore a bassissimo costo (di diversi ordini di grandezza) e inondare il mercato di bit gold. Tuttavia, dal momento che il bit gold è marcato a tempo, il tempo creato e la difficoltà matematica del lavoro possono essere dimostrati automaticamente. Da ciò si può solitamente dedurre il costo di produzione in quel periodo.
+Il problema principale di tutti questi schemi è che gli schemi di Proof-of-Work dipendono dall'architettura del computer, non solo da una matematica astratta basata su un "ciclo di calcolo" astratto. Pertanto, potrebbe essere possibile essere un produttore a bassissimo costo (di diversi ordini di grandezza) e inondare il mercato di bit gold. Tuttavia, dal momento che il bit gold è marcato a tempo, il tempo creato e la difficoltà matematica del lavoro possono essere dimostrati automaticamente. Da ciò si può solitamente dedurre il costo di produzione in quel periodo.
 
 A differenza dell'oro fisico, ma come nel caso degli oggetti da collezione, una grande disponibilità in un determinato periodo di tempo farà scendere il valore di questi particolari oggetti. Da questo punto di vista, il "bit gold" si comporta più come gli oggetti da collezione che come l'oro.
 
@@ -271,7 +271,7 @@ Abbiamo tre tipi di network differenti:
 L'ultima configurazione è tipica della tecnologia blockchain nella quale il registro, definito anch'esso distribuito, tiene nota di tutte le transazioni avvenute all'interno della rete e offre informazioni aggiornate sullo stato attuale della catena. La configurazione distribuita è più sicura di quella centralizzata per due motivi: in primis non esiste un punto vulnerabile centrale; in secondo luogo la potenza di calcolo richiesta ad un hacker per modificare una transazione all'interno di un blocco, e di conseguenza in tutti i blocchi della catena, non è raggiungibile con le attuali tecnologie.
 
 \section{Algoritmi di consenso}
-\subsection{Proof of Work}
+\subsection{Proof-of-Work}
 L'algoritmo di consenso adottato dalla Bitcoin blockchain è il protocollo \textit{Proof-of-Work (PoW)} illustrato in Figura \ref{fig:bitcoin_pow}.
 
 \begin{figure}[htbp]
@@ -301,7 +301,7 @@ La difficoltà del problema è proporzionale al numero di miner, alla potenza di
 
 Sulla base di quanto visto fin qui, la tecnologia blockchain può definirsi \textbf{sicura}, \textbf{trasparente}, \textbf{immutabile} e \textbf{trustless}.
 
-\subsection{Proof of Stake}
+\subsection{Proof-of-Stake}
 La \textit{Proof-of-Stake} è un metodo di verifica alternativo alla Proof-of-Work. Non viene difatti più usata l'idea di dover dimostrare di aver svolto dei calcoli fornendo un risultato computazionalmente complesso da calcolare, bensì viene introdotto un nuovo concetto, la \textit{coin age}. Essa serve per dimostrare di avere interesse nella gestione della moneta e acquisire quindi la fiducia della comunità per la fase di mining. La coin age è facile da calcolare: ad esempio se Bob ha ricevuto 10 coin da Alice e li ha posseduti per 90 giorni, Bob ha 900 coin-days di coin age. Quando Bob spenderà quei 10 coin ricevuti da Alice, la coin age accumulata da Bob con quei coin sarà detta consumata (o distrutta).
 
 \subsubsection{Scelta del blocco successivo}
@@ -329,7 +329,7 @@ In particolare, tutti possono:
   \item Visualizzare tutte le transazioni memorizzate all'interno della blockchain attraverso un \textit{block explorer}. Le transazioni possono essere più o meno trasparenti garantendo un certo livello di privacy e anonimato a seconda del tipo di blockchain.
 \end{itemize}
 
-Questo tipo di blockchain adotta delle forme di incentivi economici per coloro che si occupano della validazione delle transazioni (i cosiddetti "miner") adottando sistemi come Proof of Work o Proof of Stake. Tali schemi permettono di conservare la blockchain al sicuro e di funzionare in un contesto totalmente trustless, ovvero in un ambiente dove i nodi della rete non si conoscono e non si fidano l'un con l'altro. 
+Questo tipo di blockchain adotta delle forme di incentivi economici per coloro che si occupano della validazione delle transazioni (i cosiddetti "miner") adottando sistemi come Proof-of-Work o Proof-of-Stake. Tali schemi permettono di conservare la blockchain al sicuro e di funzionare in un contesto totalmente trustless, ovvero in un ambiente dove i nodi della rete non si conoscono e non si fidano l'un con l'altro. 
 
 La fondamentale caratteristica delle blockchain pubbliche è dunque quella di offrire un mezzo tecnologico per poter realizzare la disintermediazione nella fornitura di molteplici servizi e consentono la creazione e l'esecuzione di applicazioni decentralizzate senza che sia necessario sostenere alcun costo per l'infrastruttura. Ai vantaggi appena indicati si contrappongono alcuni svantaggi quali la possibilità di gestire un numero di transazioni al secondo significativamente più basso rispetto a quelle che sono in grado di gestire le blockchain permissioned e l'impossibilità di memorizzare all'interno della blockchain informazioni riservate dal momento l'intera catena di blocchi è pubblicamente consultabile \cite{vukolic2015quest}. Le blockchain pubbliche più note sono Bitcoin \cite{nakamoto2008bitcoin} e Ethereum \cite{yafimava_2019}.
 

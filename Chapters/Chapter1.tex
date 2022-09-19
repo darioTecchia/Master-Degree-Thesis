@@ -1,7 +1,7 @@
 \chapter{Quantum Computing}
-L'informatica quantistica combina l'informatica tradizionale con la meccanica quantistica ed è un campo di ricerca in rapida crescita. Questo interesse verso il calcolo quantistico inizia negli anni settanta con lo sviluppo di una serie di tecniche per ottenere il controllo completo di singoli sistemi quantistici. 
+L'\textbf{informatica quantistica} combina l'informatica tradizionale con la meccanica quantistica ed è un campo di ricerca in rapida crescita. Questo interesse verso il calcolo quantistico inizia negli anni settanta con lo sviluppo di una serie di tecniche per ottenere il controllo completo di singoli sistemi quantistici. 
 
-Fino a quel momento, la teoria classica dell'informatica era stata fondata sulla tesi, ampiamente accettata, di \textit{Church-Turing}, secondo la quale era possibile teorizzare una macchina ideale, nota come \textit{Macchina di Turing}, capace di simulare in modo efficiente qualsiasi modello di calcolo esistente.
+Fino a quel momento, la teoria classica dell'informatica era stata fondata sulla tesi, ampiamente accettata, di \textit{Church-Turing}, secondo la quale era possibile teorizzare una macchina ideale, nota come \textbf{Macchina di Turing}, capace di simulare in modo efficiente qualsiasi modello di calcolo esistente.
 
 Tuttavia, l'emergente paradigma di calcolo basato sulle proprietà meccaniche quantistiche della natura portò molti scienziati a realizzare che, mentre un computer ordinario poteva essere usato per simulare un computer quantistico, era impossibile eseguire questa simulazione in modo efficiente: ogni tentativo di simulare l'evoluzione di un generico sistema fisico-quantistico su una macchina di Turing sembrava richiedere un overhead esponenziale di risorse.
 
@@ -17,7 +17,7 @@ Quest'ultimo campo è quello che più ci interessa, infatti, nel 1994 Peter Shor
 \subsection{Definizione di quantum bit}
 L'informazione non può essere considerata separatamente dalla sua natura fisica: non si può, cioè, mantenere, modificare o trasmettere informazione senza un adeguato supporto fisico. Nei computer tradizionali viene utilizzato come modello fondamentale il \textit{bit}, che rappresenta un sistema a due stati, 0 e 1. La scelta della rappresentazione binaria è dettata dalla semplicità e comodità di realizzazione nei sistemi elettronici. Il bit classico, quindi, mantiene correttamente l'informazione relativa ad una scelta esclusiva tra i due stati possibili in cui si può trovare (con \textit{n} bit possiamo rappresentare \(2^n\) stati).
 
-La computazione quantistica introduce una nuova unità fondamentale che prende il nome di \textit{quantum bit}, chiamato anche \textit{qubit}. Un qubit usa i fenomeni meccanici quantistici della sovrapposizione per ottenere una combinazione lineare di due stati. Un bit binario classico può rappresentare solo un singolo valore binario, ad esempio 0 o 1, ovvero può trovarsi solo in uno di due stati possibili. Un qubit tuttavia può rappresentare uno 0, un 1 o qualsiasi proporzione di 0 e 1 nella sovrapposizione di entrambi gli stati, con una determinata probabilità che si tratti di uno 0 e una determinata probabilità che si tratti di un 1.
+La computazione quantistica introduce una nuova unità fondamentale che prende il nome di \textbf{quantum bit}, chiamato anche \textbf{qubit}. Un qubit usa i fenomeni meccanici quantistici della sovrapposizione per ottenere una combinazione lineare di due stati. Un bit binario classico può rappresentare solo un singolo valore binario, ad esempio 0 o 1, ovvero può trovarsi solo in uno di due stati possibili. Un qubit tuttavia può rappresentare uno 0, un 1 o qualsiasi proporzione di 0 e 1 nella sovrapposizione di entrambi gli stati, con una determinata probabilità che si tratti di uno 0 e una determinata probabilità che si tratti di un 1.
 
 Fisicamente viene rappresentato con un sistema microscopico a due livelli come lo spin di una particella\footnote{Lo spin è una forma di momento angolare, avendo di tale entità fisica le dimensioni e, pur non esistendo una grandezza corrispondente in meccanica classica, per analogia richiama la rotazione della particella intorno al proprio asse (viene anche definito come momento angolare intrinseco).}, la polarizzazione di un singolo fotone o due stati di un atomo ottenibili cambiando il livello energetico di un suo elettrone.
 
@@ -160,19 +160,19 @@ Interpretando \(\theta\) e \(\phi\) come coordinate sferiche, si può tracciare 
   \item \( \begin{bmatrix} \frac{1}{\sqrt{2}} \\ \frac{-1}{\sqrt{2}} \end{bmatrix} \) con \( \theta = \frac{3\pi}{2} \) e \( \phi = 0 \) chiamato anche stato \( | - \rangle \)
 \end{itemize}
 
-Dato che in input inizialmente i qubit hanno sempre stato \( | 0 \rangle \), per poter operare sui qubit e ottenere degli stati differenti bisogna ruotare gli assi cardinali con le apposite \textit{porte logiche quantistiche}.
+Dato che in input inizialmente i qubit hanno sempre stato \( | 0 \rangle \), per poter operare sui qubit e ottenere degli stati differenti bisogna ruotare gli assi cardinali con le apposite \textbf{porte logiche quantistiche}.
 
 \section{Porte logiche quantistiche}
 Esattamente come nel modello di computazione classica utilizziamo delle porte logiche come l'\textit{AND}, \textit{OR} o il \textit{NOT} per effettuare delle operazioni tra bit, nel modello quantistico avremo delle porte che si occuperanno di manipolare i qubit per ottenere un risultato. In particolare ogni gate quantistico deve rispettare due criteri fondamentali:
 
-\begin{itemize}
-  \item \textbf{Reversibilità}: Un qubit a cui è stato applicato un cambiamento dello stato tramite l'utilizzo di una porta deve poter ritornare nello stato iniziale tramite l'applicazione della stessa porta all'output della prima.
-  \item \textbf{Conservazione del vincolo di normalizzazione}: In questo modello, le porte logiche sono rappresentate da matrici unitarie. Una matrice quadrata \( U \) viene definita \textbf{unitaria} se vale \( UU^* = I \), dove \( U^* \) è la matrice \textbf{trasposta} e \( I \) è la \textbf{matrice identità}.
-\end{itemize}
+\begin{description}
+  \item[Reversibilità] Un qubit a cui è stato applicato un cambiamento dello stato tramite l'utilizzo di una porta deve poter ritornare nello stato iniziale tramite l'applicazione della stessa porta all'output della prima.
+  \item [Conservazione del vincolo di normalizzazione] In questo modello, le porte logiche sono rappresentate da matrici unitarie. Una matrice quadrata \( U \) viene definita \textbf{unitaria} se vale \( UU^* = I \), dove \( U^* \) è la matrice \textbf{trasposta} e \( I \) è la \textbf{matrice identità}.
+\end{description}
 
 Proprio come nel modello classico, abbiamo sia porte logiche che agiscono su un singolo qubit, che porte che agiscono su più qubit.
 
-\subsection{Porte Logiche a singolo qubit}
+\subsection{Porte logiche a singolo qubit}
 Contrariamente a quanto accade per le porte classiche, in ambito quantistico le porte a singolo bit non si limitano al \textbf{NOT}. Infatti abbiamo in totale quattro porte: \textbf{porta X}, \textbf{porta Y}, \textbf{porta Z} e \textbf{porta di Hadamard}. 
 
 Le porte X, Y e Z prendono il nome di \textit{Porte di Pauli} e corrispondono a delle rotazioni rispettivamente sull'asse x, y e z della sfera di Bloch.
@@ -369,7 +369,7 @@ I problemi vengono eseguiti su una macchina di Turing per individuarne la partic
   \end{itemize}
 \end{itemize}
 
-Gli informatici \textit{Bernstein} e \textit{Vazirani} nel 1997 definirono una nuova classe di complessità chiamata \textbf{BQP} \cite{bernstein1997quantum} (\textit{Bounded-error Quantum Polynomial time}) che è la classe di complessità dei problemi decisionali che possono essere risolti con un errore bilaterale su una macchina di Turing quantistica in tempo polinomiale. In breve, tutti i problemi decisionali che i computer quantistici possono risolvere in maniera veloce. Inoltre, è stato dimostrato che \( P \in BPQ \) e quindi è semplice dedurre che i computer quantistici possono riolvere tutti i problemi che i computer classici possono risolvere.
+Gli informatici Bernstein e Vazirani nel 1997 definirono una nuova classe di complessità chiamata \textbf{BQP} (\textit{Bounded-error Quantum Polynomial time}) \cite{bernstein1997quantum} che è la classe di complessità dei problemi decisionali che possono essere risolti con un errore bilaterale su una macchina di Turing quantistica in tempo polinomiale. In breve, tutti i problemi decisionali che i computer quantistici possono risolvere in maniera veloce. Inoltre, è stato dimostrato che \( P \in BPQ \) e quindi è semplice dedurre che i computer quantistici possono riolvere tutti i problemi che i computer classici possono risolvere.
 
 \begin{figure}[htbp]
   \centering
