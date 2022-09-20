@@ -14,13 +14,13 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: Tesi_Magistrale_Tecchia.tex
-      - name: Upload Draft PDF
+      - name: If develop upload Draft PDF
         if: github.ref == 'refs/heads/develop'
         uses: actions/upload-artifact@v2
         with:
           name: Draft PDF
           path: Tesi_Magistrale_Tecchia.pdf
-      - name: Upload Final PDF
+      - name: If main upload Final PDF
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v2
         with:
