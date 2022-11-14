@@ -4,7 +4,26 @@ Lo scopo di tale capitolo è la progettazione e l'implementazione di una blockch
 \section{Cos'è QRChain?}
 Quantum Resistant Chain o, in breve, QRChain, inizialmente ideata con il nome di GoodChain \cite{Ghorbanzadeh_GoodChain_2022}, è una blockchain decentralizzata basata su Proof-of-Stake, scritta con Node.js.
 
-All'interno di QRChain chiunque può essere un miner o un validatore. Ha due monete native: \textit{GTC} e \textit{MCT}. GTC è utilizzata per pagare le commissioni di transazione e MCT è utilizzata per pagare la convalida di un blocco. Gli MCT possono essere guadagnati puntando GTC.
+All'interno di QRChain chiunque può essere un miner o un validatore. Ha due monete native: \textit{GTC} e \textit{MCT} \ref{tab:gtc_mct}. GTC è utilizzata per pagare le commissioni di transazione e MCT è utilizzata per pagare la convalida di un blocco. Gli MCT possono essere guadagnati puntando GTC.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[]
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{|ll|}
+  \hline
+  \multicolumn{1}{|c|}{\textbf{GTC}} & \multicolumn{1}{c|}{\textbf{MCT}} \\ \hline
+  \multicolumn{2}{|l|}{\textbf{Scopo}} \\ \hline
+  \multicolumn{1}{|l|}{• Pagare le commissioni di transazione} & \begin{tabular}[c]{@{}l@{}}• Validazione di un blocco\\ • Tassa di mining\end{tabular} \\ \hline
+  \multicolumn{2}{|l|}{\textbf{Ottenimento}} \\ \hline
+  \multicolumn{1}{|l|}{• Mining di un blocco} & • Mettendo in gioco (staking) GTC \\ \hline
+  \end{tabular}%
+  }
+  \caption{GTC e MCT}
+  \label{tab:gtc_mct}
+\end{table}
 
 Ogni volta che un convalidatore estrae un blocco, riceve una parte di GTC come ricompensa del blocco più le commissioni di transazione.
 I validatori consumano anche alcuni MCT come tassa di estrazione. La quantità di MCT consumati è una percentuale della quantità totale di MCT che il validatore possiede.
